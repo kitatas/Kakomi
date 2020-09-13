@@ -16,15 +16,15 @@ namespace Kakomi.Scripts.View.Main
         private List<LineView> _lineViews;
 
         private IInputUseCase _inputUseCase;
-        private ICursorPointListUseCase _cursorPointListUseCase;
+        private ICursorPointsUseCase _cursorPointsUseCase;
 
         [Inject]
         private void Construct(
             IInputUseCase inputUseCase,
-            ICursorPointListUseCase cursorPointListUseCase)
+            ICursorPointsUseCase cursorPointsUseCase)
         {
             _inputUseCase = inputUseCase;
-            _cursorPointListUseCase = cursorPointListUseCase;
+            _cursorPointsUseCase = cursorPointsUseCase;
         }
 
         private void Start()
@@ -40,20 +40,20 @@ namespace Kakomi.Scripts.View.Main
                     cursorView.Move(mousePosition);
 
                     // マウス位置が前フレームの値と近しい値であるか
-                    if (_cursorPointListUseCase.IsAddCursorPoint(mousePosition) == false)
+                    if (_cursorPointsUseCase.IsAddCursorPoint(mousePosition) == false)
                     {
                         return;
                     }
 
                     // 線の描画
                     var cursorPosition = cursorView.GetPosition();
-                    _cursorPointListUseCase.AddCursorPoint(cursorPosition);
+                    _cursorPointsUseCase.AddCursorPoint(cursorPosition);
                     var line = Instantiate(lineView, transform);
                     line.DrawLine();
                     _lineViews.Add(line);
 
                     // 線が交差している場合
-                    if (_cursorPointListUseCase.IsCrossLine())
+                    if (_cursorPointsUseCase.IsCrossLine())
                     {
                         ResetLine();
 

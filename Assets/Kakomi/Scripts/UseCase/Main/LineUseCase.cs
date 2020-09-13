@@ -10,32 +10,34 @@ namespace Kakomi.Scripts.UseCase.Main
         private Vector3 _startPoint;
 
         private readonly LineRenderer _lineRenderer;
-        private readonly ICursorPointListEntity _cursorPointListEntity;
+        private readonly ICursorPointsEntity _cursorPointsEntity;
 
-        public LineUseCase(LineRenderer lineRenderer, ICursorPointListEntity cursorPointListEntity)
+        public LineUseCase(LineRenderer lineRenderer, ICursorPointsEntity cursorPointsEntity)
         {
             _lineRenderer = lineRenderer;
             _lineRenderer.SetWidth(0.1f);
             _lineRenderer.positionCount = 2;
 
-            _cursorPointListEntity = cursorPointListEntity;
+            _cursorPointsEntity = cursorPointsEntity;
         }
 
         public void DrawLine()
         {
-            if (_cursorPointListEntity.GetCursorPointListCount() > 1)
+            if (_cursorPointsEntity.GetCursorPointsCount() <= 1)
             {
-                var startPointIndex = _cursorPointListEntity.GetCursorPointListCount() - 2;
-                _startPoint = _cursorPointListEntity.GetCursorPoint(startPointIndex);
-                _lineRenderer.SetPosition(0, _startPoint);
-                _lineRenderer.SetPosition(1, _cursorPointListEntity.GetLastCursorPoint());
+                return;
             }
+
+            var startPointIndex = _cursorPointsEntity.GetCursorPointsCount() - 2;
+            _startPoint = _cursorPointsEntity.GetCursorPoint(startPointIndex);
+            _lineRenderer.SetPosition(0, _startPoint);
+            _lineRenderer.SetPosition(1, _cursorPointsEntity.GetLastCursorPoint());
         }
 
         public void DeleteLine()
         {
             _lineRenderer.positionCount = 0;
-            _cursorPointListEntity.RemoveCursorPoint(_startPoint);
+            _cursorPointsEntity.RemoveCursorPoint(_startPoint);
         }
     }
 }

@@ -11,13 +11,13 @@ namespace Kakomi.Scripts.Installer
         public override void InstallBindings()
         {
             Container
-                .Bind<ICursorPointListEntity>()
-                .To<CursorPointListEntity>()
+                .Bind<ICursorPointsEntity>()
+                .To<CursorPointsEntity>()
                 .AsCached();
 
             Container
-                .Bind<ICursorPointListUseCase>()
-                .To<CursorPointListUseCase>()
+                .Bind<ICursorPointsUseCase>()
+                .To<CursorPointsUseCase>()
                 .AsCached();
 
             Container
