@@ -13,7 +13,9 @@ namespace Kakomi.Scripts.Entity.Main
             _cursorPointList = new List<Vector3>();
         }
 
-        public void AddCursorPointList(Vector3 mousePoint) => _cursorPointList.Add(mousePoint);
+        public void AddCursorPoint(Vector3 mousePoint) => _cursorPointList.Add(mousePoint);
+
+        public void RemoveCursorPoint(Vector3 point) => _cursorPointList.Remove(point);
 
         public void ClearCursorPointList() => _cursorPointList.Clear();
 

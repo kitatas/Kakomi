@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Kakomi.Scripts.UseCase.Main.Interface;
 using UniRx;
 using UniRx.Triggers;
@@ -10,6 +12,8 @@ namespace Kakomi.Scripts.View.Main
     {
         [SerializeField] private CursorView cursorView = default;
         [SerializeField] private LineView lineView = default;
+
+        private List<LineView> _lineViews;
 
         private IInputUseCase _inputUseCase;
         private ICursorPointListUseCase _cursorPointListUseCase;
@@ -25,6 +29,8 @@ namespace Kakomi.Scripts.View.Main
 
         private void Start()
         {
+            _lineViews = new List<LineView>();
+
             this.UpdateAsObservable()
                 .Where(_ => _inputUseCase.InputMouseButton())
                 .Subscribe(_ =>
@@ -41,18 +47,30 @@ namespace Kakomi.Scripts.View.Main
 
                     // 線の描画
                     var cursorPosition = cursorView.GetPosition();
-                    lineView.DrawLine(cursorPosition);
                     _cursorPointListUseCase.AddCursorPoint(cursorPosition);
+                    var line = Instantiate(lineView, transform);
+                    line.DrawLine();
+                    _lineViews.Add(line);
 
                     // 線が交差している場合
                     if (_cursorPointListUseCase.IsCrossLine())
                     {
-                        lineView.ResetLine();
+                        ResetLine();
 
                         // TODO : 囲んだ時のアクション
                     }
                 })
                 .AddTo(this);
+        }
+
+        private void ResetLine()
+        {
+            foreach (var line in _lineViews.Where(line => line != null))
+            {
+                Destroy(line.gameObject);
+            }
+
+            _lineViews.Clear();
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Kakomi.Scripts.UseCase.Main
 
         public void AddCursorPoint(Vector3 cursorPosition)
         {
-            _cursorPointListEntity.AddCursorPointList(cursorPosition);
+            _cursorPointListEntity.AddCursorPoint(cursorPosition);
         }
 
         /// <summary>
