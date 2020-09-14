@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace Kakomi.Scripts.UseCase.Main
 {
-    public sealed class LineUseCase : ILineUseCase
+    public sealed class LineRendererUseCase : ILineRendererUseCase
     {
         private Vector3 _startPoint;
 
         private readonly LineRenderer _lineRenderer;
         private readonly ICursorPointsEntity _cursorPointsEntity;
 
-        public LineUseCase(LineRenderer lineRenderer, ICursorPointsEntity cursorPointsEntity)
+        public LineRendererUseCase(LineRenderer lineRenderer, ICursorPointsEntity cursorPointsEntity)
         {
             _lineRenderer = lineRenderer;
             _lineRenderer.SetWidth(0.1f);
@@ -31,7 +31,10 @@ namespace Kakomi.Scripts.UseCase.Main
             var startPointIndex = _cursorPointsEntity.GetCursorPointsCount() - 2;
             _startPoint = _cursorPointsEntity.GetCursorPoint(startPointIndex);
             _lineRenderer.SetPosition(0, _startPoint);
-            _lineRenderer.SetPosition(1, _cursorPointsEntity.GetLastCursorPoint());
+
+            var endPointIndex = _cursorPointsEntity.GetCursorPointsCount() - 1;
+            var endPoint = _cursorPointsEntity.GetCursorPoint(endPointIndex);
+            _lineRenderer.SetPosition(1, endPoint);
         }
 
         public void DeleteLine()

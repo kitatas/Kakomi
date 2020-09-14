@@ -1,39 +1,35 @@
-using System;
-using System.Threading;
-using Cysharp.Threading.Tasks;
-using Kakomi.Scripts.UseCase.Main.Interface;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Zenject;
 
 namespace Kakomi.Scripts.View.Main
 {
-    [RequireComponent(typeof(LineRenderer))]
     public sealed class LineView : MonoBehaviour
     {
-        private readonly float _deleteTime = 2.0f;
+        [SerializeField] private LineRendererView lineRendererView = default;
 
-        private ILineUseCase _lineUseCase;
+        private List<LineRendererView> _lineViews;
 
-        [Inject]
-        private void Construct(ILineUseCase lineUseCase)
+        private void Awake()
         {
-            _lineUseCase = lineUseCase;
+            _lineViews = new List<LineRendererView>();
         }
 
         public void DrawLine()
         {
-            _lineUseCase.DrawLine();
-
-            var token = this.GetCancellationTokenOnDestroy();
-            DeleteLineAsync(token).Forget();
+            var line = Instantiate(lineRendererView, transform);
+            line.DrawLine();
+            _lineViews.Add(line);
         }
 
-        private async UniTaskVoid DeleteLineAsync(CancellationToken token)
+        public void DeleteLine()
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(_deleteTime), cancellationToken: token);
+            foreach (var line in _lineViews.Where(line => line != null))
+            {
+                Destroy(line.gameObject);
+            }
 
-            _lineUseCase.DeleteLine();
-            Destroy(gameObject);
+            _lineViews.Clear();
         }
     }
 }

@@ -1,6 +1,6 @@
 namespace Kakomi.Scripts.UseCase.Main.Interface
 {
-    public interface ILineUseCase
+    public interface ILineRendererUseCase
     {
         void DrawLine();
         void DeleteLine();

@@ -16,8 +16,8 @@ namespace Kakomi.Scripts.Installer
                 .AsCached();
 
             Container
-                .Bind<ILineUseCase>()
-                .To<LineUseCase>()
+                .Bind<ILineRendererUseCase>()
+                .To<LineRendererUseCase>()
                 .AsCached();
         }
     }
