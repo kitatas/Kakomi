@@ -21,12 +21,14 @@ namespace Kakomi.Scripts.UseCase.Main
         /// <returns></returns>
         public bool IsAddCursorPoint(Vector3 mousePosition)
         {
-            if (_cursorPointsEntity.GetCursorPointsCount() <= 1)
+            var cursorPointsCount = _cursorPointsEntity.GetCursorPointsCount();
+            if (cursorPointsCount <= 1)
             {
                 return true;
             }
 
-            var distance = (mousePosition - _cursorPointsEntity.GetLastCursorPoint()).sqrMagnitude;
+            var lastCursorPoint = _cursorPointsEntity.GetCursorPoint(cursorPointsCount - 1);
+            var distance = (mousePosition - lastCursorPoint).sqrMagnitude;
             return distance >= 0.01f;
         }
 

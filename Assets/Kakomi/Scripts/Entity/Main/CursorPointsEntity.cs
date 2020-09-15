@@ -22,7 +22,5 @@ namespace Kakomi.Scripts.Entity.Main
         public int GetCursorPointsCount() => _cursorPoints.Count;
 
         public Vector3 GetCursorPoint(int index) => _cursorPoints[index];
-
-        public Vector3 GetLastCursorPoint() => _cursorPoints[GetCursorPointsCount() - 1];
     }
 }

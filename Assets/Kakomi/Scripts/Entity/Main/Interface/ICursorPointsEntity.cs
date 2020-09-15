@@ -9,6 +9,5 @@ namespace Kakomi.Scripts.Entity.Main.Interface
         void ClearCursorPoints();
         int GetCursorPointsCount();
         Vector3 GetCursorPoint(int index);
-        Vector3 GetLastCursorPoint();
     }
 }
