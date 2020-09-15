@@ -5,8 +5,8 @@ namespace Kakomi.Scripts.Utility
     public static class VectorExtension
     {
         /// <summary>
-        /// 参考サイト
-        /// https://setchi.hatenablog.com/entry/2017/07/12/202756
+        /// 交差判定
+        /// 参考サイト https://setchi.hatenablog.com/entry/2017/07/12/202756
         /// </summary>
         /// <param name="startPosition1"></param>
         /// <param name="endPosition1"></param>
@@ -20,7 +20,7 @@ namespace Kakomi.Scripts.Utility
             var d = (endPosition1.x - startPosition1.x) * (endPosition2.y - startPosition2.y) -
                     (endPosition1.y - startPosition1.y) * (endPosition2.x - startPosition2.x);
 
-            if (d == 0.0f)
+            if (Mathf.Approximately(d, 0.0f))
             {
                 return false;
             }
