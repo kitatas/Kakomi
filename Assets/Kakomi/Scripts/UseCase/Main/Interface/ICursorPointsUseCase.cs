@@ -4,8 +4,8 @@ namespace Kakomi.Scripts.UseCase.Main.Interface
 {
     public interface ICursorPointsUseCase
     {
-        bool IsAddCursorPoint(Vector3 mousePosition);
-        void AddCursorPoint(Vector3 cursorPosition);
+        bool IsAddCursorPoint(Vector3 currentCursorPoint);
+        void AddCursorPoint(Vector3 cursorPoint);
         bool IsCrossLine();
     }
 }

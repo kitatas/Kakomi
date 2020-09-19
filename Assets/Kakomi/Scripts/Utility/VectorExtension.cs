@@ -12,11 +12,15 @@ namespace Kakomi.Scripts.Utility
         /// <param name="endPosition1"></param>
         /// <param name="startPosition2"></param>
         /// <param name="endPosition2"></param>
+        /// <param name="intersection"></param>
         /// <returns></returns>
         public static bool IsCrossVector(
             Vector2 startPosition1, Vector2 endPosition1,
-            Vector2 startPosition2, Vector2 endPosition2)
+            Vector2 startPosition2, Vector2 endPosition2,
+            out Vector2 intersection)
         {
+            intersection = Vector2.zero;
+
             var d = (endPosition1.x - startPosition1.x) * (endPosition2.y - startPosition2.y) -
                     (endPosition1.y - startPosition1.y) * (endPosition2.x - startPosition2.x);
 
@@ -34,6 +38,9 @@ namespace Kakomi.Scripts.Utility
             {
                 return false;
             }
+
+            intersection.x = startPosition1.x + u * (endPosition1.x - startPosition1.x);
+            intersection.y = startPosition1.y + u * (endPosition1.y - startPosition1.y);
 
             return true;
         }

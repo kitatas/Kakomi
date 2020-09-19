@@ -15,11 +15,11 @@ namespace Kakomi.Scripts.UseCase.Main
         }
 
         /// <summary>
-        /// マウス位置が前フレームでEntityに追加した位置と近似値でないか
+        /// 入力位置が前フレームでCursorPointsEntityに追加した位置と近似値でないか
         /// </summary>
-        /// <param name="mousePosition"></param>
+        /// <param name="currentCursorPoint"></param>
         /// <returns></returns>
-        public bool IsAddCursorPoint(Vector3 mousePosition)
+        public bool IsAddCursorPoint(Vector3 currentCursorPoint)
         {
             var cursorPointsCount = _cursorPointsEntity.GetCursorPointsCount();
             if (cursorPointsCount <= 1)
@@ -28,13 +28,13 @@ namespace Kakomi.Scripts.UseCase.Main
             }
 
             var lastCursorPoint = _cursorPointsEntity.GetCursorPoint(cursorPointsCount - 1);
-            var distance = (mousePosition - lastCursorPoint).sqrMagnitude;
+            var distance = (currentCursorPoint - lastCursorPoint).sqrMagnitude;
             return distance >= 0.01f;
         }
 
-        public void AddCursorPoint(Vector3 cursorPosition)
+        public void AddCursorPoint(Vector3 cursorPoint)
         {
-            _cursorPointsEntity.AddCursorPoint(cursorPosition);
+            _cursorPointsEntity.AddCursorPoint(cursorPoint);
         }
 
         /// <summary>
@@ -51,7 +51,8 @@ namespace Kakomi.Scripts.UseCase.Main
                         _cursorPointsEntity.GetCursorPoint(i - 1),
                         _cursorPointsEntity.GetCursorPoint(i),
                         _cursorPointsEntity.GetCursorPoint(j),
-                        _cursorPointsEntity.GetCursorPoint(j + 1)))
+                        _cursorPointsEntity.GetCursorPoint(j + 1),
+                        out var intersectPoint))
                     {
                         _cursorPointsEntity.ClearCursorPoints();
                         return true;
