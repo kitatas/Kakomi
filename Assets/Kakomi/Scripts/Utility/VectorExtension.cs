@@ -44,5 +44,21 @@ namespace Kakomi.Scripts.Utility
 
             return true;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points3d"></param>
+        /// <returns></returns>
+        public static Vector2[] ConvertVector2(this Vector3[] points3d)
+        {
+            var points2d = new Vector2[points3d.Length];
+            for (int i = 0; i < points2d.Length; i++)
+            {
+                points2d[i] = points3d[i];
+            }
+
+            return points2d;
+        }
     }
 }

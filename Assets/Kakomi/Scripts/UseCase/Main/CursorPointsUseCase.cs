@@ -8,10 +8,12 @@ namespace Kakomi.Scripts.UseCase.Main
     public sealed class CursorPointsUseCase : ICursorPointsUseCase
     {
         private readonly ICursorPointsEntity _cursorPointsEntity;
+        private readonly IEnclosurePointsEntity _enclosurePointsEntity;
 
-        public CursorPointsUseCase(ICursorPointsEntity cursorPointsEntity)
+        public CursorPointsUseCase(ICursorPointsEntity cursorPointsEntity, IEnclosurePointsEntity enclosurePointsEntity)
         {
             _cursorPointsEntity = cursorPointsEntity;
+            _enclosurePointsEntity = enclosurePointsEntity;
         }
 
         /// <summary>
@@ -54,6 +56,7 @@ namespace Kakomi.Scripts.UseCase.Main
                         _cursorPointsEntity.GetCursorPoint(j + 1),
                         out var intersectPoint))
                     {
+                        SetEnclosurePoints(i, j, intersectPoint);
                         _cursorPointsEntity.ClearCursorPoints();
                         return true;
                     }
@@ -61,6 +64,19 @@ namespace Kakomi.Scripts.UseCase.Main
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// 囲みができた座標をEnclosurePointsEntityに保存
+        /// </summary>
+        private void SetEnclosurePoints(int startIndex, int endIndex, Vector2 intersectPoint)
+        {
+            _enclosurePointsEntity.AddEnclosurePoint(intersectPoint);
+
+            for (int i = startIndex; i <= endIndex; i++)
+            {
+                _enclosurePointsEntity.AddEnclosurePoint(_cursorPointsEntity.CursorPoints[i]);
+            }
         }
     }
 }

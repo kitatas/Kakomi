@@ -16,8 +16,18 @@ namespace Kakomi.Scripts.Installer
                 .AsCached();
 
             Container
+                .Bind<IEnclosurePointsEntity>()
+                .To<EnclosurePointsEntity>()
+                .AsCached();
+
+            Container
                 .Bind<ICursorPointsUseCase>()
                 .To<CursorPointsUseCase>()
+                .AsCached();
+
+            Container
+                .Bind<IEnclosurePointsUseCase>()
+                .To<EnclosurePointsUseCase>()
                 .AsCached();
 
             Container

@@ -10,6 +10,7 @@ namespace Kakomi.Scripts.View.Main
     {
         [SerializeField] private CursorView cursorView = default;
         [SerializeField] private LineView lineView = default;
+        [SerializeField] private EnclosureView enclosureView = default;
 
         private IInputUseCase _inputUseCase;
         private ICursorPointsUseCase _cursorPointsUseCase;
@@ -47,9 +48,10 @@ namespace Kakomi.Scripts.View.Main
                     // 線が交差している場合
                     if (_cursorPointsUseCase.IsCrossLine())
                     {
-                        lineView.DeleteLine();
-
                         // TODO : 囲んだ時のアクション
+                        enclosureView.GenerateEnclosureCollider();
+
+                        lineView.DeleteLine();
                     }
                 })
                 .AddTo(this);
