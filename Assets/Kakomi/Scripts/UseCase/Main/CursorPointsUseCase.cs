@@ -71,6 +71,8 @@ namespace Kakomi.Scripts.UseCase.Main
         /// </summary>
         private void SetEnclosurePoints(int startIndex, int endIndex, Vector2 intersectPoint)
         {
+            _enclosurePointsEntity.ClearEnclosurePoints();
+
             _enclosurePointsEntity.AddEnclosurePoint(intersectPoint);
 
             for (int i = startIndex; i <= endIndex; i++)

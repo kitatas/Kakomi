@@ -9,16 +9,15 @@ namespace Kakomi.Scripts.View.Main
     public sealed class PlayerView : MonoBehaviour
     {
         [SerializeField] private CursorView cursorView = default;
-        [SerializeField] private LineView lineView = default;
-        [SerializeField] private EnclosureView enclosureView = default;
+
+        [SerializeField] private LineRepository lineRepository = default;
+        [SerializeField] private EnclosureRepository enclosureRepository = default;
 
         private IInputUseCase _inputUseCase;
         private ICursorPointsUseCase _cursorPointsUseCase;
 
         [Inject]
-        private void Construct(
-            IInputUseCase inputUseCase,
-            ICursorPointsUseCase cursorPointsUseCase)
+        private void Construct(IInputUseCase inputUseCase, ICursorPointsUseCase cursorPointsUseCase)
         {
             _inputUseCase = inputUseCase;
             _cursorPointsUseCase = cursorPointsUseCase;
@@ -43,15 +42,15 @@ namespace Kakomi.Scripts.View.Main
                     // 線の描画
                     var cursorPosition = cursorView.GetPosition();
                     _cursorPointsUseCase.AddCursorPoint(cursorPosition);
-                    lineView.DrawLine();
+                    lineRepository.CreateLine();
 
                     // 線が交差している場合
                     if (_cursorPointsUseCase.IsCrossLine())
                     {
                         // TODO : 囲んだ時のアクション
-                        enclosureView.GenerateEnclosureCollider();
+                        enclosureRepository.GenerateEnclosureCollider();
 
-                        lineView.DeleteLine();
+                        lineRepository.DeleteLine();
                     }
                 })
                 .AddTo(this);

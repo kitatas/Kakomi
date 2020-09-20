@@ -32,7 +32,7 @@ namespace Kakomi.Scripts.Installer
 
             Container
                 .Bind<IInputUseCase>()
-                .To<InputUseCase>()
+                .To<MouseInputUseCase>()
                 .AsCached();
         }
     }

@@ -19,8 +19,6 @@ namespace Kakomi.Scripts.Entity.Main
 
         public void RemoveCursorPoint(Vector3 point) => _cursorPoints.Remove(point);
 
-        public void RemoveCursorPoint(int index) => _cursorPoints.RemoveAt(index);
-
         public void ClearCursorPoints() => _cursorPoints.Clear();
 
         public int GetCursorPointsCount() => _cursorPoints.Count;

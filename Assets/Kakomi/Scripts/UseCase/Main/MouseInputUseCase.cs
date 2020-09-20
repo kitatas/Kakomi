@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Kakomi.Scripts.UseCase.Main
 {
-    public sealed class InputUseCase : IInputUseCase
+    public sealed class MouseInputUseCase : IInputUseCase
     {
         private readonly Camera _camera;
 
-        public InputUseCase(Camera camera)
+        public MouseInputUseCase(Camera camera)
         {
             _camera = camera;
         }

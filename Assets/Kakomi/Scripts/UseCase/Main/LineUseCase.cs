@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace Kakomi.Scripts.UseCase.Main
 {
-    public sealed class LineRendererUseCase : ILineRendererUseCase
+    public sealed class LineUseCase : ILineUseCase
     {
         private Vector3 _startPoint;
 
         private readonly LineRenderer _lineRenderer;
         private readonly ICursorPointsEntity _cursorPointsEntity;
 
-        public LineRendererUseCase(LineRenderer lineRenderer, ICursorPointsEntity cursorPointsEntity)
+        public LineUseCase(LineRenderer lineRenderer, ICursorPointsEntity cursorPointsEntity)
         {
             _lineRenderer = lineRenderer;
             _lineRenderer.SetWidth(0.1f);
