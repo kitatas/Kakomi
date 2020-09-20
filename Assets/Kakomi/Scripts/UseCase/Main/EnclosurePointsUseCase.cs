@@ -18,8 +18,7 @@ namespace Kakomi.Scripts.UseCase.Main
 
         public void CreateEnclosureArea()
         {
-            var pointsArray = _enclosurePointsEntity.EnclosurePoints.ToArray();
-            _polygonCollider.points = pointsArray.ConvertVector2();
+            _polygonCollider.points = _enclosurePointsEntity.GetEnclosurePoints().ConvertVector2();
         }
     }
 }

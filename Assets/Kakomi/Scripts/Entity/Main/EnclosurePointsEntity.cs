@@ -13,7 +13,7 @@ namespace Kakomi.Scripts.Entity.Main
             _enclosurePoints = new List<Vector3>();
         }
 
-        public List<Vector3> EnclosurePoints => _enclosurePoints;
+        public Vector3[] GetEnclosurePoints() => _enclosurePoints.ToArray();
 
         public void AddEnclosurePoint(Vector3 point) => _enclosurePoints.Add(point);
 

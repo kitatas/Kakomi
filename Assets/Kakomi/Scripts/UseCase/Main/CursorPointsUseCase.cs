@@ -77,7 +77,7 @@ namespace Kakomi.Scripts.UseCase.Main
 
             for (int i = startIndex; i <= endIndex; i++)
             {
-                _enclosurePointsEntity.AddEnclosurePoint(_cursorPointsEntity.CursorPoints[i]);
+                _enclosurePointsEntity.AddEnclosurePoint(_cursorPointsEntity.GetCursorPoint(i));
             }
         }
     }
