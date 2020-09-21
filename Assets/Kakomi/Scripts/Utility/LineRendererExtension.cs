@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Kakomi.Scripts.Utility
+namespace Kakomi.Utility
 {
     public static class LineRendererExtension
     {
