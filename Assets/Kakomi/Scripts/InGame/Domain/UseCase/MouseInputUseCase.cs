@@ -16,8 +16,7 @@ namespace Kakomi.InGame.Domain.UseCase
 
         public Vector2 GetInputPosition()
         {
-            var mousePosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-            return mousePosition;
+            return _camera.ScreenToWorldPoint(Input.mousePosition);
         }
     }
 }

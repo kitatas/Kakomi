@@ -17,7 +17,7 @@ namespace Kakomi.InGame.Data.Entity
 
         public void AddLineView(LineView lineView) => _lineViews.Add(lineView);
 
-        public void DeleteLine()
+        public void ClearLineViews()
         {
             foreach (var line in _lineViews.Where(line => line != null))
             {

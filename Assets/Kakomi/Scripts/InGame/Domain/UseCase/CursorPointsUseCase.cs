@@ -65,7 +65,7 @@ namespace Kakomi.InGame.Domain.UseCase
                 _enclosureRepository.GenerateEnclosureCollider();
 
                 // 囲みに使用した線の削除
-                _lineViewsEntity.DeleteLine();
+                _lineViewsEntity.ClearLineViews();
             }
         }
 
@@ -75,9 +75,10 @@ namespace Kakomi.InGame.Domain.UseCase
         /// <returns></returns>
         private bool IsCrossLine()
         {
-            for (int i = 1; i < _cursorPointsEntity.GetCursorPointsCount() - 3; i++)
+            var cursorPointsCount = _cursorPointsEntity.GetCursorPointsCount();
+            for (int i = 1; i < cursorPointsCount - 3; i++)
             {
-                for (int j = i + 1; j < _cursorPointsEntity.GetCursorPointsCount() - 1; j++)
+                for (int j = i + 1; j < cursorPointsCount - 1; j++)
                 {
                     if (VectorExtension.IsCrossVector(
                         _cursorPointsEntity.GetCursorPoint(i - 1),

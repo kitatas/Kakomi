@@ -1,6 +1,5 @@
 using Kakomi.InGame.Data.Entity.Interface;
 using Kakomi.InGame.Domain.UseCase.Interface;
-using Kakomi.Utility;
 using UnityEngine;
 
 namespace Kakomi.InGame.Domain.UseCase
