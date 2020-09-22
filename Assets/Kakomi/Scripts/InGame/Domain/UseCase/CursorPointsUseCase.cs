@@ -1,3 +1,4 @@
+using Kakomi.InGame.Application;
 using Kakomi.InGame.Data.Entity.Interface;
 using Kakomi.InGame.Domain.Repository.Interface;
 using Kakomi.InGame.Domain.UseCase.Interface;
@@ -41,7 +42,7 @@ namespace Kakomi.InGame.Domain.UseCase
 
             var lastCursorPoint = _cursorPointsEntity.GetCursorPoint(cursorPointsCount - 1);
             var distance = (currentCursorPoint - lastCursorPoint).sqrMagnitude;
-            return distance >= 0.01f;
+            return distance >= DrawParameter.DIFFERENCE_DISTANCE;
         }
 
         public void AddCursorPoint(Vector2 cursorPoint)

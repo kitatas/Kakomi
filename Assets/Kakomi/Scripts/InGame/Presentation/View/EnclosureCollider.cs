@@ -1,3 +1,4 @@
+using Kakomi.InGame.Application;
 using Kakomi.InGame.Domain.UseCase.Interface;
 using Kakomi.InGame.Presentation.View.Interface;
 using UniRx;
@@ -15,7 +16,7 @@ namespace Kakomi.InGame.Presentation.View
         {
             enclosurePointsUseCase.CreateEnclosureArea();
 
-            Destroy(gameObject, 0.1f);
+            Destroy(gameObject, DrawParameter.ENCLOSURE_TIME);
         }
 
         private void Start()
@@ -23,7 +24,6 @@ namespace Kakomi.InGame.Presentation.View
             this.OnTriggerEnter2DAsObservable()
                 .Subscribe(other =>
                 {
-                    // TODO : 囲まれたオブジェクトをどうにかする
                     if (other.TryGetComponent(out IEnclosureObject enclosureObject))
                     {
                         enclosureObject.Enclose();
