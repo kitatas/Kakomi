@@ -1,6 +1,6 @@
 using Kakomi.InGame.Application;
 using Kakomi.InGame.Data.Entity.Interface;
-using Kakomi.InGame.Domain.Repository.Interface;
+using Kakomi.InGame.Domain.Repository;
 using Kakomi.InGame.Domain.UseCase.Interface;
 using Kakomi.Utility;
 using UnityEngine;
@@ -11,17 +11,15 @@ namespace Kakomi.InGame.Domain.UseCase
     {
         private readonly ICursorPointsEntity _cursorPointsEntity;
         private readonly IEnclosurePointsEntity _enclosurePointsEntity;
-        private readonly ILineViewsEntity _lineViewsEntity;
 
-        private readonly ILineRepository _lineRepository;
-        private readonly IEnclosureRepository _enclosureRepository;
+        private readonly LineRepository _lineRepository;
+        private readonly EnclosureRepository _enclosureRepository;
 
         public CursorPointsUseCase(ICursorPointsEntity cursorPointsEntity, IEnclosurePointsEntity enclosurePointsEntity,
-            ILineViewsEntity lineViewsEntity, ILineRepository lineRepository, IEnclosureRepository enclosureRepository)
+            LineRepository lineRepository, EnclosureRepository enclosureRepository)
         {
             _cursorPointsEntity = cursorPointsEntity;
             _enclosurePointsEntity = enclosurePointsEntity;
-            _lineViewsEntity = lineViewsEntity;
 
             _lineRepository = lineRepository;
             _enclosureRepository = enclosureRepository;
@@ -49,9 +47,7 @@ namespace Kakomi.InGame.Domain.UseCase
         {
             _cursorPointsEntity.AddCursorPoint(cursorPoint);
 
-            var lineView = _lineRepository.GenerateLineView();
-            _lineViewsEntity.AddLineView(lineView);
-            lineView.DrawLine();
+            _lineRepository.GenerateLineView();
         }
 
         public void DoEnclosureAction()
@@ -65,7 +61,7 @@ namespace Kakomi.InGame.Domain.UseCase
                 _enclosureRepository.GenerateEnclosureCollider();
 
                 // 囲みに使用した線の削除
-                _lineViewsEntity.ClearLineViews();
+                _lineRepository.ClearLineViews();
             }
         }
 

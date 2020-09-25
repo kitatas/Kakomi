@@ -14,41 +14,32 @@ namespace Kakomi.InGame.Presentation.View
     {
         [SerializeField] private LineRenderer lineRenderer = default;
 
-        private ILineUseCase _lineUseCase;
-
         [Inject]
         private void Construct(ILineUseCase lineUseCase)
         {
-            _lineUseCase = lineUseCase;
-
-            Initialize();
-        }
-
-        private void Initialize()
-        {
             lineRenderer.SetWidth(DrawParameter.LINE_WIDTH);
             lineRenderer.positionCount = 2;
-        }
 
-        public void DrawLine()
-        {
-            _lineUseCase.DrawLine(points =>
+            lineUseCase.DrawLine(points =>
             {
                 var (startPoint, endPoint) = points;
                 lineRenderer.SetPosition(0, startPoint);
                 lineRenderer.SetPosition(1, endPoint);
 
                 var token = this.GetCancellationTokenOnDestroy();
-                DeleteLineAsync(token, startPoint).Forget();
+                DeleteLineAsync(token, () =>
+                {
+                    lineUseCase.DeleteLinePoint(startPoint);
+                    Destroy(gameObject);
+                }).Forget();
             });
         }
 
-        private async UniTaskVoid DeleteLineAsync(CancellationToken token, Vector2 startPoint)
+        private async UniTaskVoid DeleteLineAsync(CancellationToken token, Action action)
         {
             await UniTask.Delay(TimeSpan.FromSeconds(DrawParameter.DELETE_TIME), cancellationToken: token);
 
-            _lineUseCase.DeleteLinePoint(startPoint);
-            Destroy(gameObject);
+            action?.Invoke();
         }
     }
 }
