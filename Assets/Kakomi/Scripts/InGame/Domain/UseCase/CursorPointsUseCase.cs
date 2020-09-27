@@ -26,11 +26,11 @@ namespace Kakomi.InGame.Domain.UseCase
         }
 
         /// <summary>
-        /// 入力位置が前フレームでCursorPointsEntityに追加した位置と近似値でないか
+        /// カーソル位置が前フレームでCursorPointsEntityに追加した位置と近似値でないか
         /// </summary>
         /// <param name="currentCursorPoint"></param>
         /// <returns></returns>
-        public bool IsAddCursorPoint(Vector2 currentCursorPoint)
+        private bool IsAddCursorPoint(Vector2 currentCursorPoint)
         {
             var cursorPointsCount = _cursorPointsEntity.GetCursorPointsCount();
             if (cursorPointsCount <= 1)
@@ -45,16 +45,18 @@ namespace Kakomi.InGame.Domain.UseCase
 
         public void AddCursorPoint(Vector2 cursorPoint)
         {
+            if (IsAddCursorPoint(cursorPoint) == false)
+            {
+                return;
+            }
+
             _cursorPointsEntity.AddCursorPoint(cursorPoint);
 
             if (_cursorPointsEntity.GetCursorPointsCount() > 1)
             {
                 _lineFactory.GenerateLineView();
             }
-        }
 
-        public void DoEnclosureAction()
-        {
             if (IsCrossLine())
             {
                 // 囲むまでに追加された座標リストを削除

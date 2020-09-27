@@ -5,14 +5,15 @@ namespace Kakomi.InGame.Presentation.View
 {
     public sealed class CursorView : MonoBehaviour
     {
-        public void Move(Vector2 mousePosition)
+        public Vector2 Move(Vector2 mousePosition)
         {
-            transform.position = Vector2.MoveTowards(
+            mousePosition.x = Mathf.Clamp(mousePosition.x, -2.4f, 2.4f);
+            mousePosition.y = Mathf.Clamp(mousePosition.y, -4.2f, 4.2f);
+
+            return transform.position = Vector2.MoveTowards(
                 transform.position,
                 mousePosition,
                 DrawParameter.CURSOR_SPEED * Time.deltaTime);
         }
-
-        public Vector3 GetPosition() => transform.position;
     }
 }
