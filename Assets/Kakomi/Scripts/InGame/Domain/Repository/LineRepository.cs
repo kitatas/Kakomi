@@ -1,12 +1,12 @@
 using System.Collections.Generic;
-using System.Linq;
 using Kakomi.InGame.Data.DataStore;
 using Kakomi.InGame.Presentation.View;
+using UniRx.Toolkit;
 using UnityEngine;
 
 namespace Kakomi.InGame.Domain.Repository
 {
-    public sealed class LineRepository
+    public sealed class LineRepository : ObjectPool<LineView>
     {
         private readonly List<LineView> _lineViews;
         private readonly LineView _lineView;
@@ -17,17 +17,31 @@ namespace Kakomi.InGame.Domain.Repository
             _lineView = enclosureTable.LineView;
         }
 
+        protected override LineView CreateInstance()
+        {
+            return Object.Instantiate(_lineView);
+        }
+
         public void GenerateLineView()
         {
-            var lineView = Object.Instantiate(_lineView);
+            var lineView = Rent();
+            lineView.DrawLine(() =>
+            {
+                Return(lineView);
+            });
             _lineViews.Add(lineView);
         }
 
         public void ClearLineViews()
         {
-            foreach (var lineView in _lineViews.Where(lineView => lineView != null))
+            foreach (var lineView in _lineViews)
             {
-                Object.Destroy(lineView.gameObject);
+                if (lineView == null || lineView.IsEnclose)
+                {
+                    continue;
+                }
+
+                lineView.SetEnclose();
             }
 
             _lineViews.Clear();

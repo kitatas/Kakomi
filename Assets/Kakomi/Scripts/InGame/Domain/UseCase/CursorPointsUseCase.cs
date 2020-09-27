@@ -47,7 +47,10 @@ namespace Kakomi.InGame.Domain.UseCase
         {
             _cursorPointsEntity.AddCursorPoint(cursorPoint);
 
-            _lineRepository.GenerateLineView();
+            if (_cursorPointsEntity.GetCursorPointsCount() > 1)
+            {
+                _lineRepository.GenerateLineView();
+            }
         }
 
         public void DoEnclosureAction()
