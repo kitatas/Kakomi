@@ -12,13 +12,11 @@ namespace Kakomi.InGame.Presentation.Controller
         [SerializeField] private CursorView cursorView = default;
 
         private IInputUseCase _inputUseCase;
-        private ICursorPointsUseCase _cursorPointsUseCase;
 
         [Inject]
-        private void Construct(IInputUseCase inputUseCase, ICursorPointsUseCase cursorPointsUseCase)
+        private void Construct(IInputUseCase inputUseCase)
         {
             _inputUseCase = inputUseCase;
-            _cursorPointsUseCase = cursorPointsUseCase;
         }
 
         private void Start()
@@ -29,10 +27,7 @@ namespace Kakomi.InGame.Presentation.Controller
                 {
                     // カーソル移動
                     var mousePosition = _inputUseCase.GetInputPosition();
-                    var cursorPoint = cursorView.Move(mousePosition);
-
-                    // カーソル位置の追加
-                    _cursorPointsUseCase.AddCursorPoint(cursorPoint);
+                    cursorView.Move(mousePosition);
                 })
                 .AddTo(this);
         }
