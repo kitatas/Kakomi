@@ -1,10 +1,11 @@
 using Kakomi.InGame.Data.DataStore;
 using Kakomi.InGame.Presentation.View;
+using UniRx.Toolkit;
 using UnityEngine;
 
 namespace Kakomi.InGame.Domain.Repository
 {
-    public sealed class EnclosureRepository
+    public sealed class EnclosureRepository : ObjectPool<EnclosureCollider>
     {
         private readonly EnclosureCollider _enclosureCollider;
 
@@ -13,9 +14,18 @@ namespace Kakomi.InGame.Domain.Repository
             _enclosureCollider = enclosureTable.EnclosureCollider;
         }
 
+        protected override EnclosureCollider CreateInstance()
+        {
+            return Object.Instantiate(_enclosureCollider);
+        }
+
         public void GenerateEnclosureCollider()
         {
-            Object.Instantiate(_enclosureCollider);
+            var enclosureCollider = Rent();
+            enclosureCollider.EncloseLine(() =>
+            {
+                Return(enclosureCollider);
+            });
         }
     }
 }

@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd8d7cef20e44681bb40134a3311136e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  polygonCollider: {fileID: 2604166017855418030}
 --- !u!114 &338724787471869248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,7 +120,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00eb011864fd6415a91b7361588605cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  polygonCollider: {fileID: 2604166017855418030}
 --- !u!114 &2436425648211121707
 MonoBehaviour:
   m_ObjectHideFlags: 0

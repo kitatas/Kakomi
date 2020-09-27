@@ -6,18 +6,16 @@ namespace Kakomi.InGame.Domain.UseCase
 {
     public sealed class EnclosurePointsUseCase : IEnclosurePointsUseCase
     {
-        private readonly PolygonCollider2D _polygonCollider;
         private readonly IEnclosurePointsEntity _enclosurePointsEntity;
 
-        public EnclosurePointsUseCase(PolygonCollider2D polygonCollider, IEnclosurePointsEntity enclosurePointsEntity)
+        public EnclosurePointsUseCase(IEnclosurePointsEntity enclosurePointsEntity)
         {
-            _polygonCollider = polygonCollider;
             _enclosurePointsEntity = enclosurePointsEntity;
         }
 
-        public void CreateEnclosureArea()
+        public Vector2[] GetEnclosurePoints()
         {
-            _polygonCollider.points = _enclosurePointsEntity.GetEnclosurePoints();
+            return _enclosurePointsEntity.GetEnclosurePoints();
         }
     }
 }
