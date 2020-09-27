@@ -3,13 +3,13 @@ using Kakomi.InGame.Presentation.View;
 using UniRx.Toolkit;
 using UnityEngine;
 
-namespace Kakomi.InGame.Domain.Repository
+namespace Kakomi.InGame.Factory
 {
-    public sealed class EnclosureRepository : ObjectPool<EnclosureCollider>
+    public sealed class EnclosureFactory : ObjectPool<EnclosureCollider>
     {
         private readonly EnclosureCollider _enclosureCollider;
 
-        public EnclosureRepository(EnclosureTable enclosureTable)
+        public EnclosureFactory(EnclosureTable enclosureTable)
         {
             _enclosureCollider = enclosureTable.EnclosureCollider;
         }

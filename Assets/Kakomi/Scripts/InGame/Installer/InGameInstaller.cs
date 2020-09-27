@@ -1,8 +1,8 @@
 using Kakomi.InGame.Data.Entity;
 using Kakomi.InGame.Data.Entity.Interface;
-using Kakomi.InGame.Domain.Repository;
 using Kakomi.InGame.Domain.UseCase;
 using Kakomi.InGame.Domain.UseCase.Interface;
+using Kakomi.InGame.Factory;
 using Zenject;
 
 namespace Kakomi.InGame.Installer
@@ -22,11 +22,11 @@ namespace Kakomi.InGame.Installer
                 .AsCached();
 
             Container
-                .Bind<EnclosureRepository>()
+                .Bind<EnclosureFactory>()
                 .AsCached();
 
             Container
-                .Bind<LineRepository>()
+                .Bind<LineFactory>()
                 .AsCached();
 
             Container

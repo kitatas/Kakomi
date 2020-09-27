@@ -1,7 +1,7 @@
 using Kakomi.InGame.Application;
 using Kakomi.InGame.Data.Entity.Interface;
-using Kakomi.InGame.Domain.Repository;
 using Kakomi.InGame.Domain.UseCase.Interface;
+using Kakomi.InGame.Factory;
 using Kakomi.Utility;
 using UnityEngine;
 
@@ -12,17 +12,17 @@ namespace Kakomi.InGame.Domain.UseCase
         private readonly ICursorPointsEntity _cursorPointsEntity;
         private readonly IEnclosurePointsEntity _enclosurePointsEntity;
 
-        private readonly LineRepository _lineRepository;
-        private readonly EnclosureRepository _enclosureRepository;
+        private readonly LineFactory _lineFactory;
+        private readonly EnclosureFactory _enclosureFactory;
 
         public CursorPointsUseCase(ICursorPointsEntity cursorPointsEntity, IEnclosurePointsEntity enclosurePointsEntity,
-            LineRepository lineRepository, EnclosureRepository enclosureRepository)
+            LineFactory lineFactory, EnclosureFactory enclosureFactory)
         {
             _cursorPointsEntity = cursorPointsEntity;
             _enclosurePointsEntity = enclosurePointsEntity;
 
-            _lineRepository = lineRepository;
-            _enclosureRepository = enclosureRepository;
+            _lineFactory = lineFactory;
+            _enclosureFactory = enclosureFactory;
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Kakomi.InGame.Domain.UseCase
 
             if (_cursorPointsEntity.GetCursorPointsCount() > 1)
             {
-                _lineRepository.GenerateLineView();
+                _lineFactory.GenerateLineView();
             }
         }
 
@@ -61,10 +61,10 @@ namespace Kakomi.InGame.Domain.UseCase
                 _cursorPointsEntity.ClearCursorPoints();
 
                 // 囲み判定用のコライダー生成
-                _enclosureRepository.GenerateEnclosureCollider();
+                _enclosureFactory.GenerateEnclosureCollider();
 
                 // 囲みに使用した線の削除
-                _lineRepository.ClearLineViews();
+                _lineFactory.ClearLineViews();
             }
         }
 

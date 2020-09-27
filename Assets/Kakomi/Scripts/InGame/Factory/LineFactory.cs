@@ -4,14 +4,14 @@ using Kakomi.InGame.Presentation.View;
 using UniRx.Toolkit;
 using UnityEngine;
 
-namespace Kakomi.InGame.Domain.Repository
+namespace Kakomi.InGame.Factory
 {
-    public sealed class LineRepository : ObjectPool<LineView>
+    public sealed class LineFactory : ObjectPool<LineView>
     {
         private readonly List<LineView> _lineViews;
         private readonly LineView _lineView;
 
-        public LineRepository(EnclosureTable enclosureTable)
+        public LineFactory(EnclosureTable enclosureTable)
         {
             _lineViews = new List<LineView>();
             _lineView = enclosureTable.LineView;
