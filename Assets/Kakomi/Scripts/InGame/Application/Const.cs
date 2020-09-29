@@ -11,4 +11,9 @@ namespace Kakomi.InGame.Application
 
         public const float ENCLOSURE_TIME = 0.05f;
     }
+
+    public sealed class PlayerStatus
+    {
+        public const int MAX_HP = 100;
+    }
 }
