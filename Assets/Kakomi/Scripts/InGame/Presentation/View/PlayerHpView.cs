@@ -15,7 +15,7 @@ namespace Kakomi.InGame.Presentation.View
         {
             _maxHpValue = maxHpValue;
             hpSlider.maxValue = _maxHpValue;
-            UpdateHpSlider(maxHpValue);
+            UpdateHpSlider(_maxHpValue);
         }
 
         public void UpdateHpSlider(int hpValue)

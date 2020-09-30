@@ -9,7 +9,9 @@ namespace Kakomi.InGame.Presentation.Presenter
     {
         public PlayerHpPresenter(IPlayerHpUseCase playerHpUseCase, PlayerHpView playerHpView)
         {
+            playerHpUseCase.Initialize(PlayerStatus.MAX_HP);
             playerHpView.Initialize(PlayerStatus.MAX_HP);
+
             playerHpUseCase.HpModel()
                 .Subscribe(playerHpView.UpdateHpSlider)
                 .AddTo(playerHpView);
