@@ -64,12 +64,22 @@ namespace Kakomi.InGame.Installer
                 .To<PlayerHpUseCase>()
                 .AsCached();
 
+            Container
+                .Bind<IEnemyHpUseCase>()
+                .To<EnemyHpUseCase>()
+                .AsCached();
+
             #endregion
 
             #region Presenter
 
             Container
                 .Bind<PlayerHpPresenter>()
+                .AsCached()
+                .NonLazy();
+
+            Container
+                .Bind<EnemyHpPresenter>()
                 .AsCached()
                 .NonLazy();
 

@@ -16,4 +16,9 @@ namespace Kakomi.InGame.Application
     {
         public const int MAX_HP = 100;
     }
+
+    public sealed class EnemyStatus
+    {
+        public const int MAX_HP = 100;
+    }
 }
