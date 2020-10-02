@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Kakomi.InGame.Data.DataStore
 {
-    [CreateAssetMenu(fileName = "EnclosureTable", menuName = "DataTable/EnclosureTable", order = 0)]
-    public sealed class EnclosureTable : ScriptableObject
+    [CreateAssetMenu(fileName = "LineTable", menuName = "DataTable/LineTable", order = 0)]
+    public sealed class LineTable : ScriptableObject
     {
         [SerializeField] private EnclosureCollider enclosureCollider = default;
         [SerializeField] private LineView lineView = default;

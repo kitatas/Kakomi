@@ -7,12 +7,12 @@ namespace Kakomi.InGame.Installer
     [CreateAssetMenu(fileName = "InGameTableInstaller", menuName = "Installers/InGameTableInstaller")]
     public sealed class InGameTableInstaller : ScriptableObjectInstaller<InGameTableInstaller>
     {
-        [SerializeField] private EnclosureTable enclosureTable = default;
+        [SerializeField] private LineTable lineTable = default;
 
         public override void InstallBindings()
         {
             Container
-                .BindInstance(enclosureTable)
+                .BindInstance(lineTable)
                 .AsCached();
         }
     }

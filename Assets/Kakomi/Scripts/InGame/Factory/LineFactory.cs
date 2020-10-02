@@ -11,10 +11,10 @@ namespace Kakomi.InGame.Factory
         private readonly List<LineView> _lineViews;
         private readonly LineView _lineView;
 
-        public LineFactory(EnclosureTable enclosureTable)
+        public LineFactory(LineTable lineTable)
         {
             _lineViews = new List<LineView>();
-            _lineView = enclosureTable.LineView;
+            _lineView = lineTable.LineView;
         }
 
         protected override LineView CreateInstance()

@@ -9,9 +9,9 @@ namespace Kakomi.InGame.Factory
     {
         private readonly EnclosureCollider _enclosureCollider;
 
-        public EnclosureFactory(EnclosureTable enclosureTable)
+        public EnclosureFactory(LineTable lineTable)
         {
-            _enclosureCollider = enclosureTable.EnclosureCollider;
+            _enclosureCollider = lineTable.EnclosureCollider;
         }
 
         protected override EnclosureCollider CreateInstance()
