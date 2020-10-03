@@ -21,4 +21,17 @@ namespace Kakomi.InGame.Application
     {
         public const int MAX_HP = 100;
     }
+
+    public sealed class FieldParameter
+    {
+        public static readonly float[] xPoints =
+        {
+            -2.0f, -1.5f, -1.0f, -0.5f, 0.0f, 0.5f, 1.0f, 1.5f, 2.0f,
+        };
+
+        public static readonly float[] yPoints =
+        {
+            -3.5f, -3.0f, -2.5f, -2.0f, -1.5f, -1.0f, -0.5f, 0.0f, 0.5f, 1.0f, 1.5f, 2.0f,
+        };
+    }
 }

@@ -1,25 +1,20 @@
-using Kakomi.InGame.Domain.UseCase;
-using Kakomi.InGame.Presentation.View.Interface;
 using UnityEngine;
 using Zenject;
 
 namespace Kakomi.InGame.Presentation.View
 {
-    public sealed class BulletView : MonoBehaviour, IEnclosureObject
+    public sealed class BulletView : BaseEnclosureObject
     {
         [SerializeField] private int attackValue = 0;
 
-        private IEnemyHpUseCase _enemyHpUseCase;
-
-        [Inject]
-        private void Construct(IEnemyHpUseCase enemyHpUseCase)
+        public override void Enclose()
         {
-            _enemyHpUseCase = enemyHpUseCase;
+            base.Enclose();
+            _enemyHpUseCase.Damage(attackValue);
         }
 
-        public void Enclose()
+        public class Factory : PlaceholderFactory<BulletView>
         {
-            _enemyHpUseCase.Damage(attackValue);
         }
     }
 }

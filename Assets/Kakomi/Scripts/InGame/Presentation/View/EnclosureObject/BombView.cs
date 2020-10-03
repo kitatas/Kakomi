@@ -1,25 +1,20 @@
-using Kakomi.InGame.Domain.UseCase.Interface;
-using Kakomi.InGame.Presentation.View.Interface;
 using UnityEngine;
 using Zenject;
 
 namespace Kakomi.InGame.Presentation.View
 {
-    public sealed class BombView : MonoBehaviour, IEnclosureObject
+    public sealed class BombView : BaseEnclosureObject
     {
         [SerializeField] private int damageValue = 0;
 
-        private IPlayerHpUseCase _playerHpUseCase;
-
-        [Inject]
-        private void Construct(IPlayerHpUseCase playerHpUseCase)
+        public override void Enclose()
         {
-            _playerHpUseCase = playerHpUseCase;
+            base.Enclose();
+            _playerHpUseCase.Damage(damageValue);
         }
 
-        public void Enclose()
+        public class Factory : PlaceholderFactory<BombView>
         {
-            _playerHpUseCase.Damage(damageValue);
         }
     }
 }

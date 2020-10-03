@@ -14,7 +14,8 @@ namespace Kakomi.InGame.Installer
     public sealed class InGameInstaller : MonoInstaller
     {
         [SerializeField] private LineTable lineTable = default;
-        
+        [SerializeField] private EnclosureTable enclosureTable = default;
+
         public override void InstallBindings()
         {
             #region Entity
@@ -39,6 +40,18 @@ namespace Kakomi.InGame.Installer
 
             Container
                 .Bind<LineFactory>()
+                .AsCached();
+
+            Container
+                .Bind<BombFactory>()
+                .AsCached();
+
+            Container
+                .Bind<HeartFactory>()
+                .AsCached();
+
+            Container
+                .Bind<BulletFactory>()
                 .AsCached();
 
             #endregion
@@ -79,6 +92,11 @@ namespace Kakomi.InGame.Installer
                 .To<EnemyHpUseCase>()
                 .AsCached();
 
+            Container
+                .Bind<IEncloseObjectUseCase>()
+                .To<EncloseObjectUseCase>()
+                .AsCached();
+
             #endregion
 
             #region Presenter
@@ -105,6 +123,21 @@ namespace Kakomi.InGame.Installer
             Container
                 .BindFactory<EnclosureCollider, EnclosureCollider.Factory>()
                 .FromComponentInNewPrefab(lineTable.EnclosureCollider)
+                .AsCached();
+
+            Container
+                .BindFactory<BombView, BombView.Factory>()
+                .FromComponentInNewPrefab(enclosureTable.BombView)
+                .AsCached();
+
+            Container
+                .BindFactory<HeartView, HeartView.Factory>()
+                .FromComponentInNewPrefab(enclosureTable.HeartView)
+                .AsCached();
+
+            Container
+                .BindFactory<BulletView, BulletView.Factory>()
+                .FromComponentInNewPrefab(enclosureTable.BulletView)
                 .AsCached();
 
             #endregion

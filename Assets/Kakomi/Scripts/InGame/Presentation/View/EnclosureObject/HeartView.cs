@@ -1,25 +1,20 @@
-using Kakomi.InGame.Domain.UseCase.Interface;
-using Kakomi.InGame.Presentation.View.Interface;
 using UnityEngine;
 using Zenject;
 
 namespace Kakomi.InGame.Presentation.View
 {
-    public sealed class HeartView : MonoBehaviour, IEnclosureObject
-    {        
+    public sealed class HeartView : BaseEnclosureObject
+    {
         [SerializeField] private int recoverValue = 0;
 
-        private IPlayerHpUseCase _playerHpUseCase;
-
-        [Inject]
-        private void Construct(IPlayerHpUseCase playerHpUseCase)
+        public override void Enclose()
         {
-            _playerHpUseCase = playerHpUseCase;
+            base.Enclose();
+            _playerHpUseCase.Recover(recoverValue);
         }
 
-        public void Enclose()
+        public class Factory : PlaceholderFactory<HeartView>
         {
-            _playerHpUseCase.Recover(recoverValue);
         }
     }
 }
