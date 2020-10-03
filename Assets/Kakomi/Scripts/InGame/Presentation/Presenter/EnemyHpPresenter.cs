@@ -1,5 +1,5 @@
 using Kakomi.InGame.Application;
-using Kakomi.InGame.Domain.UseCase;
+using Kakomi.InGame.Domain.UseCase.Interface;
 using Kakomi.InGame.Presentation.View;
 using UniRx;
 

@@ -2,6 +2,7 @@ using Kakomi.InGame.Data.Entity;
 using Kakomi.InGame.Data.Entity.Interface;
 using Kakomi.InGame.Domain.Model;
 using Kakomi.InGame.Domain.Model.Interface;
+using Kakomi.InGame.Domain.UseCase.Interface;
 using UniRx;
 using UnityEngine;
 

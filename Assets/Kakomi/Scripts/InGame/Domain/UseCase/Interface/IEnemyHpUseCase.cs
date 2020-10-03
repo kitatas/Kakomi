@@ -1,6 +1,6 @@
 using UniRx;
 
-namespace Kakomi.InGame.Domain.UseCase
+namespace Kakomi.InGame.Domain.UseCase.Interface
 {
     public interface IEnemyHpUseCase
     {

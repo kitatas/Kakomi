@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Kakomi.InGame.Presentation.View;
 using UniRx.Toolkit;
-using UnityEngine;
 
 namespace Kakomi.InGame.Factory
 {
