@@ -1,15 +1,20 @@
+using Kakomi.InGame.Data.DataStore;
 using Kakomi.InGame.Data.Entity;
 using Kakomi.InGame.Data.Entity.Interface;
 using Kakomi.InGame.Domain.UseCase;
 using Kakomi.InGame.Domain.UseCase.Interface;
 using Kakomi.InGame.Factory;
 using Kakomi.InGame.Presentation.Presenter;
+using Kakomi.InGame.Presentation.View;
+using UnityEngine;
 using Zenject;
 
 namespace Kakomi.InGame.Installer
 {
     public sealed class InGameInstaller : MonoInstaller
     {
+        [SerializeField] private LineTable lineTable = default;
+        
         public override void InstallBindings()
         {
             #region Entity
@@ -55,6 +60,11 @@ namespace Kakomi.InGame.Installer
                 .AsCached();
 
             Container
+                .Bind<ILineUseCase>()
+                .To<LineUseCase>()
+                .AsCached();
+
+            Container
                 .Bind<IInputUseCase>()
                 .To<MouseInputUseCase>()
                 .AsCached();
@@ -82,6 +92,20 @@ namespace Kakomi.InGame.Installer
                 .Bind<EnemyHpPresenter>()
                 .AsCached()
                 .NonLazy();
+
+            #endregion
+
+            #region View
+
+            Container
+                .BindFactory<LineView, LineView.Factory>()
+                .FromComponentInNewPrefab(lineTable.LineView)
+                .AsCached();
+
+            Container
+                .BindFactory<EnclosureCollider, EnclosureCollider.Factory>()
+                .FromComponentInNewPrefab(lineTable.EnclosureCollider)
+                .AsCached();
 
             #endregion
         }

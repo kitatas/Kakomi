@@ -1,22 +1,20 @@
-using Kakomi.InGame.Data.DataStore;
 using Kakomi.InGame.Presentation.View;
 using UniRx.Toolkit;
-using UnityEngine;
 
 namespace Kakomi.InGame.Factory
 {
     public sealed class EnclosureFactory : ObjectPool<EnclosureCollider>
     {
-        private readonly EnclosureCollider _enclosureCollider;
+        private readonly EnclosureCollider.Factory _enclosureColliderFactory;
 
-        public EnclosureFactory(LineTable lineTable)
+        public EnclosureFactory(EnclosureCollider.Factory enclosureColliderFactory)
         {
-            _enclosureCollider = lineTable.EnclosureCollider;
+            _enclosureColliderFactory = enclosureColliderFactory;
         }
 
         protected override EnclosureCollider CreateInstance()
         {
-            return Object.Instantiate(_enclosureCollider);
+            return _enclosureColliderFactory.Create();
         }
 
         public void GenerateEnclosureCollider()

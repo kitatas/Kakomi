@@ -12,9 +12,6 @@ GameObject:
   - component: {fileID: 900393382475615648}
   - component: {fileID: 2604166017855418030}
   - component: {fileID: 7266114510077022929}
-  - component: {fileID: 338724787471869248}
-  - component: {fileID: 2199308605641994205}
-  - component: {fileID: 2436425648211121707}
   m_Layer: 0
   m_Name: EnclosureCollider
   m_TagString: Untagged
@@ -95,46 +92,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   polygonCollider: {fileID: 2604166017855418030}
---- !u!114 &338724787471869248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2420669710521619214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 717a02054ef2699498e6bd4234fd7995, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _containerSource: 0
---- !u!114 &2199308605641994205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2420669710521619214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00eb011864fd6415a91b7361588605cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2436425648211121707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2420669710521619214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
-  _monoInstallers:
-  - {fileID: 2199308605641994205}
-  _installerPrefabs: []
-  _autoRun: 1
-  _kernel: {fileID: 0}

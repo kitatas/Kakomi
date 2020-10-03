@@ -56,5 +56,9 @@ namespace Kakomi.InGame.Presentation.View
         {
             IsEnclose = true;
         }
+
+        public class Factory : PlaceholderFactory<LineView>
+        {
+        }
     }
 }

@@ -51,5 +51,9 @@ namespace Kakomi.InGame.Presentation.View
                 })
                 .AddTo(this);
         }
+
+        public class Factory : PlaceholderFactory<EnclosureCollider>
+        {
+        }
     }
 }

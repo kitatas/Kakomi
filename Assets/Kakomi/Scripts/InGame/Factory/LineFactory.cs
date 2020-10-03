@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Kakomi.InGame.Data.DataStore;
+using System.Linq;
 using Kakomi.InGame.Presentation.View;
 using UniRx.Toolkit;
 using UnityEngine;
@@ -9,17 +9,17 @@ namespace Kakomi.InGame.Factory
     public sealed class LineFactory : ObjectPool<LineView>
     {
         private readonly List<LineView> _lineViews;
-        private readonly LineView _lineView;
+        private readonly LineView.Factory _lineViewFactory;
 
-        public LineFactory(LineTable lineTable)
+        public LineFactory(LineView.Factory lineViewFactory)
         {
             _lineViews = new List<LineView>();
-            _lineView = lineTable.LineView;
+            _lineViewFactory = lineViewFactory;
         }
 
         protected override LineView CreateInstance()
         {
-            return Object.Instantiate(_lineView);
+            return _lineViewFactory.Create();
         }
 
         public void GenerateLineView()
@@ -34,13 +34,8 @@ namespace Kakomi.InGame.Factory
 
         public void ClearLineViews()
         {
-            foreach (var lineView in _lineViews)
+            foreach (var lineView in _lineViews.Where(lineView => lineView != null))
             {
-                if (lineView == null || lineView.IsEnclose)
-                {
-                    continue;
-                }
-
                 lineView.SetEnclose();
             }
 

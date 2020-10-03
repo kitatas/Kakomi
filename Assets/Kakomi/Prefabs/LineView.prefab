@@ -11,9 +11,6 @@ GameObject:
   - component: {fileID: 3877459889266978113}
   - component: {fileID: 3877459889266978114}
   - component: {fileID: 3877459889266978115}
-  - component: {fileID: 2978633632851699181}
-  - component: {fileID: 8984266567105784641}
-  - component: {fileID: 58242252964679083}
   m_Layer: 0
   m_Name: LineView
   m_TagString: Untagged
@@ -143,46 +140,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lineRenderer: {fileID: 3877459889266978114}
---- !u!114 &2978633632851699181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3877459889266978124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 717a02054ef2699498e6bd4234fd7995, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _containerSource: 0
---- !u!114 &8984266567105784641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3877459889266978124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a091499483b44e72b2eed3964eab9ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &58242252964679083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3877459889266978124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
-  _monoInstallers:
-  - {fileID: 8984266567105784641}
-  _installerPrefabs: []
-  _autoRun: 1
-  _kernel: {fileID: 0}
