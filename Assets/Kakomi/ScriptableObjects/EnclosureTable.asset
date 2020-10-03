@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ae4c3a44ee64ac4973c6662d0581e65, type: 3}
+  m_Script: {fileID: 11500000, guid: f2e9bc281a81417daea3d7aeef0d86e7, type: 3}
   m_Name: EnclosureTable
   m_EditorClassIdentifier: 
-  enclosureCollider: {fileID: 7266114510077022929, guid: 2b134f57ecc0d433db8e5c67c65305d5,
+  bombView: {fileID: 2145230763831579965, guid: 60255b3d3d5144a829f26ea7367b4cb8,
     type: 3}
-  lineView: {fileID: 3877459889266978115, guid: b0adf89c49dab4fff9752abc9be11b74,
+  heartView: {fileID: 7690086226533058030, guid: 5cb5662dc55494340838f8abacd9d1f1,
+    type: 3}
+  bulletView: {fileID: 6518247129382320615, guid: ed51444a651f640bbb2c1d8ae902ad73,
     type: 3}
