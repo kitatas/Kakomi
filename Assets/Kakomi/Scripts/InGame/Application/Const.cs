@@ -26,12 +26,14 @@ namespace Kakomi.InGame.Application
     {
         public static readonly float[] xPoints =
         {
-            -2.0f, -1.5f, -1.0f, -0.5f, 0.0f, 0.5f, 1.0f, 1.5f, 2.0f,
+            -1.75f, -1.05f, -0.35f, 0.35f, 1.05f, 1.75f,
         };
 
         public static readonly float[] yPoints =
         {
-            -3.5f, -3.0f, -2.5f, -2.0f, -1.5f, -1.0f, -0.5f, 0.0f, 0.5f, 1.0f, 1.5f, 2.0f,
+            -3.2f, -2.5f, -1.8f, -1.1f, -0.4f, 0.3f, 1.0f, 1.7f
         };
+
+        public const float INTERVAL = 0.7f;
     }
 }

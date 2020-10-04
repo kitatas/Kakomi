@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -7,9 +8,9 @@ namespace Kakomi.InGame.Presentation.View
     {
         [SerializeField] private int damageValue = 0;
 
-        public override void Enclose()
+        public override void Enclose(Action<int> action)
         {
-            base.Enclose();
+            base.Enclose(action);
             _playerHpUseCase.Damage(damageValue);
         }
 

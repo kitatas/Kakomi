@@ -6,7 +6,7 @@ using TMPro;
 using UniRx;
 using UnityEngine;
 
-namespace Kakomi.InGame.Presentation.View.EnclosureObject
+namespace Kakomi.InGame.Presentation.View
 {
     public sealed class TestEnclosureObject : MonoBehaviour, IEnclosureObject
     {
@@ -41,7 +41,7 @@ namespace Kakomi.InGame.Presentation.View.EnclosureObject
             Destroy(gameObject);
         }
 
-        public void Enclose()
+        public void Enclose(Action<int> action)
         {
             _endurancePoint.Value--;
         }

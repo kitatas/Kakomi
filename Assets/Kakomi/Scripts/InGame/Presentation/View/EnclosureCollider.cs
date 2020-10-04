@@ -18,12 +18,15 @@ namespace Kakomi.InGame.Presentation.View
 
         private CancellationToken _token;
         private IEnclosurePointsUseCase _enclosurePointsUseCase;
+        private IEnclosureObjectUseCase _enclosureObjectUseCase;
 
         [Inject]
-        private void Construct(IEnclosurePointsUseCase enclosurePointsUseCase)
+        private void Construct(IEnclosurePointsUseCase enclosurePointsUseCase,
+            IEnclosureObjectUseCase enclosureObjectUseCase)
         {
             _token = this.GetCancellationTokenOnDestroy();
             _enclosurePointsUseCase = enclosurePointsUseCase;
+            _enclosureObjectUseCase = enclosureObjectUseCase;
         }
 
         public void EncloseLine(Action action)
@@ -46,7 +49,10 @@ namespace Kakomi.InGame.Presentation.View
                 {
                     if (other.TryGetComponent(out IEnclosureObject enclosureObject))
                     {
-                        enclosureObject.Enclose();
+                        enclosureObject.Enclose(x =>
+                        {
+                            _enclosureObjectUseCase.ActivateEnclosureObject(other.transform.position, x);
+                        });
                     }
                 })
                 .AddTo(this);

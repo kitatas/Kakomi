@@ -1,7 +1,9 @@
+using System;
+
 namespace Kakomi.InGame.Presentation.View.Interface
 {
     public interface IEnclosureObject
     {
-        void Enclose();
+        void Enclose(Action<int> action);
     }
 }
