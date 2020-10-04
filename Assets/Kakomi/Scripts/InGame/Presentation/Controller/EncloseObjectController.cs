@@ -1,4 +1,5 @@
 using System;
+using Kakomi.InGame.Application;
 using Kakomi.InGame.Domain.UseCase.Interface;
 using UniRx;
 using UniRx.Triggers;
@@ -9,22 +10,22 @@ namespace Kakomi.InGame.Presentation.Controller
 {
     public sealed class EncloseObjectController : MonoBehaviour
     {
-        private IEncloseObjectUseCase _encloseObjectUseCase;
+        private IEnclosureObjectUseCase _enclosureObjectUseCase;
 
         [Inject]
-        private void Construct(IEncloseObjectUseCase encloseObjectUseCase)
+        private void Construct(IEnclosureObjectUseCase enclosureObjectUseCase)
         {
-            _encloseObjectUseCase = encloseObjectUseCase;
+            _enclosureObjectUseCase = enclosureObjectUseCase;
         }
 
         private void Start()
         {
             this.UpdateAsObservable()
-                .ThrottleFirst(TimeSpan.FromSeconds(1f))
+                .ThrottleFirst(TimeSpan.FromSeconds(FieldParameter.INTERVAL * 4))
                 .Subscribe(_ =>
                 {
                     // TODO : 仮のタイミング
-                    _encloseObjectUseCase.Activate();
+                    _enclosureObjectUseCase.Activate();
                 })
                 .AddTo(this);
         }

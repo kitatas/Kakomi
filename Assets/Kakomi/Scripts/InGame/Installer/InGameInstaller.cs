@@ -93,8 +93,8 @@ namespace Kakomi.InGame.Installer
                 .AsCached();
 
             Container
-                .Bind<IEncloseObjectUseCase>()
-                .To<EncloseObjectUseCase>()
+                .Bind<IEnclosureObjectUseCase>()
+                .To<EnclosureObjectUseCase>()
                 .AsCached();
 
             #endregion

@@ -3,15 +3,16 @@ using Kakomi.InGame.Application;
 using Kakomi.InGame.Domain.UseCase.Interface;
 using Kakomi.InGame.Factory;
 using Kakomi.InGame.Factory.Interface;
+using Kakomi.Utility;
 using UnityEngine;
 
 namespace Kakomi.InGame.Domain.UseCase
 {
-    public sealed class EncloseObjectUseCase : IEncloseObjectUseCase
+    public sealed class EnclosureObjectUseCase : IEnclosureObjectUseCase
     {
         private readonly List<IEnclosureObjectFactory> _factories;
 
-        public EncloseObjectUseCase(BombFactory bombFactory, HeartFactory heartFactory, BulletFactory bulletFactory)
+        public EnclosureObjectUseCase(BombFactory bombFactory, HeartFactory heartFactory, BulletFactory bulletFactory)
         {
             _factories = new List<IEnclosureObjectFactory>
             {
@@ -41,8 +42,8 @@ namespace Kakomi.InGame.Domain.UseCase
             for (int i = 0; i < FieldParameter.xPoints.Length; i++)
             {
                 var y = i % 2 == 0
-                    ? FieldParameter.yPoints[0] - 0.5f
-                    : FieldParameter.yPoints[FieldParameter.yPoints.Length - 1] + 0.5f;
+                    ? FieldParameter.yPoints[0] - FieldParameter.INTERVAL
+                    : FieldParameter.yPoints.GetLastParam() + FieldParameter.INTERVAL;
 
                 var position = new Vector2(FieldParameter.xPoints[i], y);
                 var direction = GetDirection(i);
@@ -52,7 +53,7 @@ namespace Kakomi.InGame.Domain.UseCase
 
         private int GetDirection(int index) => index % 2 == 0 ? 1 : -1;
 
-        private void ActivateEnclosureObject(Vector2 position, int direction)
+        public void ActivateEnclosureObject(Vector2 position, int direction)
         {
             int index = Random.Range(0, _factories.Count);
             _factories[index]?.Activate(position, direction);
