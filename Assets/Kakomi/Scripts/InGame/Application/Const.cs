@@ -35,5 +35,6 @@ namespace Kakomi.InGame.Application
         };
 
         public const float INTERVAL = 0.7f;
+        public const float POP_TIME = 0.5f;
     }
 }
