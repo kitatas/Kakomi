@@ -23,6 +23,11 @@ namespace Kakomi.InGame.Domain.UseCase
 
         public IReadOnlyReactiveProperty<int> HpModel() => _hpModel.HpValue;
 
+        public void Recover(int recoverValue)
+        {
+            _hpModel.SetPlayerHp(ClampHpValue(recoverValue));
+        }
+
         public void Damage(int damageValue)
         {
             _hpModel.SetPlayerHp(ClampHpValue(-damageValue));
