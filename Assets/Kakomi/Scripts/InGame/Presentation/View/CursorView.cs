@@ -17,8 +17,8 @@ namespace Kakomi.InGame.Presentation.View
 
         public void Move(Vector2 mousePosition)
         {
-            mousePosition.x = Mathf.Clamp(mousePosition.x, -2.4f, 2.4f);
-            mousePosition.y = Mathf.Clamp(mousePosition.y, -4.2f, 4.2f);
+            mousePosition.x = Mathf.Clamp(mousePosition.x, FieldParameter.MIN_WIDTH, FieldParameter.MAX_WIDTH);
+            mousePosition.y = Mathf.Clamp(mousePosition.y, FieldParameter.MIN_HEIGHT, FieldParameter.MAX_HEIGHT);
 
             transform.position = Vector2.MoveTowards(
                 transform.position,

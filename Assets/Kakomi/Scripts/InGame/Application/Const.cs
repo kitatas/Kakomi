@@ -36,5 +36,10 @@ namespace Kakomi.InGame.Application
 
         public const float INTERVAL = 0.7f;
         public const float POP_TIME = 0.5f;
+
+        public const float MAX_HEIGHT = 2.05f;
+        public const float MIN_HEIGHT = -3.45f;
+        public const float MAX_WIDTH = 2.25f;
+        public const float MIN_WIDTH = -2.25f;
     }
 }
