@@ -64,3 +64,8 @@ crashlytics-build.properties
 # Asset Plugins
 Assets/Plugins
 Assets/Plugins.meta
+Assets/Doozy
+Assets/Doozy.meta
+Assets/Gizmos
+Assets/Gizmos.meta
+
