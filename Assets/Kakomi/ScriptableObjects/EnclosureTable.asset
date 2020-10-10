@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2e9bc281a81417daea3d7aeef0d86e7, type: 3}
   m_Name: EnclosureTable
   m_EditorClassIdentifier: 
-  bombView: {fileID: 2145230763831579965, guid: 60255b3d3d5144a829f26ea7367b4cb8,
+  bombView: {fileID: 488005934560339196, guid: cb2263acc25c546e0b0a8212588c37a0, type: 3}
+  heartView: {fileID: -4758176447079443394, guid: ba458f4f69dea4fba867befd12ca50cf,
     type: 3}
-  heartView: {fileID: 7690086226533058030, guid: 5cb5662dc55494340838f8abacd9d1f1,
-    type: 3}
-  bulletView: {fileID: 6518247129382320615, guid: ed51444a651f640bbb2c1d8ae902ad73,
+  bulletView: {fileID: -6613781585855445850, guid: 753ce686637f5498b89f365cfef5e5a5,
     type: 3}
