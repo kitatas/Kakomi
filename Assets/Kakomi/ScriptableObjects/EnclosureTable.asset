@@ -17,3 +17,5 @@ MonoBehaviour:
     type: 3}
   bulletView: {fileID: -6613781585855445850, guid: 753ce686637f5498b89f365cfef5e5a5,
     type: 3}
+  encloseEffectView: {fileID: 6920715529554864185, guid: 6bd102169018f4f1b98ead7eb884b13b,
+    type: 3}
