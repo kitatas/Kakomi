@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enclosureObjectView: {fileID: 3086126549010188567}
+  coreColor: {r: 0, g: 0, b: 0, a: 1}
   damageValue: 10
 --- !u!1001 &4686779772077655601
 PrefabInstance:
@@ -25,7 +26,7 @@ PrefabInstance:
         type: 3}
       propertyPath: collider2d
       value: 
-      objectReference: {fileID: 3404874427542028312}
+      objectReference: {fileID: 0}
     - target: {fileID: -6070460389401059078, guid: b1e4a778047944198ac7dc6d2e71c11f,
         type: 3}
       propertyPath: coreSprite
@@ -45,26 +46,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnclosureObject
-      objectReference: {fileID: 0}
-    - target: {fileID: 2021324881050024413, guid: b1e4a778047944198ac7dc6d2e71c11f,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2021324881050024413, guid: b1e4a778047944198ac7dc6d2e71c11f,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2021324881050024413, guid: b1e4a778047944198ac7dc6d2e71c11f,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2021324881050024413, guid: b1e4a778047944198ac7dc6d2e71c11f,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0.5019608
       objectReference: {fileID: 0}
     - target: {fileID: 4092699500503693827, guid: b1e4a778047944198ac7dc6d2e71c11f,
         type: 3}
@@ -121,21 +102,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8404886166181573545, guid: b1e4a778047944198ac7dc6d2e71c11f,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404886166181573545, guid: b1e4a778047944198ac7dc6d2e71c11f,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404886166181573545, guid: b1e4a778047944198ac7dc6d2e71c11f,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1e4a778047944198ac7dc6d2e71c11f, type: 3}
 --- !u!1 &4886268595994990939 stripped
@@ -147,12 +113,6 @@ GameObject:
 --- !u!212 &3868291024580523416 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 8404886166181573545, guid: b1e4a778047944198ac7dc6d2e71c11f,
-    type: 3}
-  m_PrefabInstance: {fileID: 4686779772077655601}
-  m_PrefabAsset: {fileID: 0}
---- !u!58 &3404874427542028312 stripped
-CircleCollider2D:
-  m_CorrespondingSourceObject: {fileID: 7947237191100958249, guid: b1e4a778047944198ac7dc6d2e71c11f,
     type: 3}
   m_PrefabInstance: {fileID: 4686779772077655601}
   m_PrefabAsset: {fileID: 0}

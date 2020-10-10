@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enclosureObjectView: {fileID: 3221441739945276118}
+  coreColor: {r: 1, g: 0, b: 1, a: 1}
   recoverValue: 10
 --- !u!1001 &5145937421225344496
 PrefabInstance:
@@ -25,7 +26,7 @@ PrefabInstance:
         type: 3}
       propertyPath: collider2d
       value: 
-      objectReference: {fileID: 2963448610951150553}
+      objectReference: {fileID: 0}
     - target: {fileID: -6070460389401059078, guid: b1e4a778047944198ac7dc6d2e71c11f,
         type: 3}
       propertyPath: coreSprite
@@ -40,16 +41,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnclosureObject Variant Heart
-      objectReference: {fileID: 0}
-    - target: {fileID: 2021324881050024413, guid: b1e4a778047944198ac7dc6d2e71c11f,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2021324881050024413, guid: b1e4a778047944198ac7dc6d2e71c11f,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0.5019608
       objectReference: {fileID: 0}
     - target: {fileID: 6770465429054803803, guid: b1e4a778047944198ac7dc6d2e71c11f,
         type: 3}
@@ -106,16 +97,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8404886166181573545, guid: b1e4a778047944198ac7dc6d2e71c11f,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404886166181573545, guid: b1e4a778047944198ac7dc6d2e71c11f,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1e4a778047944198ac7dc6d2e71c11f, type: 3}
 --- !u!1 &5021303480200454810 stripped
@@ -127,12 +108,6 @@ GameObject:
 --- !u!212 &3732971435545480793 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 8404886166181573545, guid: b1e4a778047944198ac7dc6d2e71c11f,
-    type: 3}
-  m_PrefabInstance: {fileID: 5145937421225344496}
-  m_PrefabAsset: {fileID: 0}
---- !u!58 &2963448610951150553 stripped
-CircleCollider2D:
-  m_CorrespondingSourceObject: {fileID: 7947237191100958249, guid: b1e4a778047944198ac7dc6d2e71c11f,
     type: 3}
   m_PrefabInstance: {fileID: 5145937421225344496}
   m_PrefabAsset: {fileID: 0}
