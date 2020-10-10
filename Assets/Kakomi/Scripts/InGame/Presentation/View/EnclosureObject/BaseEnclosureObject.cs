@@ -12,12 +12,12 @@ namespace Kakomi.InGame.Presentation.View
 {
     public abstract class BaseEnclosureObject : MonoBehaviour, IEnclosureObject
     {
+        [SerializeField] private EnclosureObjectView enclosureObjectView = default;
+
         private readonly float _moveSpeed = 0.25f;
         private bool _isEnclose;
         private int _direction;
 
-        private Collider2D _collider;
-        private SpriteRenderer _spriteRenderer;
         private CancellationToken _token;
         protected IPlayerHpUseCase _playerHpUseCase;
         protected IEnemyHpUseCase _enemyHpUseCase;
@@ -25,8 +25,6 @@ namespace Kakomi.InGame.Presentation.View
         [Inject]
         private void Construct(IPlayerHpUseCase playerHpUseCase, IEnemyHpUseCase enemyHpUseCase)
         {
-            _collider = GetComponent<Collider2D>();
-            _spriteRenderer = GetComponent<SpriteRenderer>();
             _token = this.GetCancellationTokenOnDestroy();
             _playerHpUseCase = playerHpUseCase;
             _enemyHpUseCase = enemyHpUseCase;
@@ -39,7 +37,7 @@ namespace Kakomi.InGame.Presentation.View
             transform.position = initializePosition;
             var moveVector = new Vector3(0, _direction);
 
-            PopAsync().Forget();
+            enclosureObjectView.SpawnAsync(_token).Forget();
 
             UniTask.Void(async _ =>
             {
@@ -50,17 +48,6 @@ namespace Kakomi.InGame.Presentation.View
                 // poolに返却
                 action?.Invoke();
             }, this);
-        }
-
-        private async UniTaskVoid PopAsync()
-        {
-            _collider.enabled = false;
-            _spriteRenderer.color = _spriteRenderer.color.SetAlpha(0.1f);
-
-            await UniTask.Delay(TimeSpan.FromSeconds(FieldParameter.POP_TIME), cancellationToken: _token);
-
-            _collider.enabled = true;
-            _spriteRenderer.color = _spriteRenderer.color.SetAlpha(1.0f);
         }
 
         private UniTask Move(Vector3 moveVector)
