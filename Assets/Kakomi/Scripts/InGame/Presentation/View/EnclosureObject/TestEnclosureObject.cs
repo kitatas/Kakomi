@@ -41,6 +41,8 @@ namespace Kakomi.InGame.Presentation.View
             Destroy(gameObject);
         }
 
+        public Color CoreColor { get; }
+
         public void Enclose(Action<int> action)
         {
             _endurancePoint.Value--;

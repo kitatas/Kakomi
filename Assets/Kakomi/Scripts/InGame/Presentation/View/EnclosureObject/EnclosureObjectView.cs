@@ -12,6 +12,13 @@ namespace Kakomi.InGame.Presentation.View
     {
         [SerializeField] private Collider2D collider2d = default;
         [SerializeField] private SpriteRenderer coreSprite = default;
+        [SerializeField] private SpriteRenderer shadowSprite = default;
+
+        public void Initialize(Color color)
+        {
+            coreSprite.color = color;
+            shadowSprite.color = color.SetAlpha(0.5f);
+        }
 
         public async UniTaskVoid SpawnAsync(CancellationToken token)
         {

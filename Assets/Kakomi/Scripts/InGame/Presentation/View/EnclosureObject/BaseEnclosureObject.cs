@@ -18,6 +18,9 @@ namespace Kakomi.InGame.Presentation.View
         private bool _isEnclose;
         private int _direction;
 
+        [SerializeField] private Color coreColor = default;
+        public Color CoreColor => coreColor;
+
         private CancellationToken _token;
         protected IPlayerHpUseCase _playerHpUseCase;
         protected IEnemyHpUseCase _enemyHpUseCase;
@@ -28,6 +31,8 @@ namespace Kakomi.InGame.Presentation.View
             _token = this.GetCancellationTokenOnDestroy();
             _playerHpUseCase = playerHpUseCase;
             _enemyHpUseCase = enemyHpUseCase;
+
+            enclosureObjectView.Initialize(CoreColor);
         }
 
         public void Init(Vector2 initializePosition, int direction, Action action)
