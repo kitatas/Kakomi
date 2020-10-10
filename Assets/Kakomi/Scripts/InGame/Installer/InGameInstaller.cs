@@ -54,6 +54,10 @@ namespace Kakomi.InGame.Installer
                 .Bind<BulletFactory>()
                 .AsCached();
 
+            Container
+                .Bind<EffectFactory>()
+                .AsCached();
+
             #endregion
 
             #region Model
@@ -138,6 +142,11 @@ namespace Kakomi.InGame.Installer
             Container
                 .BindFactory<BulletView, BulletView.Factory>()
                 .FromComponentInNewPrefab(enclosureTable.BulletView)
+                .AsCached();
+
+            Container
+                .BindFactory<EncloseEffectView, EncloseEffectView.Factory>()
+                .FromComponentInNewPrefab(enclosureTable.EncloseEffectView)
                 .AsCached();
 
             #endregion
