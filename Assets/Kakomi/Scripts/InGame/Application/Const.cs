@@ -41,5 +41,7 @@ namespace Kakomi.InGame.Application
         public const float MIN_HEIGHT = -3.45f;
         public const float MAX_WIDTH = 2.25f;
         public const float MIN_WIDTH = -2.25f;
+
+        public const float HP_ANIMATION_TIME = 0.25f;
     }
 }
