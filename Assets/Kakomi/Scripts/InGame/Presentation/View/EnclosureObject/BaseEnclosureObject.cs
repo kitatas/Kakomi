@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Kakomi.InGame.Application;
-using Kakomi.InGame.Domain.UseCase.Interface;
+using Kakomi.InGame.Factory;
 using Kakomi.InGame.Presentation.View.Interface;
 using Kakomi.Utility;
 using UnityEngine;
@@ -19,20 +19,17 @@ namespace Kakomi.InGame.Presentation.View
         private int _direction;
 
         [SerializeField] private Color coreColor = default;
-        public Color CoreColor => coreColor;
 
         private CancellationToken _token;
-        protected IPlayerHpUseCase _playerHpUseCase;
-        protected IEnemyHpUseCase _enemyHpUseCase;
+        private EffectFactory _effectFactory;
 
         [Inject]
-        private void Construct(IPlayerHpUseCase playerHpUseCase, IEnemyHpUseCase enemyHpUseCase)
+        private void Construct(EffectFactory effectFactory)
         {
             _token = this.GetCancellationTokenOnDestroy();
-            _playerHpUseCase = playerHpUseCase;
-            _enemyHpUseCase = enemyHpUseCase;
+            _effectFactory = effectFactory;
 
-            enclosureObjectView.Initialize(CoreColor);
+            enclosureObjectView.Initialize(coreColor);
         }
 
         public void Init(Vector2 initializePosition, int direction, Action action)
@@ -40,6 +37,7 @@ namespace Kakomi.InGame.Presentation.View
             _isEnclose = false;
             _direction = direction;
             transform.position = initializePosition;
+            _effectFactory.Activate(initializePosition, coreColor);
             var moveVector = new Vector3(0, _direction);
 
             enclosureObjectView.SpawnAsync(_token).Forget();
@@ -73,7 +71,7 @@ namespace Kakomi.InGame.Presentation.View
             }, PlayerLoopTiming.FixedUpdate, _token);
         }
 
-        public virtual void Enclose(Action<int> action)
+        public void Enclose(Action<int> action)
         {
             _isEnclose = true;
 
