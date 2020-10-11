@@ -3,6 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Kakomi.InGame.Application;
 using Kakomi.InGame.Factory;
+using Kakomi.InGame.Presentation.Controller;
 using Kakomi.InGame.Presentation.View.Interface;
 using Kakomi.Utility;
 using UnityEngine;
@@ -21,12 +22,14 @@ namespace Kakomi.InGame.Presentation.View
         [SerializeField] private Color coreColor = default;
 
         private CancellationToken _token;
+        private GameController _gameController;
         private EffectFactory _effectFactory;
 
         [Inject]
-        private void Construct(EffectFactory effectFactory)
+        private void Construct(GameController gameController, EffectFactory effectFactory)
         {
             _token = this.GetCancellationTokenOnDestroy();
+            _gameController = gameController;
             _effectFactory = effectFactory;
 
             enclosureObjectView.Initialize(coreColor);
@@ -57,11 +60,14 @@ namespace Kakomi.InGame.Presentation.View
         {
             return UniTask.WaitWhile(() =>
             {
-                transform.position += moveVector * Time.fixedDeltaTime * _moveSpeed;
-
                 if (_isEnclose)
                 {
                     return false;
+                }
+
+                if (_gameController.IsMoveObject)
+                {
+                    transform.position += moveVector * Time.fixedDeltaTime * _moveSpeed;
                 }
 
                 var y = transform.position.y;

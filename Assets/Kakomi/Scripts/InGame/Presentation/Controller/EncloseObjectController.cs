@@ -10,17 +10,20 @@ namespace Kakomi.InGame.Presentation.Controller
 {
     public sealed class EncloseObjectController : MonoBehaviour
     {
+        private GameController _gameController;
         private IEnclosureObjectUseCase _enclosureObjectUseCase;
 
         [Inject]
-        private void Construct(IEnclosureObjectUseCase enclosureObjectUseCase)
+        private void Construct(GameController gameController, IEnclosureObjectUseCase enclosureObjectUseCase)
         {
+            _gameController = gameController;
             _enclosureObjectUseCase = enclosureObjectUseCase;
         }
 
         private void Start()
         {
             this.UpdateAsObservable()
+                .Where(_ => _gameController.IsMoveObject)
                 .ThrottleFirst(TimeSpan.FromSeconds(FieldParameter.INTERVAL * 4))
                 .Subscribe(_ =>
                 {
