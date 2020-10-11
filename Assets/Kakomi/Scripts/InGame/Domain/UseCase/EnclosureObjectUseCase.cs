@@ -1,3 +1,4 @@
+using Kakomi.InGame.Data.Entity.Interface;
 using Kakomi.InGame.Domain.UseCase.Interface;
 using Kakomi.InGame.Presentation.View;
 using Kakomi.InGame.Presentation.View.Interface;
@@ -6,27 +7,29 @@ namespace Kakomi.InGame.Domain.UseCase
 {
     public sealed class EnclosureObjectUseCase : IEnclosureObjectUseCase
     {
-        public int BulletTotalValue { get; private set; }
-        public int BombTotalValue { get; private set; }
-        public int HeartTotalValue { get; private set; }
+        private readonly IEnclosureObjectValueEntity _enclosureObjectValueEntity;
 
-        public EnclosureObjectUseCase()
+        public EnclosureObjectUseCase(IEnclosureObjectValueEntity enclosureObjectValueEntity)
         {
-            ResetTotalValue();
+            _enclosureObjectValueEntity = enclosureObjectValueEntity;
         }
+
+        public int BulletTotalValue => _enclosureObjectValueEntity.BulletTotalValue;
+        public int BombTotalValue => _enclosureObjectValueEntity.BombTotalValue;
+        public int HeartTotalValue => _enclosureObjectValueEntity.HeartTotalValue;
 
         public void CalculateTotalValue(IEnclosureObject enclosureObject)
         {
             switch (enclosureObject)
             {
                 case BulletView bullet:
-                    BulletTotalValue += bullet.AttackValue;
+                    _enclosureObjectValueEntity.AddAttackValue(bullet.AttackValue);
                     break;
                 case BombView bomb:
-                    BombTotalValue += bomb.DamageValue;
+                    _enclosureObjectValueEntity.AddDamageValue(bomb.DamageValue);
                     break;
                 case HeartView heart:
-                    HeartTotalValue += heart.RecoverValue;
+                    _enclosureObjectValueEntity.AddRecoverValue(heart.RecoverValue);
                     break;
                 default:
                     UnityEngine.Debug.LogWarning("not set enclosureObject.");
@@ -40,9 +43,7 @@ namespace Kakomi.InGame.Domain.UseCase
 
         public void ResetTotalValue()
         {
-            BulletTotalValue = 0;
-            BombTotalValue = 0;
-            HeartTotalValue = 0;
+            _enclosureObjectValueEntity.ResetAllValue();
         }
     }
 }

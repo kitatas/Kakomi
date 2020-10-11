@@ -30,6 +30,11 @@ namespace Kakomi.InGame.Installer
                 .To<EnclosurePointsEntity>()
                 .AsCached();
 
+            Container
+                .Bind<IEnclosureObjectValueEntity>()
+                .To<EnclosureObjectValueEntity>()
+                .AsCached();
+
             #endregion
 
             #region Factory
