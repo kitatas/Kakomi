@@ -11,13 +11,13 @@ namespace Kakomi.InGame.Presentation.Controller
     public sealed class EncloseObjectController : MonoBehaviour
     {
         private GameController _gameController;
-        private IEnclosureObjectUseCase _enclosureObjectUseCase;
+        private IEnclosureFactoryUseCase _enclosureFactoryUseCase;
 
         [Inject]
-        private void Construct(GameController gameController, IEnclosureObjectUseCase enclosureObjectUseCase)
+        private void Construct(GameController gameController, IEnclosureFactoryUseCase enclosureFactoryUseCase)
         {
             _gameController = gameController;
-            _enclosureObjectUseCase = enclosureObjectUseCase;
+            _enclosureFactoryUseCase = enclosureFactoryUseCase;
         }
 
         private void Start()
@@ -28,7 +28,7 @@ namespace Kakomi.InGame.Presentation.Controller
                 .Subscribe(_ =>
                 {
                     // TODO : 仮のタイミング
-                    _enclosureObjectUseCase.Activate();
+                    _enclosureFactoryUseCase.Activate();
                 })
                 .AddTo(this);
         }

@@ -1,62 +1,48 @@
-using System.Collections.Generic;
-using Kakomi.InGame.Application;
 using Kakomi.InGame.Domain.UseCase.Interface;
-using Kakomi.InGame.Factory;
-using Kakomi.InGame.Factory.Interface;
-using Kakomi.Utility;
-using UnityEngine;
+using Kakomi.InGame.Presentation.View;
+using Kakomi.InGame.Presentation.View.Interface;
 
 namespace Kakomi.InGame.Domain.UseCase
 {
     public sealed class EnclosureObjectUseCase : IEnclosureObjectUseCase
     {
-        private readonly List<IEnclosureObjectFactory> _factories;
+        public int BulletTotalValue { get; private set; }
+        public int BombTotalValue { get; private set; }
+        public int HeartTotalValue { get; private set; }
 
-        public EnclosureObjectUseCase(BombFactory bombFactory, HeartFactory heartFactory, BulletFactory bulletFactory)
+        public EnclosureObjectUseCase()
         {
-            _factories = new List<IEnclosureObjectFactory>
-            {
-                bombFactory,
-                heartFactory,
-                bulletFactory,
-            };
-
-            Initialize();
+            ResetTotalValue();
         }
 
-        private void Initialize()
+        public void CalculateTotalValue(IEnclosureObject enclosureObject)
         {
-            for (int i = 0; i < FieldParameter.xPoints.Length; i++)
+            switch (enclosureObject)
             {
-                for (int j = 0; j < FieldParameter.yPoints.Length; j++)
-                {
-                    var position = new Vector2(FieldParameter.xPoints[i], FieldParameter.yPoints[j]);
-                    var direction = GetDirection(i);
-                    ActivateEnclosureObject(position, direction);
-                }
+                case BulletView bullet:
+                    BulletTotalValue += bullet.AttackValue;
+                    break;
+                case BombView bomb:
+                    BombTotalValue += bomb.DamageValue;
+                    break;
+                case HeartView heart:
+                    HeartTotalValue += heart.RecoverValue;
+                    break;
+                default:
+                    UnityEngine.Debug.LogWarning("not set enclosureObject.");
+                    break;
             }
         }
 
-        public void Activate()
+        public int GetRecoverValue() => HeartTotalValue - BombTotalValue;
+
+        public int GetDamageValue() => BombTotalValue - HeartTotalValue;
+
+        public void ResetTotalValue()
         {
-            for (int i = 0; i < FieldParameter.xPoints.Length; i++)
-            {
-                var y = i % 2 == 0
-                    ? FieldParameter.yPoints[0] - FieldParameter.INTERVAL
-                    : FieldParameter.yPoints.GetLastParam() + FieldParameter.INTERVAL;
-
-                var position = new Vector2(FieldParameter.xPoints[i], y);
-                var direction = GetDirection(i);
-                ActivateEnclosureObject(position, direction);
-            }
-        }
-
-        private int GetDirection(int index) => index % 2 == 0 ? 1 : -1;
-
-        public void ActivateEnclosureObject(Vector2 position, int direction)
-        {
-            int index = Random.Range(0, _factories.Count);
-            _factories[index]?.Activate(position, direction);
+            BulletTotalValue = 0;
+            BombTotalValue = 0;
+            HeartTotalValue = 0;
         }
     }
 }

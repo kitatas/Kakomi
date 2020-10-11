@@ -97,6 +97,11 @@ namespace Kakomi.InGame.Installer
                 .AsCached();
 
             Container
+                .Bind<IEnclosureFactoryUseCase>()
+                .To<EnclosureFactoryUseCase>()
+                .AsCached();
+
+            Container
                 .Bind<IEnclosureObjectUseCase>()
                 .To<EnclosureObjectUseCase>()
                 .AsCached();

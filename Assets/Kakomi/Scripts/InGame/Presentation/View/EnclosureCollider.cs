@@ -16,25 +16,24 @@ namespace Kakomi.InGame.Presentation.View
     {
         [SerializeField] private PolygonCollider2D polygonCollider = default;
 
-        private int _bulletTotalValue = 0;
-        private int _bombTotalValue = 0;
-        private int _heartTotalValue = 0;
-
         private CancellationToken _token;
         private IPlayerHpUseCase _playerHpUseCase;
         private IEnemyHpUseCase _enemyHpUseCase;
         private IEnclosurePointsUseCase _enclosurePointsUseCase;
         private IEnclosureObjectUseCase _enclosureObjectUseCase;
+        private IEnclosureFactoryUseCase _enclosureFactoryUseCase;
 
         [Inject]
         private void Construct(IPlayerHpUseCase playerHpUseCase, IEnemyHpUseCase enemyHpUseCase,
-            IEnclosurePointsUseCase enclosurePointsUseCase, IEnclosureObjectUseCase enclosureObjectUseCase)
+            IEnclosurePointsUseCase enclosurePointsUseCase, IEnclosureObjectUseCase enclosureObjectUseCase,
+            IEnclosureFactoryUseCase enclosureFactoryUseCase)
         {
             _token = this.GetCancellationTokenOnDestroy();
             _playerHpUseCase = playerHpUseCase;
             _enemyHpUseCase = enemyHpUseCase;
             _enclosurePointsUseCase = enclosurePointsUseCase;
             _enclosureObjectUseCase = enclosureObjectUseCase;
+            _enclosureFactoryUseCase = enclosureFactoryUseCase;
         }
 
         public void EncloseLine(Action action)
@@ -46,7 +45,6 @@ namespace Kakomi.InGame.Presentation.View
                 await UniTask.Delay(TimeSpan.FromSeconds(DrawParameter.ENCLOSURE_TIME), cancellationToken: _token);
 
                 ExecuteEncloseAction();
-                ResetTotalValue();
 
                 // poolに返却
                 action?.Invoke();
@@ -60,57 +58,31 @@ namespace Kakomi.InGame.Presentation.View
                 {
                     if (other.TryGetComponent(out IEnclosureObject enclosureObject))
                     {
-                        CalculateTotalValue(enclosureObject);
+                        _enclosureObjectUseCase.CalculateTotalValue(enclosureObject);
                         var position = other.transform.position;
                         enclosureObject.Enclose(x =>
                         {
-                            _enclosureObjectUseCase.ActivateEnclosureObject(position, x);
+                            _enclosureFactoryUseCase.ActivateEnclosureObject(position, x);
                         });
                     }
                 })
                 .AddTo(this);
         }
 
-        private void CalculateTotalValue(IEnclosureObject enclosureObject)
-        {
-            switch (enclosureObject)
-            {
-                case BulletView bullet:
-                    _bulletTotalValue += bullet.AttackValue;
-                    break;
-                case BombView bomb:
-                    _bombTotalValue += bomb.DamageValue;
-                    break;
-                case HeartView heart:
-                    _heartTotalValue += heart.RecoverValue;
-                    break;
-                default:
-                    UnityEngine.Debug.LogWarning("not set enclosureObject.");
-                    break;
-            }
-        }
-
         private void ExecuteEncloseAction()
         {
-            _enemyHpUseCase.Damage(_bulletTotalValue);
+            _enemyHpUseCase.Damage(_enclosureObjectUseCase.BulletTotalValue);
 
-            if (_heartTotalValue > _bombTotalValue)
+            if (_enclosureObjectUseCase.GetRecoverValue() > 0)
             {
-                var updateValue = _heartTotalValue - _bombTotalValue;
-                _playerHpUseCase.Recover(updateValue);
+                _playerHpUseCase.Recover(_enclosureObjectUseCase.GetRecoverValue());
             }
-            else if (_heartTotalValue < _bombTotalValue)
+            else if (_enclosureObjectUseCase.GetDamageValue() > 0)
             {
-                var updateValue = _bombTotalValue - _heartTotalValue;
-                _playerHpUseCase.Damage(updateValue);
+                _playerHpUseCase.Damage(_enclosureObjectUseCase.GetDamageValue());
             }
-        }
 
-        private void ResetTotalValue()
-        {
-            _bulletTotalValue = 0;
-            _bombTotalValue = 0;
-            _heartTotalValue = 0;
+            _enclosureObjectUseCase.ResetTotalValue();
         }
 
         public class Factory : PlaceholderFactory<EnclosureCollider>

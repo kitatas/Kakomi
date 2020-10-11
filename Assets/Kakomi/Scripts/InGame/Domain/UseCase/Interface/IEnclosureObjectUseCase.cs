@@ -1,10 +1,15 @@
-using UnityEngine;
+using Kakomi.InGame.Presentation.View.Interface;
 
 namespace Kakomi.InGame.Domain.UseCase.Interface
 {
     public interface IEnclosureObjectUseCase
     {
-        void Activate();
-        void ActivateEnclosureObject(Vector2 position, int direction);
+        int BulletTotalValue { get; }
+        int BombTotalValue { get; }
+        int HeartTotalValue { get; }
+        void CalculateTotalValue(IEnclosureObject enclosureObject);
+        int GetRecoverValue();
+        int GetDamageValue();
+        void ResetTotalValue();
     }
 }
