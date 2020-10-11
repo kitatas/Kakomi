@@ -14,7 +14,7 @@ namespace Kakomi.InGame.Presentation.View
     {
         [SerializeField] private LineRenderer lineRenderer = default;
 
-        public bool IsEnclose { get; private set; }
+        private bool _isEnclose;
 
         private CancellationToken _token;
         private ILineUseCase _lineUseCase;
@@ -31,7 +31,7 @@ namespace Kakomi.InGame.Presentation.View
 
         public void DrawLine(Action action)
         {
-            IsEnclose = false;
+            _isEnclose = false;
             _lineUseCase.DrawLine(points =>
             {
                 var (startPoint, endPoint) = points;
@@ -42,7 +42,7 @@ namespace Kakomi.InGame.Presentation.View
                 {
                     await UniTask.WhenAny(
                         UniTask.Delay(TimeSpan.FromSeconds(DrawParameter.DELETE_TIME), cancellationToken: _token),
-                        UniTask.WaitUntil(() => IsEnclose, cancellationToken: _token));
+                        UniTask.WaitUntil(() => _isEnclose, cancellationToken: _token));
 
                     _lineUseCase.DeleteLinePoint(startPoint);
 
@@ -54,7 +54,7 @@ namespace Kakomi.InGame.Presentation.View
 
         public void SetEnclose()
         {
-            IsEnclose = true;
+            _isEnclose = true;
         }
 
         public class Factory : PlaceholderFactory<LineView>

@@ -40,7 +40,6 @@ namespace Kakomi.InGame.Presentation.View
             _isEnclose = false;
             _direction = direction;
             transform.position = initializePosition;
-            _effectFactory.Activate(initializePosition, coreColor);
             var moveVector = new Vector3(0, _direction);
 
             enclosureObjectView.SpawnAsync(_token).Forget();
@@ -77,9 +76,10 @@ namespace Kakomi.InGame.Presentation.View
             }, PlayerLoopTiming.FixedUpdate, _token);
         }
 
-        public void Enclose(Action<int> action)
+        public virtual void Enclose(Action<int> action)
         {
             _isEnclose = true;
+            _effectFactory.Activate(transform.position, coreColor);
 
             // 再生成
             action?.Invoke(_direction);

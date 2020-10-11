@@ -4,7 +4,7 @@ namespace Kakomi.InGame.Domain.UseCase.Interface
 {
     public interface IInputUseCase
     {
-        bool InputMouseButton();
+        bool IsInputScreen();
         Vector2 GetInputPosition();
     }
 }

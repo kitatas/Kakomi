@@ -12,7 +12,7 @@ namespace Kakomi.InGame.Domain.UseCase
             _camera = camera;
         }
 
-        public bool InputMouseButton() => Input.GetMouseButton(0);
+        public bool IsInputScreen() => Input.GetMouseButton(0);
 
         public Vector2 GetInputPosition()
         {

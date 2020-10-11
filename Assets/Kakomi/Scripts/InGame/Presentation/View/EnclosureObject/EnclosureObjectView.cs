@@ -29,12 +29,8 @@ namespace Kakomi.InGame.Presentation.View
             await UniTask.Delay(TimeSpan.FromSeconds(FieldParameter.SPAWN_TIME), cancellationToken: token);
 
             await (
-                DOTween
-                    .ToAlpha(
-                        () => coreSprite.color,
-                        alpha => coreSprite.color = alpha,
-                        1f,
-                        FieldParameter.SPAWN_TIME)
+                coreSprite
+                    .DOColor(coreSprite.color.SetAlpha(1f), FieldParameter.SPAWN_TIME)
                     .WithCancellation(token),
                 transform
                     .DOScale(Vector2.one * 2f, FieldParameter.SPAWN_TIME)

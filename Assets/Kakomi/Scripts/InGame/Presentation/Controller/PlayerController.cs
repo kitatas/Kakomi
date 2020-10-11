@@ -22,7 +22,7 @@ namespace Kakomi.InGame.Presentation.Controller
         private void Start()
         {
             this.UpdateAsObservable()
-                .Where(_ => _inputUseCase.InputMouseButton())
+                .Where(_ => _inputUseCase.IsInputScreen())
                 .Subscribe(_ =>
                 {
                     // カーソル移動
