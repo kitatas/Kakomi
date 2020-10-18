@@ -23,8 +23,8 @@ namespace Kakomi.InGame.Presentation.Controller
         private void Start()
         {
             this.UpdateAsObservable()
-                .Where(_ => _gameController.IsMoveObject)
                 .ThrottleFirst(TimeSpan.FromSeconds(FieldParameter.INTERVAL * 4))
+                .Where(_ => _gameController.IsMoveObject)
                 .Subscribe(_ =>
                 {
                     // TODO : 仮のタイミング

@@ -59,14 +59,10 @@ namespace Kakomi.InGame.Domain.UseCase
 
             if (IsCrossLine())
             {
-                // 囲むまでに追加された座標リストを削除
-                _cursorPointsEntity.ClearCursorPoints();
-
                 // 囲み判定用のコライダー生成
                 _enclosureFactory.GenerateEnclosureCollider();
 
-                // 囲みに使用した線の削除
-                _lineFactory.ClearLineViews();
+                ClearLine();
             }
         }
 
@@ -110,6 +106,15 @@ namespace Kakomi.InGame.Domain.UseCase
             {
                 _enclosurePointsEntity.AddEnclosurePoint(_cursorPointsEntity.GetCursorPoint(i));
             }
+        }
+        
+        public void ClearLine()
+        {
+            // 囲むまでに追加された座標リストを削除
+            _cursorPointsEntity.ClearCursorPoints();
+
+            // 囲みに使用した線の削除
+            _lineFactory.ClearLineViews();
         }
     }
 }

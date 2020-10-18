@@ -39,5 +39,7 @@ namespace Kakomi.InGame.Domain.UseCase
             _hpEntity.SetHpValue(hpValue);
             return _hpEntity.GetHpValue();
         }
+
+        public bool IsAlive() => _hpEntity.GetHpValue() > 0;
     }
 }

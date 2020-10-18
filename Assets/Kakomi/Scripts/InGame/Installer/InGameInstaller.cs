@@ -1,6 +1,9 @@
+using Kakomi.InGame.Application;
 using Kakomi.InGame.Data.DataStore;
 using Kakomi.InGame.Data.Entity;
 using Kakomi.InGame.Data.Entity.Interface;
+using Kakomi.InGame.Domain.Model;
+using Kakomi.InGame.Domain.Model.Interface;
 using Kakomi.InGame.Domain.UseCase;
 using Kakomi.InGame.Domain.UseCase.Interface;
 using Kakomi.InGame.Factory;
@@ -15,6 +18,8 @@ namespace Kakomi.InGame.Installer
     {
         [SerializeField] private LineTable lineTable = default;
         [SerializeField] private EnclosureTable enclosureTable = default;
+
+        private readonly GameState _startState = GameState.Ready;
 
         public override void InstallBindings()
         {
@@ -34,6 +39,13 @@ namespace Kakomi.InGame.Installer
                 .Bind<IEnclosureObjectValueEntity>()
                 .To<EnclosureObjectValueEntity>()
                 .AsCached();
+
+
+            Container
+                .Bind<IGameStateEntity>()
+                .To<GameStateEntity>()
+                .AsCached()
+                .WithArguments(_startState);
 
             #endregion
 
@@ -66,6 +78,12 @@ namespace Kakomi.InGame.Installer
             #endregion
 
             #region Model
+
+            Container
+                .Bind<IGameStateModel>()
+                .To<GameStateModel>()
+                .AsCached()
+                .WithArguments(_startState);
 
             #endregion
 
@@ -109,6 +127,11 @@ namespace Kakomi.InGame.Installer
             Container
                 .Bind<IEnclosureObjectUseCase>()
                 .To<EnclosureObjectUseCase>()
+                .AsCached();
+
+            Container
+                .Bind<IGameStateUseCase>()
+                .To<GameStateUseCase>()
                 .AsCached();
 
             #endregion

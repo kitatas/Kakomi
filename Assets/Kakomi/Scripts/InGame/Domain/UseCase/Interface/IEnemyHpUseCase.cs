@@ -8,5 +8,6 @@ namespace Kakomi.InGame.Domain.UseCase.Interface
         IReadOnlyReactiveProperty<int> HpModel();
         void Recover(int recoverValue);
         void Damage(int damageValue);
+        bool IsAlive();
     }
 }
