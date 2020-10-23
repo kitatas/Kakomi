@@ -21,4 +21,12 @@ namespace Kakomi.InGame.Application
         Player,
         Enemy,
     }
+
+    public enum EnclosureObjectType
+    {
+        None,
+        Bullet,
+        Bomb,
+        Heart,
+    }
 }

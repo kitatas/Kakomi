@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Kakomi.InGame.Application;
 using Kakomi.InGame.Presentation.View.Interface;
 using TMPro;
 using UniRx;
@@ -13,6 +14,9 @@ namespace Kakomi.InGame.Presentation.View
         [SerializeField] private TextMeshProUGUI endurancePointText = default;
         [SerializeField] private int endurancePoint = 0;
         private ReactiveProperty<int> _endurancePoint;
+
+        public int EffectValue => 0;
+        public EnclosureObjectType EnclosureObjectType => EnclosureObjectType.None;
 
         private void Start()
         {
