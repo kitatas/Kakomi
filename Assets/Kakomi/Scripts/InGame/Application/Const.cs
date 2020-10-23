@@ -31,7 +31,7 @@ namespace Kakomi.InGame.Application
 
         public static readonly float[] yPoints =
         {
-            -3.2f, -2.5f, -1.8f, -1.1f, -0.4f, 0.3f, 1.0f, 1.7f
+            -3.9f, -3.2f, -2.5f, -1.8f, -1.1f, -0.4f, 0.3f, 1.0f, 1.7f, 2.4f,
         };
 
         public const float INTERVAL = 0.7f;
