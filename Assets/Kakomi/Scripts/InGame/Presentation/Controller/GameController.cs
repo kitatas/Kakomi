@@ -19,14 +19,15 @@ namespace Kakomi.InGame.Presentation.Controller
 
         private IGameStateUseCase _gameStateUseCase;
         private ICursorPointsUseCase _cursorPointsUseCase;
-        private IPlayerHpUseCase _playerHpUseCase;
-        private IEnemyHpUseCase _enemyHpUseCase;
+        private IHpUseCase _playerHpUseCase;
+        private IHpUseCase _enemyHpUseCase;
         private TurnCountView _turnCountView;
         private FinishView _finishView;
 
         [Inject]
         private void Construct(IGameStateUseCase gameStateUseCase, ICursorPointsUseCase cursorPointsUseCase,
-            IPlayerHpUseCase playerHpUseCase, IEnemyHpUseCase enemyHpUseCase,
+            [Inject(Id = IdType.Player)] IHpUseCase playerHpUseCase,
+            [Inject(Id = IdType.Enemy)] IHpUseCase enemyHpUseCase,
             TurnCountView turnCountView, FinishView finishView)
         {
             _token = this.GetCancellationTokenOnDestroy();

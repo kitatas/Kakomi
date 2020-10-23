@@ -9,11 +9,13 @@ namespace Kakomi.Debug.InGame
 {
     public sealed class ResetHpButton : UIBehaviour
     {
-        private IPlayerHpUseCase _playerHpUseCase;
-        private IEnemyHpUseCase _enemyHpUseCase;
+        private IHpUseCase _playerHpUseCase;
+        private IHpUseCase _enemyHpUseCase;
 
         [Inject]
-        private void Construct(IPlayerHpUseCase playerHpUseCase, IEnemyHpUseCase enemyHpUseCase)
+        private void Construct(
+            [Inject(Id = IdType.Player)] IHpUseCase playerHpUseCase,
+            [Inject(Id = IdType.Enemy)] IHpUseCase enemyHpUseCase)
         {
             _playerHpUseCase = playerHpUseCase;
             _enemyHpUseCase = enemyHpUseCase;

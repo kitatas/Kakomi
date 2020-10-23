@@ -17,16 +17,17 @@ namespace Kakomi.InGame.Presentation.View
         [SerializeField] private PolygonCollider2D polygonCollider = default;
 
         private CancellationToken _token;
-        private IPlayerHpUseCase _playerHpUseCase;
-        private IEnemyHpUseCase _enemyHpUseCase;
+        private IEnclosureFactoryUseCase _enclosureFactoryUseCase;
         private IEnclosurePointsUseCase _enclosurePointsUseCase;
         private IEnclosureObjectUseCase _enclosureObjectUseCase;
-        private IEnclosureFactoryUseCase _enclosureFactoryUseCase;
+        private IHpUseCase _playerHpUseCase;
+        private IHpUseCase _enemyHpUseCase;
 
         [Inject]
-        private void Construct(IPlayerHpUseCase playerHpUseCase, IEnemyHpUseCase enemyHpUseCase,
+        private void Construct(IEnclosureFactoryUseCase enclosureFactoryUseCase,
             IEnclosurePointsUseCase enclosurePointsUseCase, IEnclosureObjectUseCase enclosureObjectUseCase,
-            IEnclosureFactoryUseCase enclosureFactoryUseCase)
+            [Inject(Id = IdType.Player)] IHpUseCase playerHpUseCase,
+            [Inject(Id = IdType.Enemy)] IHpUseCase enemyHpUseCase)
         {
             _token = this.GetCancellationTokenOnDestroy();
             _playerHpUseCase = playerHpUseCase;

@@ -1,6 +1,4 @@
-using Kakomi.InGame.Data.Entity;
 using Kakomi.InGame.Data.Entity.Interface;
-using Kakomi.InGame.Domain.Model;
 using Kakomi.InGame.Domain.Model.Interface;
 using Kakomi.InGame.Domain.UseCase.Interface;
 using UniRx;
@@ -8,17 +6,19 @@ using UnityEngine;
 
 namespace Kakomi.InGame.Domain.UseCase
 {
-    public sealed class EnemyHpUseCase : IEnemyHpUseCase
+    public sealed class HpUseCase : IHpUseCase
     {
-        private int _maxHpValue;
-        private IHpEntity _hpEntity;
-        private IHpModel _hpModel;
+        private readonly int _maxHpValue;
 
-        public void Initialize(int maxHpValue)
+        private readonly IHpEntity _hpEntity;
+        private readonly IHpModel _hpModel;
+
+        public HpUseCase(IHpEntity hpEntity, IHpModel hpModel)
         {
-            _maxHpValue = maxHpValue;
-            _hpEntity = new HpEntity(_maxHpValue);
-            _hpModel = new HpModel(_maxHpValue);
+            _hpEntity = hpEntity;
+            _hpModel = hpModel;
+
+            _maxHpValue = _hpEntity.GetHpValue();
         }
 
         public IReadOnlyReactiveProperty<int> HpModel() => _hpModel.HpValue;

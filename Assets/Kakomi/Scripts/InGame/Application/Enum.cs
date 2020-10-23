@@ -15,4 +15,10 @@ namespace Kakomi.InGame.Application
         Clear,
         Failed,
     }
+
+    public enum IdType
+    {
+        Player,
+        Enemy,
+    }
 }

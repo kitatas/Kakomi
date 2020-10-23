@@ -110,14 +110,18 @@ namespace Kakomi.InGame.Installer
                 .AsCached();
 
             Container
-                .Bind<IPlayerHpUseCase>()
-                .To<PlayerHpUseCase>()
-                .AsCached();
+                .Bind<IHpUseCase>()
+                .WithId(IdType.Player)
+                .To<HpUseCase>()
+                .AsCached()
+                .WithArguments(new HpEntity(PlayerStatus.MAX_HP), new HpModel(PlayerStatus.MAX_HP));
 
             Container
-                .Bind<IEnemyHpUseCase>()
-                .To<EnemyHpUseCase>()
-                .AsCached();
+                .Bind<IHpUseCase>()
+                .WithId(IdType.Enemy)
+                .To<HpUseCase>()
+                .AsCached()
+                .WithArguments(new HpEntity(EnemyStatus.MAX_HP), new HpModel(EnemyStatus.MAX_HP));
 
             Container
                 .Bind<IEnclosureFactoryUseCase>()
