@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enclosureObjectView: {fileID: 266020746906189920}
   coreColor: {r: 0, g: 1, b: 1, a: 1}
-  attackValue: 10
+  attackValue: 5
 --- !u!1001 &7525460643998142278
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55,7 +55,7 @@ PrefabInstance:
     - target: {fileID: 6770465429054803803, guid: b1e4a778047944198ac7dc6d2e71c11f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6770465429054803803, guid: b1e4a778047944198ac7dc6d2e71c11f,
         type: 3}
@@ -96,6 +96,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8404886166181573545, guid: b1e4a778047944198ac7dc6d2e71c11f,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e39a8259f29824dbca2a596e39a8c9df,
+        type: 3}
+    - target: {fileID: 8404886166181573545, guid: b1e4a778047944198ac7dc6d2e71c11f,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1e4a778047944198ac7dc6d2e71c11f, type: 3}
