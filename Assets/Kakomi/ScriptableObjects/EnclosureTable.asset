@@ -19,5 +19,7 @@ MonoBehaviour:
     type: 3}
   encloseEffectView: {fileID: 6920715529554864185, guid: 6bd102169018f4f1b98ead7eb884b13b,
     type: 3}
+  attackEffectView: {fileID: 4839054856579923251, guid: 94fed08e3412a43229efb719d34b9e7e,
+    type: 3}
   stockObject: {fileID: 4506969989848010243, guid: c963aeb5bb6c848f2a421d470ae3e1a3,
     type: 3}
