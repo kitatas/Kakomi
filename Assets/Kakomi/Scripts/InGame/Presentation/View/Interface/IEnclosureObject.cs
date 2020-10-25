@@ -5,7 +5,8 @@ namespace Kakomi.InGame.Presentation.View.Interface
 {
     public interface IEnclosureObject
     {
-        EnclosureObjectData EnclosureObjectData { get; }
+        int EffectValue { get; }
+        EnclosureObjectType EnclosureObjectType { get; }
         void Enclose(Action<int> action);
     }
 }

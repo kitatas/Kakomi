@@ -52,7 +52,9 @@ namespace Kakomi.InGame.Presentation.View
                     if (other.TryGetComponent(out IEnclosureObject enclosureObject))
                     {
                         var otherTransform = other.transform;
-                        _enclosureObjectUseCase.StockEnclosureObjectData(enclosureObject, otherTransform.localPosition);
+                        _enclosureObjectUseCase
+                            .StockEnclosureObjectDataAsync(enclosureObject, otherTransform.localPosition)
+                            .Forget();
 
                         enclosureObject.Enclose(x =>
                         {
