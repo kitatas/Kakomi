@@ -13,7 +13,7 @@ namespace Kakomi.InGame.Presentation.View
 
         private readonly float _animationTime = 0.5f;
 
-        public async UniTask AttackPlayer(CancellationToken token, Action action)
+        public async UniTask AttackPlayerAsync(CancellationToken token, Action action)
         {
             await DOTween.Sequence()
                 .Append(enemyImage.rectTransform

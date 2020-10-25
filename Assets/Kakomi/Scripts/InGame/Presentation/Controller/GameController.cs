@@ -3,7 +3,6 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Kakomi.InGame.Application;
 using Kakomi.InGame.Domain.UseCase.Interface;
-using Kakomi.InGame.Factory;
 using Kakomi.InGame.Presentation.View;
 using UniRx;
 using UnityEngine;
@@ -13,8 +12,10 @@ namespace Kakomi.InGame.Presentation.Controller
 {
     public sealed class GameController : MonoBehaviour
     {
-        [SerializeField] private bool isMoveObject = default;
-        public bool IsMoveObject => isMoveObject;
+        [SerializeField] private GameStateView gameStateView = default;
+
+        private bool _isMoveObject;
+        public bool IsMoveObject => _isMoveObject;
 
         private CancellationToken _token;
 
@@ -23,17 +24,12 @@ namespace Kakomi.InGame.Presentation.Controller
         private IEnclosureObjectUseCase _enclosureObjectUseCase;
         private IHpUseCase _playerHpUseCase;
         private IHpUseCase _enemyHpUseCase;
-        private StockFactory _stockFactory;
-        private TurnCountView _turnCountView;
-        private FinishView _finishView;
-        private EnemyView _enemyView;
 
         [Inject]
         private void Construct(IGameStateUseCase gameStateUseCase, ICursorPointsUseCase cursorPointsUseCase,
             IEnclosureObjectUseCase enclosureObjectUseCase,
             [Inject(Id = IdType.Player)] IHpUseCase playerHpUseCase,
-            [Inject(Id = IdType.Enemy)] IHpUseCase enemyHpUseCase,
-            StockFactory stockFactory, TurnCountView turnCountView, FinishView finishView, EnemyView enemyView)
+            [Inject(Id = IdType.Enemy)] IHpUseCase enemyHpUseCase)
         {
             _token = this.GetCancellationTokenOnDestroy();
             _gameStateUseCase = gameStateUseCase;
@@ -41,17 +37,13 @@ namespace Kakomi.InGame.Presentation.Controller
             _enclosureObjectUseCase = enclosureObjectUseCase;
             _playerHpUseCase = playerHpUseCase;
             _enemyHpUseCase = enemyHpUseCase;
-            _stockFactory = stockFactory;
-            _turnCountView = turnCountView;
-            _finishView = finishView;
-            _enemyView = enemyView;
 
-            _finishView.Initialize();
+            gameStateView.Initialize();
         }
 
         private void Start()
         {
-            isMoveObject = false;
+            _isMoveObject = false;
 
             _gameStateUseCase.GameState()
                 .Subscribe(state =>
@@ -87,7 +79,7 @@ namespace Kakomi.InGame.Presentation.Controller
                     break;
                 case GameState.Clear:
                 case GameState.Failed:
-                    _finishView.SetFinish(state);
+                    gameStateView.SetFinish(state);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(state), state, null);
@@ -96,9 +88,9 @@ namespace Kakomi.InGame.Presentation.Controller
 
         private async UniTaskVoid DoReadyAsync()
         {
-            await _turnCountView.TweenTurnTextAsync(_token);
+            await gameStateView.TweenTurnTextAsync(_token);
 
-            isMoveObject = true;
+            _isMoveObject = true;
             _gameStateUseCase.SetGameState(GameState.Draw);
         }
 
@@ -106,7 +98,7 @@ namespace Kakomi.InGame.Presentation.Controller
         {
             await UniTask.Delay(TimeSpan.FromSeconds(10f), cancellationToken: _token);
 
-            isMoveObject = false;
+            _isMoveObject = false;
             _cursorPointsUseCase.ClearLine();
             _gameStateUseCase.SetGameState(GameState.Attack);
         }
@@ -153,8 +145,7 @@ namespace Kakomi.InGame.Presentation.Controller
 
         private async UniTaskVoid DoDamageAsync()
         {
-            // TODO : 敵の攻撃処理
-            await _enemyView.AttackPlayer(_token, () => _playerHpUseCase.Damage(EnemyStatus.ATTACK));
+            await gameStateView.AttackPlayerAsync(_token, () => _playerHpUseCase.Damage(EnemyStatus.ATTACK));
 
             await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: _token);
 
