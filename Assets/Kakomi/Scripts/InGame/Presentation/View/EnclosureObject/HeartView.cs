@@ -7,9 +7,9 @@ namespace Kakomi.InGame.Presentation.View
     public sealed class HeartView : BaseEnclosureObject
     {
         [SerializeField] private int recoverValue = 0;
-        public override int EffectValue => recoverValue;
 
-        public override EnclosureObjectType EnclosureObjectType => EnclosureObjectType.Heart;
+        public override EnclosureObjectData EnclosureObjectData =>
+            new EnclosureObjectData(EnclosureObjectType.Heart, recoverValue);
 
         public class Factory : PlaceholderFactory<HeartView>
         {

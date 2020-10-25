@@ -17,7 +17,11 @@ namespace Kakomi.InGame.Installer
     public sealed class InGameInstaller : MonoInstaller
     {
         [SerializeField] private LineTable lineTable = default;
-        [SerializeField] private EnclosureTable enclosureTable = default;
+        [SerializeField] private EnclosureObjectTable enclosureObjectTable = default;
+        [SerializeField] private Camera mainCamera = default;
+        [SerializeField] private Camera uiCamera = default;
+        [SerializeField] private Canvas uiCanvas = default;
+        [SerializeField] private RectTransform uiTransform = default;
 
         private readonly GameState _startState = GameState.Ready;
 
@@ -40,6 +44,10 @@ namespace Kakomi.InGame.Installer
                 .To<EnclosureObjectValueEntity>()
                 .AsCached();
 
+            Container
+                .Bind<IEnclosureObjectDataEntity>()
+                .To<EnclosureObjectDataEntity>()
+                .AsCached();
 
             Container
                 .Bind<IGameStateEntity>()
@@ -75,6 +83,11 @@ namespace Kakomi.InGame.Installer
                 .Bind<EffectFactory>()
                 .AsCached();
 
+            Container
+                .Bind<StockFactory>()
+                .AsCached()
+                .WithArguments(uiCamera, uiCanvas, uiTransform);
+
             #endregion
 
             #region Model
@@ -107,7 +120,8 @@ namespace Kakomi.InGame.Installer
             Container
                 .Bind<IInputUseCase>()
                 .To<MouseInputUseCase>()
-                .AsCached();
+                .AsCached()
+                .WithArguments(mainCamera);
 
             Container
                 .Bind<IHpUseCase>()
@@ -168,22 +182,27 @@ namespace Kakomi.InGame.Installer
 
             Container
                 .BindFactory<BombView, BombView.Factory>()
-                .FromComponentInNewPrefab(enclosureTable.BombView)
+                .FromComponentInNewPrefab(enclosureObjectTable.BombView)
                 .AsCached();
 
             Container
                 .BindFactory<HeartView, HeartView.Factory>()
-                .FromComponentInNewPrefab(enclosureTable.HeartView)
+                .FromComponentInNewPrefab(enclosureObjectTable.HeartView)
                 .AsCached();
 
             Container
                 .BindFactory<BulletView, BulletView.Factory>()
-                .FromComponentInNewPrefab(enclosureTable.BulletView)
+                .FromComponentInNewPrefab(enclosureObjectTable.BulletView)
                 .AsCached();
 
             Container
                 .BindFactory<EncloseEffectView, EncloseEffectView.Factory>()
-                .FromComponentInNewPrefab(enclosureTable.EncloseEffectView)
+                .FromComponentInNewPrefab(enclosureObjectTable.EncloseEffectView)
+                .AsCached();
+
+            Container
+                .BindFactory<StockObject, StockObject.Factory>()
+                .FromComponentInNewPrefab(enclosureObjectTable.StockObject)
                 .AsCached();
 
             #endregion

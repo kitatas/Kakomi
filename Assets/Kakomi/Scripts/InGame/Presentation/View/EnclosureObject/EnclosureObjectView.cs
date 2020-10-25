@@ -16,7 +16,6 @@ namespace Kakomi.InGame.Presentation.View
 
         public void Initialize(Color color)
         {
-            coreSprite.color = color;
             shadowSprite.color = color.SetAlpha(0.5f);
         }
 

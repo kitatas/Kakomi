@@ -15,8 +15,7 @@ namespace Kakomi.InGame.Presentation.View
         [SerializeField] private int endurancePoint = 0;
         private ReactiveProperty<int> _endurancePoint;
 
-        public int EffectValue => 0;
-        public EnclosureObjectType EnclosureObjectType => EnclosureObjectType.None;
+        public EnclosureObjectData EnclosureObjectData { get; }
 
         private void Start()
         {

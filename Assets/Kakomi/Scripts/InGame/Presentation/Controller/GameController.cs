@@ -3,6 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Kakomi.InGame.Application;
 using Kakomi.InGame.Domain.UseCase.Interface;
+using Kakomi.InGame.Factory;
 using Kakomi.InGame.Presentation.View;
 using UniRx;
 using UnityEngine;
@@ -19,22 +20,27 @@ namespace Kakomi.InGame.Presentation.Controller
 
         private IGameStateUseCase _gameStateUseCase;
         private ICursorPointsUseCase _cursorPointsUseCase;
+        private IEnclosureObjectUseCase _enclosureObjectUseCase;
         private IHpUseCase _playerHpUseCase;
         private IHpUseCase _enemyHpUseCase;
+        private StockFactory _stockFactory;
         private TurnCountView _turnCountView;
         private FinishView _finishView;
 
         [Inject]
         private void Construct(IGameStateUseCase gameStateUseCase, ICursorPointsUseCase cursorPointsUseCase,
+            IEnclosureObjectUseCase enclosureObjectUseCase,
             [Inject(Id = IdType.Player)] IHpUseCase playerHpUseCase,
             [Inject(Id = IdType.Enemy)] IHpUseCase enemyHpUseCase,
-            TurnCountView turnCountView, FinishView finishView)
+            StockFactory stockFactory, TurnCountView turnCountView, FinishView finishView)
         {
             _token = this.GetCancellationTokenOnDestroy();
             _gameStateUseCase = gameStateUseCase;
             _cursorPointsUseCase = cursorPointsUseCase;
+            _enclosureObjectUseCase = enclosureObjectUseCase;
             _playerHpUseCase = playerHpUseCase;
             _enemyHpUseCase = enemyHpUseCase;
+            _stockFactory = stockFactory;
             _turnCountView = turnCountView;
             _finishView = finishView;
 
@@ -105,7 +111,27 @@ namespace Kakomi.InGame.Presentation.Controller
 
         private async UniTaskVoid DoAttackAsync()
         {
-            // TODO : 囲み攻撃処理
+            await _enclosureObjectUseCase.Test(_token, data =>
+            {
+                _stockFactory.Burst();
+                switch (data.enclosureObjectType)
+                {
+                    case EnclosureObjectType.None:
+                        break;
+                    case EnclosureObjectType.Bullet:
+                        _enemyHpUseCase.Damage(data.effectValue);
+                        break;
+                    case EnclosureObjectType.Bomb:
+                        _playerHpUseCase.Damage(data.effectValue);
+                        break;
+                    case EnclosureObjectType.Heart:
+                        _playerHpUseCase.Recover(data.effectValue);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            });
+
             await UniTask.DelayFrame(1, cancellationToken: _token);
 
             if (_playerHpUseCase.IsAlive() == false)

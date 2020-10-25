@@ -15,8 +15,7 @@ namespace Kakomi.InGame.Presentation.View
     {
         [SerializeField] private EnclosureObjectView enclosureObjectView = default;
 
-        public abstract int EffectValue { get; }
-        public abstract EnclosureObjectType EnclosureObjectType { get; }
+        public abstract EnclosureObjectData EnclosureObjectData { get; }
 
         private readonly float _moveSpeed = 0.25f;
         private bool _isEnclose;

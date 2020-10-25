@@ -20,18 +20,12 @@ namespace Kakomi.InGame.Presentation.View
         private IEnclosureFactoryUseCase _enclosureFactoryUseCase;
         private IEnclosurePointsUseCase _enclosurePointsUseCase;
         private IEnclosureObjectUseCase _enclosureObjectUseCase;
-        private IHpUseCase _playerHpUseCase;
-        private IHpUseCase _enemyHpUseCase;
 
         [Inject]
         private void Construct(IEnclosureFactoryUseCase enclosureFactoryUseCase,
-            IEnclosurePointsUseCase enclosurePointsUseCase, IEnclosureObjectUseCase enclosureObjectUseCase,
-            [Inject(Id = IdType.Player)] IHpUseCase playerHpUseCase,
-            [Inject(Id = IdType.Enemy)] IHpUseCase enemyHpUseCase)
+            IEnclosurePointsUseCase enclosurePointsUseCase, IEnclosureObjectUseCase enclosureObjectUseCase)
         {
             _token = this.GetCancellationTokenOnDestroy();
-            _playerHpUseCase = playerHpUseCase;
-            _enemyHpUseCase = enemyHpUseCase;
             _enclosurePointsUseCase = enclosurePointsUseCase;
             _enclosureObjectUseCase = enclosureObjectUseCase;
             _enclosureFactoryUseCase = enclosureFactoryUseCase;
@@ -45,8 +39,6 @@ namespace Kakomi.InGame.Presentation.View
             {
                 await UniTask.Delay(TimeSpan.FromSeconds(DrawParameter.ENCLOSURE_TIME), cancellationToken: _token);
 
-                ExecuteEncloseAction();
-
                 // poolに返却
                 action?.Invoke();
             }, this);
@@ -59,31 +51,22 @@ namespace Kakomi.InGame.Presentation.View
                 {
                     if (other.TryGetComponent(out IEnclosureObject enclosureObject))
                     {
-                        _enclosureObjectUseCase.CalculateTotalValue(enclosureObject);
-                        var position = other.transform.position;
+                        var otherTransform = other.transform;
+                        _enclosureObjectUseCase.StockEnclosureObjectData(enclosureObject, otherTransform.localPosition);
+
                         enclosureObject.Enclose(x =>
                         {
-                            _enclosureFactoryUseCase.ActivateEnclosureObject(position, x);
+                            _enclosureFactoryUseCase.ActivateEnclosureObject(otherTransform.position, x);
                         });
                     }
                 })
                 .AddTo(this);
         }
 
-        private void ExecuteEncloseAction()
+        private void StockEnclosureObject()
         {
-            _enemyHpUseCase.Damage(_enclosureObjectUseCase.BulletTotalValue);
-
-            if (_enclosureObjectUseCase.GetRecoverValue() > 0)
-            {
-                _playerHpUseCase.Recover(_enclosureObjectUseCase.GetRecoverValue());
-            }
-            else if (_enclosureObjectUseCase.GetDamageValue() > 0)
-            {
-                _playerHpUseCase.Damage(_enclosureObjectUseCase.GetDamageValue());
-            }
-
-            _enclosureObjectUseCase.ResetTotalValue();
+            // TODO : 攻撃フェーズで実行する
+            // _enclosureObjectUseCase.ResetTotalValue();
         }
 
         public class Factory : PlaceholderFactory<EnclosureCollider>

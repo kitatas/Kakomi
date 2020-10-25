@@ -7,9 +7,9 @@ namespace Kakomi.InGame.Presentation.View
     public sealed class BombView : BaseEnclosureObject
     {
         [SerializeField] private int damageValue = 0;
-        public override int EffectValue => damageValue;
 
-        public override EnclosureObjectType EnclosureObjectType => EnclosureObjectType.Bomb;
+        public override EnclosureObjectData EnclosureObjectData =>
+            new EnclosureObjectData(EnclosureObjectType.Bomb, damageValue);
 
         public class Factory : PlaceholderFactory<BombView>
         {
