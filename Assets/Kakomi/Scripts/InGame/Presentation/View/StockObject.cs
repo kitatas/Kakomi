@@ -44,6 +44,16 @@ namespace Kakomi.InGame.Presentation.View
                 .WithCancellation(_token);
         }
 
+        public void TweenAttackPosition(Vector2 position, Action<StockObject> action)
+        {
+            image.rectTransform
+                .DOMove(position, 0.1f)
+                .OnComplete(() =>
+                {
+                    action?.Invoke(this);
+                });
+        }
+
         public class Factory : PlaceholderFactory<StockObject>
         {
         }

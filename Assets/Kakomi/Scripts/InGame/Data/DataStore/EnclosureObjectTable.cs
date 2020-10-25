@@ -10,12 +10,14 @@ namespace Kakomi.InGame.Data.DataStore
         [SerializeField] private HeartView heartView = default;
         [SerializeField] private BulletView bulletView = default;
         [SerializeField] private EncloseEffectView encloseEffectView = default;
+        [SerializeField] private AttackEffectView attackEffectView = default;
         [SerializeField] private StockObject stockObject = default;
 
         public BombView BombView => bombView;
         public HeartView HeartView => heartView;
         public BulletView BulletView => bulletView;
         public EncloseEffectView EncloseEffectView => encloseEffectView;
+        public AttackEffectView AttackEffectView => attackEffectView;
         public StockObject StockObject => stockObject;
     }
 }

@@ -1,11 +1,10 @@
 using System;
 using UniRx;
 using UnityEngine;
-using Zenject;
 
 namespace Kakomi.InGame.Presentation.View
 {
-    public sealed class EncloseEffectView : MonoBehaviour
+    public abstract class BaseEffectView : MonoBehaviour
     {
         [SerializeField] private ParticleSystem encloseEffect = default;
 
@@ -20,10 +19,6 @@ namespace Kakomi.InGame.Presentation.View
             return Observable
                 .Timer(TimeSpan.FromSeconds(5.0f))
                 .ForEachAsync(_ => encloseEffect.Stop());
-        }
-
-        public class Factory : PlaceholderFactory<EncloseEffectView>
-        {
         }
     }
 }

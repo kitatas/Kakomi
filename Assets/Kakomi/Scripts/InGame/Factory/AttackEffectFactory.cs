@@ -5,20 +5,20 @@ using UnityEngine;
 
 namespace Kakomi.InGame.Factory
 {
-    public sealed class EffectFactory : ObjectPool<EncloseEffectView>
+    public sealed class AttackEffectFactory : ObjectPool<AttackEffectView>
     {
-        private readonly EncloseEffectView.Factory _encloseEffectFactory;
+        private readonly AttackEffectView.Factory _attackEffectFactory;
 
-        public EffectFactory(EncloseEffectView.Factory encloseEffectFactory)
+        public AttackEffectFactory(AttackEffectView.Factory attackEffectFactory)
         {
-            _encloseEffectFactory = encloseEffectFactory;
+            _attackEffectFactory = attackEffectFactory;
         }
-
-        protected override EncloseEffectView CreateInstance()
+        
+        protected override AttackEffectView CreateInstance()
         {
-            return _encloseEffectFactory.Create();
+            return _attackEffectFactory.Create();
         }
-
+        
         public void Activate(Vector2 generatePosition, Color coreColor)
         {
             var effect = Rent();

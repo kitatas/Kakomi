@@ -111,9 +111,9 @@ namespace Kakomi.InGame.Presentation.Controller
 
         private async UniTaskVoid DoAttackAsync()
         {
-            await _enclosureObjectUseCase.Test(_token, data =>
+            await _enclosureObjectUseCase.Attack(_token, data =>
             {
-                _stockFactory.Burst();
+                _stockFactory.Burst(data.enclosureObjectType);
                 switch (data.enclosureObjectType)
                 {
                     case EnclosureObjectType.None:
@@ -131,6 +131,8 @@ namespace Kakomi.InGame.Presentation.Controller
                         throw new ArgumentOutOfRangeException();
                 }
             });
+            _enclosureObjectUseCase.ResetStockData();
+            _stockFactory.ClearStockData();
 
             await UniTask.DelayFrame(1, cancellationToken: _token);
 

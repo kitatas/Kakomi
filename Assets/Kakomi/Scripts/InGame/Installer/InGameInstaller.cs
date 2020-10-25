@@ -80,7 +80,11 @@ namespace Kakomi.InGame.Installer
                 .AsCached();
 
             Container
-                .Bind<EffectFactory>()
+                .Bind<EncloseEffectFactory>()
+                .AsCached();
+
+            Container
+                .Bind<AttackEffectFactory>()
                 .AsCached();
 
             Container
@@ -198,6 +202,11 @@ namespace Kakomi.InGame.Installer
             Container
                 .BindFactory<EncloseEffectView, EncloseEffectView.Factory>()
                 .FromComponentInNewPrefab(enclosureObjectTable.EncloseEffectView)
+                .AsCached();
+
+            Container
+                .BindFactory<AttackEffectView, AttackEffectView.Factory>()
+                .FromComponentInNewPrefab(enclosureObjectTable.AttackEffectView)
                 .AsCached();
 
             Container

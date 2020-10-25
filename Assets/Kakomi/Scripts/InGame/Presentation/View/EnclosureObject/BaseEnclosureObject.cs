@@ -25,14 +25,14 @@ namespace Kakomi.InGame.Presentation.View
 
         private CancellationToken _token;
         private GameController _gameController;
-        private EffectFactory _effectFactory;
+        private EncloseEffectFactory _encloseEffectFactory;
 
         [Inject]
-        private void Construct(GameController gameController, EffectFactory effectFactory)
+        private void Construct(GameController gameController, EncloseEffectFactory encloseEffectFactory)
         {
             _token = this.GetCancellationTokenOnDestroy();
             _gameController = gameController;
-            _effectFactory = effectFactory;
+            _encloseEffectFactory = encloseEffectFactory;
 
             enclosureObjectView.Initialize(coreColor);
         }
@@ -81,7 +81,7 @@ namespace Kakomi.InGame.Presentation.View
         public virtual void Enclose(Action<int> action)
         {
             _isEnclose = true;
-            _effectFactory.Activate(transform.position, coreColor);
+            _encloseEffectFactory.Activate(transform.position, coreColor);
 
             // 再生成
             action?.Invoke(_direction);

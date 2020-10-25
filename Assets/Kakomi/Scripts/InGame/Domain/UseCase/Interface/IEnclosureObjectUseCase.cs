@@ -9,13 +9,8 @@ namespace Kakomi.InGame.Domain.UseCase.Interface
 {
     public interface IEnclosureObjectUseCase
     {
-        int BulletTotalValue { get; }
-        int BombTotalValue { get; }
-        int HeartTotalValue { get; }
         void StockEnclosureObjectData(IEnclosureObject enclosureObject, Vector2 localPosition);
-        UniTask Test(CancellationToken token, Action<EnclosureObjectData> action);
-        int GetRecoverValue();
-        int GetDamageValue();
-        void ResetTotalValue();
+        UniTask Attack(CancellationToken token, Action<EnclosureObjectData> action);
+        void ResetStockData();
     }
 }
