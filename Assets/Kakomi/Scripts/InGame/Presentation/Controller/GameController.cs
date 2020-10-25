@@ -26,13 +26,14 @@ namespace Kakomi.InGame.Presentation.Controller
         private StockFactory _stockFactory;
         private TurnCountView _turnCountView;
         private FinishView _finishView;
+        private EnemyView _enemyView;
 
         [Inject]
         private void Construct(IGameStateUseCase gameStateUseCase, ICursorPointsUseCase cursorPointsUseCase,
             IEnclosureObjectUseCase enclosureObjectUseCase,
             [Inject(Id = IdType.Player)] IHpUseCase playerHpUseCase,
             [Inject(Id = IdType.Enemy)] IHpUseCase enemyHpUseCase,
-            StockFactory stockFactory, TurnCountView turnCountView, FinishView finishView)
+            StockFactory stockFactory, TurnCountView turnCountView, FinishView finishView, EnemyView enemyView)
         {
             _token = this.GetCancellationTokenOnDestroy();
             _gameStateUseCase = gameStateUseCase;
@@ -43,6 +44,7 @@ namespace Kakomi.InGame.Presentation.Controller
             _stockFactory = stockFactory;
             _turnCountView = turnCountView;
             _finishView = finishView;
+            _enemyView = enemyView;
 
             _finishView.Initialize();
         }
@@ -134,7 +136,7 @@ namespace Kakomi.InGame.Presentation.Controller
             _enclosureObjectUseCase.ResetStockData();
             _stockFactory.ClearStockData();
 
-            await UniTask.DelayFrame(1, cancellationToken: _token);
+            await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: _token);
 
             if (_playerHpUseCase.IsAlive() == false)
             {
@@ -153,7 +155,9 @@ namespace Kakomi.InGame.Presentation.Controller
         private async UniTaskVoid DoDamageAsync()
         {
             // TODO : 敵の攻撃処理
-            await UniTask.DelayFrame(1, cancellationToken: _token);
+            await _enemyView.AttackPlayer(_token, () => _playerHpUseCase.Damage(EnemyStatus.ATTACK));
+
+            await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: _token);
 
             if (_playerHpUseCase.IsAlive())
             {
