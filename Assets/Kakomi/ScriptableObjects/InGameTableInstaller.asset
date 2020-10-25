@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85d954bf13bc34cfcb804c1e74efec74, type: 3}
   m_Name: InGameTableInstaller
   m_EditorClassIdentifier: 
-  enclosureTable: {fileID: 11400000, guid: b8ee574d959fc402f9ffacdca4ea1e8f, type: 2}
-  lineTable: {fileID: 11400000, guid: 547597002594b4d43821908c8222d425, type: 2}
+  enclosureSpriteTable: {fileID: 11400000, guid: 829f9c8148fec471cadf99bf4f16fab5,
+    type: 2}
