@@ -96,7 +96,7 @@ namespace Kakomi.InGame.Presentation.Controller
 
         private async UniTaskVoid DoDrawAsync()
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(10f), cancellationToken: _token);
+            await gameStateView.CountAsync(_token);
 
             _isMoveObject = false;
             _cursorPointsUseCase.ClearLine();

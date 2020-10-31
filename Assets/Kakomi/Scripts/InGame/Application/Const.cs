@@ -2,6 +2,8 @@ namespace Kakomi.InGame.Application
 {
     public sealed class DrawParameter
     {
+        public const float DRAW_TIME = 10f;
+
         public const float DIFFERENCE_DISTANCE = 0.01f;
 
         public const float LINE_WIDTH = 0.1f;
