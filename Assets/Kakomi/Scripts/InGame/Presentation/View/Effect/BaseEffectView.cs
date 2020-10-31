@@ -18,7 +18,8 @@ namespace Kakomi.InGame.Presentation.View
 
             return Observable
                 .Timer(TimeSpan.FromSeconds(5.0f))
-                .ForEachAsync(_ => encloseEffect.Stop());
+                .ForEachAsync(_ => encloseEffect.Stop())
+                .TakeUntilDestroy(this);
         }
     }
 }

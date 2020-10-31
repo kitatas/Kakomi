@@ -25,12 +25,12 @@ namespace Kakomi.InGame.Domain.UseCase
 
         public void Recover(int recoverValue)
         {
-            _hpModel.SetPlayerHp(ClampHpValue(recoverValue));
+            _hpModel.SetHpValue(ClampHpValue(recoverValue));
         }
 
         public void Damage(int damageValue)
         {
-            _hpModel.SetPlayerHp(ClampHpValue(-damageValue));
+            _hpModel.SetHpValue(ClampHpValue(-damageValue));
         }
 
         private int ClampHpValue(int addHpValue)

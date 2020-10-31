@@ -9,8 +9,8 @@ namespace Kakomi.InGame.Data.DataStore
         [SerializeField] private Sprite bullet = default;
         [SerializeField] private Sprite heart = default;
 
-        public Sprite GetBombSprite => bomb;
-        public Sprite GetBulletSprite => bullet;
-        public Sprite GetHeartSprite => heart;
+        public Sprite BombSprite => bomb;
+        public Sprite BulletSprite => bullet;
+        public Sprite HeartSprite => heart;
     }
 }

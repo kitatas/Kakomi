@@ -53,11 +53,11 @@ namespace Kakomi.InGame.Domain.UseCase
             switch (enclosureObjectType)
             {
                 case EnclosureObjectType.Bullet:
-                    return _enclosureSpriteTable.GetBulletSprite;
+                    return _enclosureSpriteTable.BulletSprite;
                 case EnclosureObjectType.Bomb:
-                    return _enclosureSpriteTable.GetBombSprite;
+                    return _enclosureSpriteTable.BombSprite;
                 case EnclosureObjectType.Heart:
-                    return _enclosureSpriteTable.GetHeartSprite;
+                    return _enclosureSpriteTable.HeartSprite;
                 case EnclosureObjectType.None:
                 default:
                     throw new ArgumentOutOfRangeException(nameof(enclosureObjectType), enclosureObjectType, null);

@@ -1,14 +1,14 @@
 ﻿using Kakomi.Common.Application;
 using Kakomi.Common.Presentation.Controller;
 using UniRx;
-using UniRx.Triggers;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Zenject;
 
 namespace Kakomi.Common.Presentation.View
 {
-    public sealed class SceneLoadView : UIBehaviour
+    [RequireComponent(typeof(Button))]
+    public sealed class SceneLoadView : MonoBehaviour
     {
         [SerializeField] private SceneName sceneName = default;
 
@@ -20,9 +20,10 @@ namespace Kakomi.Common.Presentation.View
             _sceneLoader = sceneLoader;
         }
 
-        protected override void Start()
+        private void Start()
         {
-            this.OnPointerDownAsObservable()
+            GetComponent<Button>()
+                .OnClickAsObservable()
                 .Subscribe(_ => _sceneLoader.LoadScene(sceneName))
                 .AddTo(this);
         }

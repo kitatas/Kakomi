@@ -26,9 +26,9 @@ namespace Kakomi.InGame.Presentation.View
             IEnclosurePointsUseCase enclosurePointsUseCase, IEnclosureObjectUseCase enclosureObjectUseCase)
         {
             _token = this.GetCancellationTokenOnDestroy();
+            _enclosureFactoryUseCase = enclosureFactoryUseCase;
             _enclosurePointsUseCase = enclosurePointsUseCase;
             _enclosureObjectUseCase = enclosureObjectUseCase;
-            _enclosureFactoryUseCase = enclosureFactoryUseCase;
         }
 
         public void EncloseLine(Action action)

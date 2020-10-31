@@ -14,7 +14,7 @@ namespace Kakomi.InGame.Domain.Model
 
         public IReadOnlyReactiveProperty<int> HpValue => _hpValue;
 
-        public void SetPlayerHp(int setValue)
+        public void SetHpValue(int setValue)
         {
             _hpValue.Value = setValue;
         }
