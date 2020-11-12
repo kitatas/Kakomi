@@ -13,6 +13,7 @@ namespace Kakomi.InGame.Presentation.Controller
     public sealed class GameController : MonoBehaviour
     {
         [SerializeField] private GameStateView gameStateView = default;
+        [SerializeField] private StockPositionCommander stockPositionCommander = default;
 
         private bool _isMoveObject;
         public bool IsMoveObject => _isMoveObject;
@@ -39,6 +40,7 @@ namespace Kakomi.InGame.Presentation.Controller
             _enemyHpUseCase = enemyHpUseCase;
 
             gameStateView.Initialize();
+            stockPositionCommander.ResetStockPosition();
         }
 
         private void Start()
@@ -126,6 +128,7 @@ namespace Kakomi.InGame.Presentation.Controller
                         throw new ArgumentOutOfRangeException();
                 }
             });
+            stockPositionCommander.ResetStockPosition();
 
             await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: _token);
 
