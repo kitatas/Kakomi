@@ -11,5 +11,27 @@ namespace Kakomi.Utility
         {
             return array[array.GetLastIndex()];
         }
+
+        public static bool IsOutOfIndexRange<T>(this T[] array, int index)
+        {
+            return array == null || index < 0 || index > array.GetLastIndex();
+        }
+
+        public static bool IsOutOfIndexRangeOrNull<T>(this T[] array, int index)
+        {
+            return array.IsOutOfIndexRange(index) || array[index] == null;
+        }
+
+        public static bool TryGetValue<T>(this T[] array, int index, out T value)
+        {
+            if (array.IsOutOfIndexRangeOrNull(index))
+            {
+                value = default;
+                return false;
+            }
+
+            value = array[index];
+            return true;
+        }
     }
 }
