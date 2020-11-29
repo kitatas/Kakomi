@@ -7,4 +7,10 @@ namespace Kakomi.Common.Application
 
         public const float ORTHOGRAPHIC_SIZE = 5f;
     }
+
+    public sealed class SaveKey
+    {
+        public const string BGM = "bgm";
+        public const string SE = "se";
+    }
 }
