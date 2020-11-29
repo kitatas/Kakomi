@@ -12,5 +12,6 @@ namespace Kakomi.Common.Application
     {
         public const string BGM = "bgm";
         public const string SE = "se";
+        public const string STAGE = "stage";
     }
 }

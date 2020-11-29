@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Kakomi.Common.Application;
 using Kakomi.InGame.Application;
 using Kakomi.InGame.Domain.UseCase.Interface;
 using Kakomi.InGame.Presentation.View;
@@ -20,6 +21,7 @@ namespace Kakomi.InGame.Presentation.Controller
 
         private CancellationToken _token;
 
+        private int _level;
         private IGameStateUseCase _gameStateUseCase;
         private ICursorPointsUseCase _cursorPointsUseCase;
         private IEnclosureObjectUseCase _enclosureObjectUseCase;
@@ -27,12 +29,13 @@ namespace Kakomi.InGame.Presentation.Controller
         private IHpUseCase _enemyHpUseCase;
 
         [Inject]
-        private void Construct(IGameStateUseCase gameStateUseCase, ICursorPointsUseCase cursorPointsUseCase,
+        private void Construct(int level, IGameStateUseCase gameStateUseCase, ICursorPointsUseCase cursorPointsUseCase,
             IEnclosureObjectUseCase enclosureObjectUseCase,
             [Inject(Id = IdType.Player)] IHpUseCase playerHpUseCase,
             [Inject(Id = IdType.Enemy)] IHpUseCase enemyHpUseCase)
         {
             _token = this.GetCancellationTokenOnDestroy();
+            _level = level;
             _gameStateUseCase = gameStateUseCase;
             _cursorPointsUseCase = cursorPointsUseCase;
             _enclosureObjectUseCase = enclosureObjectUseCase;
@@ -80,6 +83,9 @@ namespace Kakomi.InGame.Presentation.Controller
                     DoDamageAsync().Forget();
                     break;
                 case GameState.Clear:
+                    ES3.Save(SaveKey.STAGE + _level, true);
+                    gameStateView.SetFinish(state);
+                    break;
                 case GameState.Failed:
                     gameStateView.SetFinish(state);
                     break;

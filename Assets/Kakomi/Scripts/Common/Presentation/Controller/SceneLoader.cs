@@ -1,4 +1,5 @@
 ﻿using Kakomi.Common.Application;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Kakomi.Common.Presentation.Controller
@@ -13,9 +14,12 @@ namespace Kakomi.Common.Presentation.Controller
             _zenjectSceneLoader = zenjectSceneLoader;
         }
 
-        public void LoadScene(SceneName sceneName)
+        public void LoadScene(SceneName sceneName, int level = 0)
         {
-            _zenjectSceneLoader.LoadScene(sceneName.ToString());
+            _zenjectSceneLoader.LoadScene(sceneName.ToString(), LoadSceneMode.Single, container =>
+            {
+                container.BindInstance(level);
+            });
         }
     }
 }
