@@ -6392,7 +6392,7 @@ GameObject:
   - component: {fileID: 162835180}
   - component: {fileID: 162835179}
   m_Layer: 0
-  m_Name: MPImageButton - OFF
+  m_Name: MPImageButton - SE OFF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7452,7 +7452,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2035156127}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8773,7 +8773,7 @@ GameObject:
   - component: {fileID: 599958545}
   - component: {fileID: 599958544}
   m_Layer: 0
-  m_Name: MPImageButton - ON
+  m_Name: MPImageButton - SE ON
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22109,6 +22109,7 @@ GameObject:
   - component: {fileID: 1012382716}
   - component: {fileID: 1012382718}
   - component: {fileID: 1012382717}
+  - component: {fileID: 1012382719}
   m_Layer: 0
   m_Name: MPImage - Sound
   m_TagString: Untagged
@@ -22250,6 +22251,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1012382715}
   m_CullTransparentMesh: 0
+--- !u!114 &1012382719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012382715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab1d102a96084f87b15c8a49968cb3bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmMuteOnButton: {fileID: 1459626027}
+  bgmMuteOffButton: {fileID: 1993213791}
+  bgmVolumeSlider: {fileID: 2136438434}
+  seMuteOnButton: {fileID: 599958544}
+  seMuteOffButton: {fileID: 162835179}
+  seVolumeSlider: {fileID: 1283552334}
 --- !u!1 &1021963281
 GameObject:
   m_ObjectHideFlags: 0
@@ -28407,7 +28426,7 @@ GameObject:
   - component: {fileID: 1283552333}
   - component: {fileID: 1283552334}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: Slider - SE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28718,7 +28737,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 924748518}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.2712088
+  m_Size: 0.27120876
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -30270,7 +30289,7 @@ GameObject:
   - component: {fileID: 1459626028}
   - component: {fileID: 1459626027}
   m_Layer: 0
-  m_Name: MPImageButton - ON
+  m_Name: MPImageButton - BGM ON
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42070,6 +42089,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1945447476}
   - component: {fileID: 1945447475}
+  - component: {fileID: 1945447477}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -42090,7 +42110,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
-  _monoInstallers: []
+  _monoInstallers:
+  - {fileID: 1945447477}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -42122,6 +42143,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1945447477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945447474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a62f311359ae415e8217aec7526cd87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1957562267
 GameObject:
   m_ObjectHideFlags: 0
@@ -42476,7 +42509,7 @@ GameObject:
   - component: {fileID: 1993213792}
   - component: {fileID: 1993213791}
   m_Layer: 0
-  m_Name: MPImageButton - OFF
+  m_Name: MPImageButton - BGM OFF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43106,7 +43139,7 @@ GameObject:
   - component: {fileID: 2136438433}
   - component: {fileID: 2136438434}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: Slider - BGM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43340,7 +43373,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2141601852}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.55294114
+  m_Size: 0.5529412
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
