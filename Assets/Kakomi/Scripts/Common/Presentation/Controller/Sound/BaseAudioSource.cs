@@ -1,5 +1,3 @@
-using Kakomi.Common.Data.Entity;
-using Kakomi.Common.Data.Entity.Interface;
 using Kakomi.Common.Presentation.Controller.Interface;
 using UnityEngine;
 
@@ -30,9 +28,5 @@ namespace Kakomi.Common.Presentation.Controller
         public void SetVolume(float value) => audioSource.volume = value;
 
         public float GetVolume() => audioSource.volume;
-
-        private ISoundEntity _soundEntity;
-
-        public ISoundEntity soundEntity => _soundEntity ?? (_soundEntity = new SoundEntity(GetVolume(), IsMute()));
     }
 }

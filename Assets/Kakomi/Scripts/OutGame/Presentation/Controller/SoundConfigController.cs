@@ -15,7 +15,7 @@ namespace Kakomi.OutGame.Presentation.Controller
             var soundUseCase = new SoundUseCase();
             soundUseCase.LoadSound(bgmController, seController);
 
-            this.OnDestroyAsObservable()
+            this.OnDisableAsObservable()
                 .Subscribe(_ => soundUseCase.SaveSound(bgmController, seController))
                 .AddTo(this);
         }

@@ -10,8 +10,10 @@ namespace Kakomi.Common.Application
 
     public sealed class SaveKey
     {
-        public const string BGM = "bgm";
-        public const string SE = "se";
+        public const string BGM_VOLUME = "bgm_volume";
+        public const string BGM_MUTE = "bgm_mute";
+        public const string SE_VOLUME = "se_volume";
+        public const string SE_MUTE = "se_mute";
         public const string STAGE = "stage";
     }
 }
