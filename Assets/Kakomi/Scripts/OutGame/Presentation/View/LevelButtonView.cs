@@ -1,5 +1,6 @@
 using Kakomi.Common.Application;
 using Kakomi.Common.Presentation.Controller;
+using Kakomi.OutGame.Domain.UseCase.Interface;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -18,13 +19,14 @@ namespace Kakomi.OutGame.Presentation.View
         private SceneLoader _sceneLoader;
 
         [Inject]
-        private void Construct(SceneLoader sceneLoader)
+        private void Construct(SceneLoader sceneLoader, IClearDataUseCase clearDataUseCase)
         {
             _sceneLoader = sceneLoader;
 
             levelText.text = $"Level.{level}";
 
-            LoadClearData();
+            var isClear = clearDataUseCase.LoadClearData(level);
+            ActivateClearLabel(isClear);
         }
 
         private void Start()
@@ -35,10 +37,9 @@ namespace Kakomi.OutGame.Presentation.View
                 .AddTo(this);
         }
 
-        public void LoadClearData()
+        public void ActivateClearLabel(bool value)
         {
-            var isClear = ES3.Load(SaveKey.STAGE + level, false);
-            clearText.gameObject.SetActive(isClear);
+            clearText.gameObject.SetActive(value);
         }
     }
 }

@@ -1,7 +1,8 @@
-using Kakomi.Common.Application;
+using Kakomi.OutGame.Domain.UseCase.Interface;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Kakomi.OutGame.Presentation.View
 {
@@ -10,19 +11,32 @@ namespace Kakomi.OutGame.Presentation.View
         [SerializeField] private Button deleteButton = default;
         [SerializeField] private LevelButtonView[] levelButtonViews = default;
 
+        private IClearDataUseCase _clearDataUseCase;
+
+        [Inject]
+        private void Construct(IClearDataUseCase clearDataUseCase)
+        {
+            _clearDataUseCase = clearDataUseCase;
+        }
+
         private void Start()
         {
             deleteButton
                 .OnClickAsObservable()
                 .Subscribe(_ =>
                 {
-                    for (int i = 0; i < levelButtonViews.Length; i++)
-                    {
-                        ES3.Save(SaveKey.STAGE + (i + 1), false);
-                        levelButtonViews[i].LoadClearData();
-                    }
+                    _clearDataUseCase.DeleteAllClearData(levelButtonViews.Length);
+                    ResetClearLabel();
                 })
                 .AddTo(this);
+        }
+
+        private void ResetClearLabel()
+        {
+            foreach (var stageButton in levelButtonViews)
+            {
+                stageButton.ActivateClearLabel(false);
+            }
         }
     }
 }
