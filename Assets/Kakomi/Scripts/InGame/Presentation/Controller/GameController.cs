@@ -6,6 +6,7 @@ using Kakomi.InGame.Application;
 using Kakomi.InGame.Domain.UseCase.Interface;
 using Kakomi.InGame.Presentation.View;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using Zenject;
 
@@ -25,12 +26,13 @@ namespace Kakomi.InGame.Presentation.Controller
         private IGameStateUseCase _gameStateUseCase;
         private ICursorPointsUseCase _cursorPointsUseCase;
         private IEnclosureObjectUseCase _enclosureObjectUseCase;
+        private IEnclosureFactoryUseCase _enclosureFactoryUseCase;
         private IHpUseCase _playerHpUseCase;
         private IHpUseCase _enemyHpUseCase;
 
         [Inject]
         private void Construct(int level, IGameStateUseCase gameStateUseCase, ICursorPointsUseCase cursorPointsUseCase,
-            IEnclosureObjectUseCase enclosureObjectUseCase,
+            IEnclosureObjectUseCase enclosureObjectUseCase, IEnclosureFactoryUseCase enclosureFactoryUseCase,
             [Inject(Id = IdType.Player)] IHpUseCase playerHpUseCase,
             [Inject(Id = IdType.Enemy)] IHpUseCase enemyHpUseCase)
         {
@@ -39,6 +41,7 @@ namespace Kakomi.InGame.Presentation.Controller
             _gameStateUseCase = gameStateUseCase;
             _cursorPointsUseCase = cursorPointsUseCase;
             _enclosureObjectUseCase = enclosureObjectUseCase;
+            _enclosureFactoryUseCase = enclosureFactoryUseCase;
             _playerHpUseCase = playerHpUseCase;
             _enemyHpUseCase = enemyHpUseCase;
 
@@ -64,6 +67,16 @@ namespace Kakomi.InGame.Presentation.Controller
                     }
                 })
                 .AddTo(this);
+            
+            this.UpdateAsObservable()
+                .ThrottleFirst(TimeSpan.FromSeconds(FieldParameter.INTERVAL * 4))
+                .Where(_ => IsMoveObject)
+                .Subscribe(_ =>
+                {
+                    // TODO : 仮のタイミング
+                    _enclosureFactoryUseCase.Activate();
+                })
+                .AddTo(this);
         }
 
         private void DoStateAction(GameState state)
@@ -71,16 +84,16 @@ namespace Kakomi.InGame.Presentation.Controller
             switch (state)
             {
                 case GameState.Ready:
-                    DoReadyAsync().Forget();
+                    DoReadyAsync(_token).Forget();
                     break;
                 case GameState.Draw:
-                    DoDrawAsync().Forget();
+                    DoDrawAsync(_token).Forget();
                     break;
                 case GameState.Attack:
-                    DoAttackAsync().Forget();
+                    DoAttackAsync(_token).Forget();
                     break;
                 case GameState.Damage:
-                    DoDamageAsync().Forget();
+                    DoDamageAsync(_token).Forget();
                     break;
                 case GameState.Clear:
                     ES3.Save(SaveKey.STAGE + _level, true);
@@ -94,28 +107,28 @@ namespace Kakomi.InGame.Presentation.Controller
             }
         }
 
-        private async UniTaskVoid DoReadyAsync()
+        private async UniTaskVoid DoReadyAsync(CancellationToken token)
         {
-            await gameStateView.TweenTurnTextAsync(_token);
+            await gameStateView.TweenTurnTextAsync(token);
 
             _isMoveObject = true;
             _gameStateUseCase.SetGameState(GameState.Draw);
         }
 
-        private async UniTaskVoid DoDrawAsync()
+        private async UniTaskVoid DoDrawAsync(CancellationToken token)
         {
-            await gameStateView.CountAsync(_token);
+            await gameStateView.CountAsync(token);
 
             _isMoveObject = false;
             _cursorPointsUseCase.ClearLine();
             _gameStateUseCase.SetGameState(GameState.Attack);
         }
 
-        private async UniTaskVoid DoAttackAsync()
+        private async UniTaskVoid DoAttackAsync(CancellationToken token)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: _token);
+            await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: token);
 
-            await _enclosureObjectUseCase.AttackAsync(_token, data =>
+            await _enclosureObjectUseCase.AttackAsync(token, data =>
             {
                 switch (data.enclosureObjectType)
                 {
@@ -136,7 +149,7 @@ namespace Kakomi.InGame.Presentation.Controller
             });
             stockPositionCommander.ResetStockPosition();
 
-            await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: _token);
+            await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: token);
 
             if (_playerHpUseCase.IsAlive() == false)
             {
@@ -152,11 +165,11 @@ namespace Kakomi.InGame.Presentation.Controller
             }
         }
 
-        private async UniTaskVoid DoDamageAsync()
+        private async UniTaskVoid DoDamageAsync(CancellationToken token)
         {
-            await gameStateView.AttackPlayerAsync(_token, () => _playerHpUseCase.Damage(EnemyStatus.ATTACK));
+            await gameStateView.AttackPlayerAsync(token, () => _playerHpUseCase.Damage(EnemyStatus.ATTACK));
 
-            await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: _token);
+            await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: token);
 
             if (_playerHpUseCase.IsAlive())
             {
