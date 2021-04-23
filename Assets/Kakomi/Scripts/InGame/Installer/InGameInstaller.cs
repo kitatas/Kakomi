@@ -7,6 +7,7 @@ using Kakomi.InGame.Domain.Model.Interface;
 using Kakomi.InGame.Domain.UseCase;
 using Kakomi.InGame.Domain.UseCase.Interface;
 using Kakomi.InGame.Factory;
+using Kakomi.InGame.Presentation.Controller;
 using Kakomi.InGame.Presentation.Presenter;
 using Kakomi.InGame.Presentation.View;
 using UnityEngine;
@@ -22,6 +23,7 @@ namespace Kakomi.InGame.Installer
         [SerializeField] private Camera uiCamera = default;
         [SerializeField] private Canvas uiCanvas = default;
         [SerializeField] private RectTransform uiTransform = default;
+        [SerializeField] private CursorView cursorView = default;
 
         private readonly GameState _startState = GameState.Ready;
 
@@ -172,7 +174,21 @@ namespace Kakomi.InGame.Installer
 
             #endregion
 
+            #region Controller
+
+            Container
+                .BindInterfacesTo<PlayerController>()
+                .AsCached()
+                .NonLazy();
+
+            #endregion
+
             #region View
+
+            Container
+                .Bind<CursorView>()
+                .FromInstance(cursorView)
+                .AsCached();
 
             Container
                 .BindFactory<LineView, LineView.Factory>()
