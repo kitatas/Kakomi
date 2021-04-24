@@ -2,6 +2,7 @@ namespace Kakomi.InGame.Application
 {
     public enum GameState
     {
+        None,
         Ready,
         Draw,
         Attack,

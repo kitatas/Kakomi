@@ -10,6 +10,7 @@ using Kakomi.InGame.Factory;
 using Kakomi.InGame.Presentation.Controller;
 using Kakomi.InGame.Presentation.Presenter;
 using Kakomi.InGame.Presentation.View;
+using Kakomi.InGame.Presentation.View.State;
 using UnityEngine;
 using Zenject;
 
@@ -24,6 +25,17 @@ namespace Kakomi.InGame.Installer
         [SerializeField] private Canvas uiCanvas = default;
         [SerializeField] private RectTransform uiTransform = default;
         [SerializeField] private CursorView cursorView = default;
+        [SerializeField] private TurnCountView turnCountView = default;
+        [SerializeField] private StockPositionCommander stockPositionCommander = default;
+
+        [SerializeField] private ReadyView readyView = default;
+        [SerializeField] private DrawView drawView = default;
+        [SerializeField] private AttackView attackView = default;
+        [SerializeField] private DamageView damageView = default;
+        [SerializeField] private ClearView clearView = default;
+        [SerializeField] private FailView failView = default;
+        [SerializeField] private GameFinishView gameFinishView = default;
+
 
         private readonly GameState _startState = GameState.Ready;
 
@@ -56,6 +68,12 @@ namespace Kakomi.InGame.Installer
                 .To<GameStateEntity>()
                 .AsCached()
                 .WithArguments(_startState);
+
+            Container
+                .Bind<ITurnCountEntity>()
+                .To<TurnCountEntity>()
+                .AsCached()
+                .WithArguments(0);
 
             #endregion
 
@@ -103,6 +121,12 @@ namespace Kakomi.InGame.Installer
                 .To<GameStateModel>()
                 .AsCached()
                 .WithArguments(_startState);
+
+            Container
+                .Bind<ITurnCountModel>()
+                .To<TurnCountModel>()
+                .AsCached()
+                .WithArguments(0);
 
             #endregion
 
@@ -158,6 +182,11 @@ namespace Kakomi.InGame.Installer
                 .To<GameStateUseCase>()
                 .AsCached();
 
+            Container
+                .Bind<ITurnCountUseCase>()
+                .To<TurnCountUseCase>()
+                .AsCached();
+
             #endregion
 
             #region Presenter
@@ -172,12 +201,22 @@ namespace Kakomi.InGame.Installer
                 .AsCached()
                 .NonLazy();
 
+            Container
+                .Bind<TurnCountPresenter>()
+                .AsCached()
+                .NonLazy();
+
             #endregion
 
             #region Controller
 
             Container
                 .BindInterfacesTo<PlayerController>()
+                .AsCached()
+                .NonLazy();
+
+            Container
+                .Bind<StateSequencer>()
                 .AsCached()
                 .NonLazy();
 
@@ -188,6 +227,51 @@ namespace Kakomi.InGame.Installer
             Container
                 .Bind<CursorView>()
                 .FromInstance(cursorView)
+                .AsCached();
+
+            Container
+                .Bind<StockPositionCommander>()
+                .FromInstance(stockPositionCommander)
+                .AsCached();
+
+            Container
+                .Bind<TurnCountView>()
+                .FromInstance(turnCountView)
+                .AsCached();
+
+            Container
+                .Bind<ReadyView>()
+                .FromInstance(readyView)
+                .AsCached();
+
+            Container
+                .Bind<DrawView>()
+                .FromInstance(drawView)
+                .AsCached();
+
+            Container
+                .Bind<AttackView>()
+                .FromInstance(attackView)
+                .AsCached();
+
+            Container
+                .Bind<DamageView>()
+                .FromInstance(damageView)
+                .AsCached();
+
+            Container
+                .Bind<ClearView>()
+                .FromInstance(clearView)
+                .AsCached();
+
+            Container
+                .Bind<FailView>()
+                .FromInstance(failView)
+                .AsCached();
+
+            Container
+                .Bind<GameFinishView>()
+                .FromInstance(gameFinishView)
                 .AsCached();
 
             Container
