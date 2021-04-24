@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enclosureSpriteTable: {fileID: 11400000, guid: 829f9c8148fec471cadf99bf4f16fab5,
     type: 2}
+  stageDataTable: {fileID: 11400000, guid: 983a8539443774cf183db85d81ce39a9, type: 2}
