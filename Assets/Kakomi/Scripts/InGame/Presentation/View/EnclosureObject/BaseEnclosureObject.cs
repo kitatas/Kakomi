@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Kakomi.InGame.Application;
+using Kakomi.InGame.Domain.UseCase.Interface;
 using Kakomi.InGame.Factory;
 using Kakomi.InGame.Presentation.Controller;
 using Kakomi.InGame.Presentation.View.Interface;
@@ -25,14 +26,14 @@ namespace Kakomi.InGame.Presentation.View
         [SerializeField] private Color coreColor = default;
 
         private CancellationToken _token;
-        private GameController _gameController;
+        private IGameStateUseCase _gameStateUseCase;
         private EncloseEffectFactory _encloseEffectFactory;
 
         [Inject]
-        private void Construct(GameController gameController, EncloseEffectFactory encloseEffectFactory)
+        private void Construct(IGameStateUseCase gameStateUseCase, EncloseEffectFactory encloseEffectFactory)
         {
             _token = this.GetCancellationTokenOnDestroy();
-            _gameController = gameController;
+            _gameStateUseCase = gameStateUseCase;
             _encloseEffectFactory = encloseEffectFactory;
 
             enclosureObjectView.Initialize(coreColor);
@@ -67,7 +68,7 @@ namespace Kakomi.InGame.Presentation.View
                     return false;
                 }
 
-                if (_gameController.IsMoveObject)
+                if (_gameStateUseCase.IsEqual(GameState.Draw))
                 {
                     transform.position += moveVector * Time.fixedDeltaTime * _moveSpeed;
                 }

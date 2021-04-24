@@ -26,5 +26,7 @@ namespace Kakomi.InGame.Domain.UseCase
             _gameStateEntity.SetGameState(gameState);
             _gameStateModel.SetGameState(GetCurrentGameState());
         }
+
+        public bool IsEqual(GameState gameState) => gameState == GetCurrentGameState();
     }
 }

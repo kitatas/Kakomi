@@ -8,5 +8,6 @@ namespace Kakomi.InGame.Domain.UseCase.Interface
         IReadOnlyReactiveProperty<GameState> GameState();
         GameState GetCurrentGameState();
         void SetGameState(GameState gameState);
+        bool IsEqual(GameState gameState);
     }
 }
