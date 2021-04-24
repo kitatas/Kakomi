@@ -1,4 +1,3 @@
-using Kakomi.InGame.Application;
 using Kakomi.InGame.Domain.UseCase.Interface;
 using UniRx;
 using UniRx.Triggers;
@@ -9,16 +8,14 @@ namespace Kakomi.Debug.InGame
 {
     public sealed class ResetHpButton : UIBehaviour
     {
-        private IHpUseCase _playerHpUseCase;
-        private IHpUseCase _enemyHpUseCase;
+        private IPlayerDataUseCase _playerDataUseCase;
+        private IEnemyDataUseCase _enemyDataUseCase;
 
         [Inject]
-        private void Construct(
-            [Inject(Id = IdType.Player)] IHpUseCase playerHpUseCase,
-            [Inject(Id = IdType.Enemy)] IHpUseCase enemyHpUseCase)
+        private void Construct(IPlayerDataUseCase playerDataUseCase, IEnemyDataUseCase enemyDataUseCase)
         {
-            _playerHpUseCase = playerHpUseCase;
-            _enemyHpUseCase = enemyHpUseCase;
+            _playerDataUseCase = playerDataUseCase;
+            _enemyDataUseCase = enemyDataUseCase;
         }
 
         protected override void Start()
@@ -26,8 +23,8 @@ namespace Kakomi.Debug.InGame
             this.OnPointerDownAsObservable()
                 .Subscribe(_ =>
                 {
-                    _playerHpUseCase.Recover(PlayerStatus.MAX_HP);
-                    _enemyHpUseCase.Recover(EnemyStatus.MAX_HP);
+                    _playerDataUseCase.RecoverPlayer(1000);
+                    _enemyDataUseCase.RecoverEnemy(1000);
                 })
                 .AddTo(this);
         }
