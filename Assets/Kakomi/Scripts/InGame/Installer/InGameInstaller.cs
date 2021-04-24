@@ -4,6 +4,8 @@ using Kakomi.InGame.Data.Entity;
 using Kakomi.InGame.Data.Entity.Interface;
 using Kakomi.InGame.Domain.Model;
 using Kakomi.InGame.Domain.Model.Interface;
+using Kakomi.InGame.Domain.Repository;
+using Kakomi.InGame.Domain.Repository.Interface;
 using Kakomi.InGame.Domain.UseCase;
 using Kakomi.InGame.Domain.UseCase.Interface;
 using Kakomi.InGame.Factory;
@@ -129,6 +131,15 @@ namespace Kakomi.InGame.Installer
 
             #endregion
 
+            #region Repository
+
+            Container
+                .Bind<IStageDataRepository>()
+                .To<StageDataRepository>()
+                .AsCached();
+
+            #endregion
+
             #region UseCase
 
             Container
@@ -153,20 +164,6 @@ namespace Kakomi.InGame.Installer
                 .WithArguments(mainCamera);
 
             Container
-                .Bind<IHpUseCase>()
-                .WithId(IdType.Player)
-                .To<HpUseCase>()
-                .AsCached()
-                .WithArguments(new HpEntity(PlayerStatus.MAX_HP), new HpModel(PlayerStatus.MAX_HP));
-
-            Container
-                .Bind<IHpUseCase>()
-                .WithId(IdType.Enemy)
-                .To<HpUseCase>()
-                .AsCached()
-                .WithArguments(new HpEntity(EnemyStatus.MAX_HP), new HpModel(EnemyStatus.MAX_HP));
-
-            Container
                 .Bind<IEnclosureFactoryUseCase>()
                 .To<EnclosureFactoryUseCase>()
                 .AsCached();
@@ -184,6 +181,10 @@ namespace Kakomi.InGame.Installer
             Container
                 .Bind<ITurnCountUseCase>()
                 .To<TurnCountUseCase>()
+                .AsCached();
+
+            Container
+                .BindInterfacesTo<StageDataUseCase>()
                 .AsCached();
 
             #endregion

@@ -17,12 +17,6 @@ namespace Kakomi.InGame.Application
         Failed,
     }
 
-    public enum IdType
-    {
-        Player,
-        Enemy,
-    }
-
     public enum EnclosureObjectType
     {
         None,

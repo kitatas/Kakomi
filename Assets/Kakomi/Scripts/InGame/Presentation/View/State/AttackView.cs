@@ -9,20 +9,18 @@ namespace Kakomi.InGame.Presentation.View.State
 {
     public sealed class AttackView : BaseState
     {
+        private IPlayerDataUseCase _playerDataUseCase;
+        private IEnemyDataUseCase _enemyDataUseCase;
         private IEnclosureObjectUseCase _enclosureObjectUseCase;
-        private IHpUseCase _playerHpUseCase;
-        private IHpUseCase _enemyHpUseCase;
         private StockPositionCommander _stockPositionCommander;
 
         [Inject]
-        private void Construct(IEnclosureObjectUseCase enclosureObjectUseCase,
-            [Inject(Id = IdType.Player)] IHpUseCase playerHpUseCase,
-            [Inject(Id = IdType.Enemy)] IHpUseCase enemyHpUseCase,
-            StockPositionCommander stockPositionCommander)
+        private void Construct(IPlayerDataUseCase playerDataUseCase, IEnemyDataUseCase enemyDataUseCase,
+            IEnclosureObjectUseCase enclosureObjectUseCase, StockPositionCommander stockPositionCommander)
         {
+            _playerDataUseCase = playerDataUseCase;
+            _enemyDataUseCase = enemyDataUseCase;
             _enclosureObjectUseCase = enclosureObjectUseCase;
-            _playerHpUseCase = playerHpUseCase;
-            _enemyHpUseCase = enemyHpUseCase;
             _stockPositionCommander = stockPositionCommander;
         }
 
@@ -45,16 +43,17 @@ namespace Kakomi.InGame.Presentation.View.State
 
             await _enclosureObjectUseCase.AttackAsync(token, data =>
             {
+                // TODO: PlayerのStatusを反映させる
                 switch (data.enclosureObjectType)
                 {
                     case EnclosureObjectType.Bullet:
-                        _enemyHpUseCase.Damage(data.effectValue);
+                        _enemyDataUseCase.DamageEnemy(data.effectValue);
                         break;
                     case EnclosureObjectType.Bomb:
-                        _playerHpUseCase.Damage(data.effectValue);
+                        _playerDataUseCase.DamagePlayer(data.effectValue);
                         break;
                     case EnclosureObjectType.Heart:
-                        _playerHpUseCase.Recover(data.effectValue);
+                        _playerDataUseCase.RecoverPlayer(data.effectValue);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -64,11 +63,11 @@ namespace Kakomi.InGame.Presentation.View.State
 
             await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: token);
 
-            if (_playerHpUseCase.IsAlive() == false)
+            if (_playerDataUseCase.IsAlivePlayer() == false)
             {
                 return GameState.Failed;
             }
-            else if (_enemyHpUseCase.IsAlive())
+            else if (_enemyDataUseCase.IsAliveEnemy())
             {
                 return GameState.Damage;
             }

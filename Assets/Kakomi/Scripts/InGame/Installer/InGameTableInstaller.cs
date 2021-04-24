@@ -8,11 +8,18 @@ namespace Kakomi.InGame.Installer
     public sealed class InGameTableInstaller : ScriptableObjectInstaller<InGameTableInstaller>
     {
         [SerializeField] private EnclosureSpriteTable enclosureSpriteTable = default;
+        [SerializeField] private StageDataTable stageDataTable = default;
 
         public override void InstallBindings()
         {
             Container
-                .BindInstance(enclosureSpriteTable)
+                .Bind<EnclosureSpriteTable>()
+                .FromInstance(enclosureSpriteTable)
+                .AsCached();
+
+            Container
+                .Bind<StageDataTable>()
+                .FromInstance(stageDataTable)
                 .AsCached();
         }
     }

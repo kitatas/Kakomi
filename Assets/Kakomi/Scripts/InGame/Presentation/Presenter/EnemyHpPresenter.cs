@@ -1,18 +1,16 @@
-using Kakomi.InGame.Application;
 using Kakomi.InGame.Domain.UseCase.Interface;
 using Kakomi.InGame.Presentation.View;
 using UniRx;
-using Zenject;
 
 namespace Kakomi.InGame.Presentation.Presenter
 {
     public sealed class EnemyHpPresenter
     {
-        public EnemyHpPresenter([Inject(Id = IdType.Enemy)] IHpUseCase hpUseCase, EnemyHpView enemyHpView)
+        public EnemyHpPresenter(IEnemyDataUseCase enemyDataUseCase, EnemyHpView enemyHpView)
         {
-            enemyHpView.Initialize(EnemyStatus.MAX_HP);
+            enemyHpView.Initialize(enemyDataUseCase.enemyEntity.GetHp());
 
-            hpUseCase.HpModel()
+            enemyDataUseCase.EnemyHpModel()
                 .Subscribe(enemyHpView.UpdateHpSlider)
                 .AddTo(enemyHpView);
         }
