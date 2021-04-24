@@ -4,7 +4,6 @@ using Cysharp.Threading.Tasks;
 using Kakomi.InGame.Application;
 using Kakomi.InGame.Domain.UseCase.Interface;
 using Kakomi.InGame.Factory;
-using Kakomi.InGame.Presentation.Controller;
 using Kakomi.InGame.Presentation.View.Interface;
 using Kakomi.Utility;
 using UnityEngine;
@@ -52,14 +51,14 @@ namespace Kakomi.InGame.Presentation.View
             {
                 await UniTask.WhenAny(
                     UniTask.WaitUntil(() => _isEnclose, cancellationToken: _token),
-                    Move(moveVector));
+                    MoveAsync(moveVector, _token));
 
                 // poolに返却
                 action?.Invoke();
             }, this);
         }
 
-        private UniTask Move(Vector3 moveVector)
+        private UniTask MoveAsync(Vector3 moveVector, CancellationToken token)
         {
             return UniTask.WaitWhile(() =>
             {
@@ -77,7 +76,7 @@ namespace Kakomi.InGame.Presentation.View
                 return
                     y > FieldParameter.yPoints[0] - FieldParameter.INTERVAL &&
                     y < FieldParameter.yPoints.GetLastParam() + FieldParameter.INTERVAL;
-            }, PlayerLoopTiming.FixedUpdate, _token);
+            }, PlayerLoopTiming.FixedUpdate, token);
         }
 
         public virtual void Enclose(Action<int> action)

@@ -16,9 +16,8 @@ namespace Kakomi.InGame.Presentation.Controller
 
         private readonly IGameStateUseCase _gameStateUseCase;
 
-        public StateSequencer(IGameStateUseCase gameStateUseCase, IEnclosureFactoryUseCase enclosureFactoryUseCase,
-            ReadyView readyView, DrawView drawView, AttackView attackView, DamageView damageView, ClearView clearView,
-            FailView failView)
+        public StateSequencer(IGameStateUseCase gameStateUseCase, ReadyView readyView, DrawView drawView,
+            AttackView attackView, DamageView damageView, ClearView clearView, FailView failView)
         {
             _states = new List<BaseState>
             {

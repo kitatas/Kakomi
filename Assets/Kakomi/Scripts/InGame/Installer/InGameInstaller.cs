@@ -27,7 +27,6 @@ namespace Kakomi.InGame.Installer
         [SerializeField] private CursorView cursorView = default;
         [SerializeField] private TurnCountView turnCountView = default;
         [SerializeField] private StockPositionCommander stockPositionCommander = default;
-
         [SerializeField] private ReadyView readyView = default;
         [SerializeField] private DrawView drawView = default;
         [SerializeField] private AttackView attackView = default;
@@ -217,6 +216,11 @@ namespace Kakomi.InGame.Installer
 
             Container
                 .Bind<StateSequencer>()
+                .AsCached()
+                .NonLazy();
+
+            Container
+                .BindInterfacesTo<EnclosureObjectGenerator>()
                 .AsCached()
                 .NonLazy();
 
