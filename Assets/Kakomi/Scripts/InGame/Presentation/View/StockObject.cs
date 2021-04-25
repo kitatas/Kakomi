@@ -16,7 +16,6 @@ namespace Kakomi.InGame.Presentation.View
         [SerializeField] private Image image = default;
         private RectTransform RectTransform => transform as RectTransform;
 
-        private CancellationToken _token;
         private Camera _uiCamera;
         private Canvas _uiCanvas;
 
@@ -30,7 +29,6 @@ namespace Kakomi.InGame.Presentation.View
 
         public void Initialize(Camera uiCamera, Canvas uiCanvas, RectTransform rectTransform)
         {
-            _token = this.GetCancellationTokenOnDestroy();
             _uiCamera = uiCamera;
             _uiCanvas = uiCanvas;
 
@@ -38,19 +36,19 @@ namespace Kakomi.InGame.Presentation.View
             transform.localScale = Vector3.one;
         }
 
-        public async UniTask SetSpriteAsync(Sprite sprite, Vector2 localPosition)
+        public async UniTask SetSpriteAsync(Sprite sprite, Vector2 localPosition, CancellationToken token)
         {
             image.sprite = sprite;
             RectTransform.localPosition = _uiCanvas.GetWorldPosition(_uiCamera, localPosition);
 
-            await UniTask.Delay(TimeSpan.FromSeconds(0.5f), cancellationToken: _token);
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f), cancellationToken: token);
         }
 
-        public async UniTask TweenStockPositionAsync()
+        public async UniTask TweenStockPositionAsync(CancellationToken token)
         {
             await image.rectTransform
                 .DOAnchorPos(_stockPositionCommander.GetStockPosition(), 0.25f)
-                .WithCancellation(_token);
+                .WithCancellation(token);
         }
 
         public void TweenAttackPosition(EnclosureObjectType enclosureObjectType, Action<StockObject, Vector3> action)

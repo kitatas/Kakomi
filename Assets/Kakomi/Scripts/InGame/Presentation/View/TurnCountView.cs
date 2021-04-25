@@ -35,11 +35,6 @@ namespace Kakomi.InGame.Presentation.View
                 .SetEase(Ease.Linear)
                 .WithCancellation(token);
 
-            await turnCountText.rectTransform
-                .DOAnchorPosX(-800.0f, 0.0f)
-                .SetEase(Ease.Linear)
-                .WithCancellation(token);
-            
             Init();
         }
     }

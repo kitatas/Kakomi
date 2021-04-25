@@ -9,7 +9,7 @@ namespace Kakomi.InGame.Domain.UseCase.Interface
 {
     public interface IEnclosureObjectUseCase
     {
-        UniTaskVoid StockEnclosureObjectDataAsync(IEnclosureObject enclosureObject, Vector2 localPosition);
+        UniTaskVoid StockEnclosureObjectDataAsync(IEnclosureObject enclosureObject, Vector2 localPosition, CancellationToken token);
         UniTask AttackAsync(CancellationToken token, Action<EnclosureObjectData> action);
     }
 }

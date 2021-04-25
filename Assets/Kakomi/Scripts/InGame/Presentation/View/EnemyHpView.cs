@@ -24,19 +24,19 @@ namespace Kakomi.InGame.Presentation.View
 
         public void UpdateHpSlider(int hpValue)
         {
-            UpdateHpTextAsync(hpValue).Forget();
+            UpdateHpTextAsync(hpValue, _token).Forget();
         }
 
-        private async UniTaskVoid UpdateHpTextAsync(int hpValue)
+        private async UniTaskVoid UpdateHpTextAsync(int hpValue, CancellationToken token)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(FieldParameter.HP_ANIMATION_TIME), cancellationToken: _token);
+            await UniTask.Delay(TimeSpan.FromSeconds(FieldParameter.HP_ANIMATION_TIME), cancellationToken: token);
 
             await DOTween
                 .To(() => (int) hpSlider.value,
                     value => hpSlider.value = value,
                     hpValue,
                     FieldParameter.HP_ANIMATION_TIME)
-                .WithCancellation(_token);
+                .WithCancellation(token);
         }
     }
 }

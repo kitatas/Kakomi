@@ -11,12 +11,6 @@ namespace Kakomi.InGame.Application
         Failed,
     }
 
-    public enum FinishType
-    {
-        Clear,
-        Failed,
-    }
-
     public enum EnclosureObjectType
     {
         None,

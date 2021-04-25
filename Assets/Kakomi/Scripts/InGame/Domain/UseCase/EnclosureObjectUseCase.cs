@@ -27,11 +27,11 @@ namespace Kakomi.InGame.Domain.UseCase
             _enclosureSpriteTable = enclosureSpriteTable;
         }
 
-        public async UniTaskVoid StockEnclosureObjectDataAsync(IEnclosureObject enclosureObject, Vector2 localPosition)
+        public async UniTaskVoid StockEnclosureObjectDataAsync(IEnclosureObject enclosureObject, Vector2 localPosition, CancellationToken token)
         {
             var stockObject = _stockFactory.Stock();
 
-            await stockObject.SetSpriteAsync(GetStockSprite(enclosureObject.EnclosureObjectType), localPosition);
+            await stockObject.SetSpriteAsync(GetStockSprite(enclosureObject.EnclosureObjectType), localPosition, token);
 
             var enclosureObjectData = new EnclosureObjectData(
                 stockObject,
@@ -39,7 +39,7 @@ namespace Kakomi.InGame.Domain.UseCase
                 enclosureObject.EnclosureObjectType);
             _enclosureObjectDataEntity.AddEnclosureObjectList(enclosureObjectData);
 
-            await stockObject.TweenStockPositionAsync();
+            await stockObject.TweenStockPositionAsync(token);
         }
 
         private Sprite GetStockSprite(EnclosureObjectType enclosureObjectType)

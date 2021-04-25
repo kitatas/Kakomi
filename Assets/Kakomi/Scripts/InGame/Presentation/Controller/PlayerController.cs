@@ -20,8 +20,7 @@ namespace Kakomi.InGame.Presentation.Controller
 
         public void Tick()
         {
-            if (_gameStateUseCase.GetCurrentGameState() == GameState.Draw &&
-                _inputUseCase.IsInputScreen())
+            if (_gameStateUseCase.IsEqual(GameState.Draw) && _inputUseCase.IsInputScreen())
             {
                 // カーソル移動
                 var mousePosition = _inputUseCase.GetInputPosition();

@@ -29,10 +29,10 @@ namespace Kakomi.InGame.Presentation.View
 
         public void UpdateHpSlider(int hpValue)
         {
-            UpdateHpTextAsync(hpValue).Forget();
+            UpdateHpTextAsync(hpValue, _token).Forget();
         }
 
-        private async UniTaskVoid UpdateHpTextAsync(int hpValue)
+        private async UniTaskVoid UpdateHpTextAsync(int hpValue, CancellationToken token)
         {
             // 回復・ダメージ量
             var countUpdateHpValue = 0;
@@ -47,7 +47,7 @@ namespace Kakomi.InGame.Presentation.View
                     },
                     updateHpValue,
                     FieldParameter.HP_ANIMATION_TIME)
-                .WithCancellation(_token);
+                .WithCancellation(token);
 
             // HP値の更新
             await DOTween
@@ -59,7 +59,7 @@ namespace Kakomi.InGame.Presentation.View
                     },
                     hpValue,
                     FieldParameter.HP_ANIMATION_TIME)
-                .WithCancellation(_token);
+                .WithCancellation(token);
 
             updateHpValueText.text = "";
         }

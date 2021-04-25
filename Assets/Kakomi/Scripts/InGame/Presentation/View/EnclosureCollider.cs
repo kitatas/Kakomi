@@ -53,7 +53,7 @@ namespace Kakomi.InGame.Presentation.View
                     {
                         var otherTransform = other.transform;
                         _enclosureObjectUseCase
-                            .StockEnclosureObjectDataAsync(enclosureObject, otherTransform.localPosition)
+                            .StockEnclosureObjectDataAsync(enclosureObject, otherTransform.localPosition, _token)
                             .Forget();
 
                         enclosureObject.Enclose(x =>
