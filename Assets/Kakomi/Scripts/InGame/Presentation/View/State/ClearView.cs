@@ -2,17 +2,20 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Kakomi.InGame.Application;
+using Kakomi.InGame.Domain.UseCase.Interface;
 using Zenject;
 
 namespace Kakomi.InGame.Presentation.View.State
 {
     public sealed class ClearView : BaseState
     {
+        private IStageDataUseCase _stageDataUseCase;
         private GameFinishView _gameFinishView;
 
         [Inject]
-        private void Construct(GameFinishView gameFinishView)
+        private void Construct(IStageDataUseCase stageDataUseCase, GameFinishView gameFinishView)
         {
+            _stageDataUseCase = stageDataUseCase;
             _gameFinishView = gameFinishView;
             _gameFinishView.Init();
         }
@@ -31,6 +34,7 @@ namespace Kakomi.InGame.Presentation.View.State
 
         public override async UniTask<GameState> TickAsync(CancellationToken token)
         {
+            _stageDataUseCase.Save();
             _gameFinishView.SetFinishText("Clear");
 
             await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: token);

@@ -25,7 +25,7 @@ namespace Kakomi.OutGame.Presentation.View
                 .OnClickAsObservable()
                 .Subscribe(_ =>
                 {
-                    _clearDataUseCase.DeleteAllClearData(levelButtonViews.Length);
+                    _clearDataUseCase.DeleteAllClearData();
                     ResetClearLabel();
                 })
                 .AddTo(this);

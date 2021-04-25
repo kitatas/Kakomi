@@ -1,18 +1,19 @@
 using Kakomi.Common.Application;
+using Kakomi.Common.Data.DataStore;
 using Kakomi.OutGame.Domain.Repository.Interface;
 
 namespace Kakomi.OutGame.Domain.Repository
 {
     public sealed class ClearDataRepository : IClearDataRepository
     {
-        public bool LoadClearData(int level)
+        public bool[] LoadClearData()
         {
-            return ES3.Load(SaveKey.STAGE + level, false);
+            return ES3.Load(SaveKey.STAGE, ClearDataStore.GetDefaultData());
         }
 
-        public void DeleteClearData(int level)
+        public void DeleteClearData()
         {
-            ES3.Save(SaveKey.STAGE + level, false);
+            ES3.Save(SaveKey.STAGE, ClearDataStore.GetDefaultData());
         }
     }
 }

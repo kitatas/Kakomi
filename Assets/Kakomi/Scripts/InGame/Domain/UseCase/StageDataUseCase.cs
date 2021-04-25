@@ -8,14 +8,15 @@ using UniRx;
 
 namespace Kakomi.InGame.Domain.UseCase
 {
-    public sealed class StageDataUseCase : IPlayerDataUseCase, IEnemyDataUseCase
+    public sealed class StageDataUseCase : IPlayerDataUseCase, IEnemyDataUseCase, IStageDataUseCase
     {
         private readonly ICharacterEntity _playerEntity;
         private readonly ICharacterEntity _enemyEntity;
         private readonly IHpModel _playerHpModel;
         private readonly IHpModel _enemyHpModel;
+        private readonly IClearDataRepository _clearDataRepository;
 
-        public StageDataUseCase(IStageDataRepository stageDataRepository)
+        public StageDataUseCase(IStageDataRepository stageDataRepository, IClearDataRepository clearDataRepository)
         {
             var stageDataEntity = stageDataRepository.stageDataEntity;
             _playerEntity = new CharacterEntity(150, 5);
@@ -23,6 +24,8 @@ namespace Kakomi.InGame.Domain.UseCase
 
             _playerHpModel = new HpModel(_playerEntity.GetHp());
             _enemyHpModel = new HpModel(_enemyEntity.GetHp());
+
+            _clearDataRepository = clearDataRepository;
         }
 
         public ICharacterEntity playerEntity => _playerEntity;
@@ -60,5 +63,7 @@ namespace Kakomi.InGame.Domain.UseCase
         }
 
         public bool IsAliveEnemy() => _enemyEntity.GetHp() > 0;
+
+        public void Save() => _clearDataRepository.SaveClearData();
     }
 }

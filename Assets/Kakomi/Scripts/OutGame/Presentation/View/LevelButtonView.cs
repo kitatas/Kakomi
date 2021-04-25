@@ -19,14 +19,10 @@ namespace Kakomi.OutGame.Presentation.View
         private SceneLoader _sceneLoader;
 
         [Inject]
-        private void Construct(SceneLoader sceneLoader, IClearDataUseCase clearDataUseCase)
+        private void Construct(SceneLoader sceneLoader)
         {
             _sceneLoader = sceneLoader;
-
-            levelText.text = $"Level.{level}";
-
-            var isClear = clearDataUseCase.LoadClearData(level);
-            ActivateClearLabel(isClear);
+            levelText.text = $"Level.{level + 1}";
         }
 
         private void Start()

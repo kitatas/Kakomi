@@ -16,4 +16,9 @@ namespace Kakomi.Common.Application
         public const string SE_MUTE = "se_mute";
         public const string STAGE = "stage";
     }
+
+    public sealed class GameData
+    {
+        public const int STAGE_DATA_COUNT = 10;
+    }
 }

@@ -12,17 +12,14 @@ namespace Kakomi.OutGame.Domain.UseCase
             _clearDataRepository = clearDataRepository;
         }
 
-        public bool LoadClearData(int level)
+        public bool[] LoadClearData()
         {
-            return _clearDataRepository.LoadClearData(level);
+            return _clearDataRepository.LoadClearData();
         }
 
-        public void DeleteAllClearData(int stageDataCount)
+        public void DeleteAllClearData()
         {
-            for (int i = 0; i < stageDataCount; i++)
-            {
-                _clearDataRepository.DeleteClearData(i + 1);
-            }
+            _clearDataRepository.DeleteClearData();
         }
     }
 }

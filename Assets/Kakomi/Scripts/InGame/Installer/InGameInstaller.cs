@@ -138,6 +138,11 @@ namespace Kakomi.InGame.Installer
                 .To<StageDataRepository>()
                 .AsCached();
 
+            Container
+                .Bind<IClearDataRepository>()
+                .To<ClearDataRepository>()
+                .AsCached();
+
             #endregion
 
             #region UseCase
