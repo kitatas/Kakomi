@@ -3,7 +3,6 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Kakomi.InGame.Application;
 using Kakomi.InGame.Domain.UseCase.Interface;
-using Kakomi.InGame.Factory;
 using Kakomi.InGame.Presentation.View.Interface;
 using Kakomi.Utility;
 using UnityEngine;
@@ -26,14 +25,12 @@ namespace Kakomi.InGame.Presentation.View
 
         private CancellationToken _token;
         private IGameStateUseCase _gameStateUseCase;
-        private EncloseEffectFactory _encloseEffectFactory;
 
         [Inject]
-        private void Construct(IGameStateUseCase gameStateUseCase, EncloseEffectFactory encloseEffectFactory)
+        private void Construct(IGameStateUseCase gameStateUseCase)
         {
             _token = this.GetCancellationTokenOnDestroy();
             _gameStateUseCase = gameStateUseCase;
-            _encloseEffectFactory = encloseEffectFactory;
 
             enclosureObjectView.Initialize(coreColor);
         }
@@ -79,13 +76,12 @@ namespace Kakomi.InGame.Presentation.View
             }, PlayerLoopTiming.FixedUpdate, token);
         }
 
-        public virtual void Enclose(Action<int> action)
+        public virtual void Enclose(Action<int, Color> action)
         {
             _isEnclose = true;
-            _encloseEffectFactory.Activate(transform.position, coreColor);
 
             // 再生成
-            action?.Invoke(_direction);
+            action?.Invoke(_direction, coreColor);
         }
     }
 }

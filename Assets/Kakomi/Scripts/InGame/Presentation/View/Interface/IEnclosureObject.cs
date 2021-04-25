@@ -1,5 +1,6 @@
 using System;
 using Kakomi.InGame.Application;
+using UnityEngine;
 
 namespace Kakomi.InGame.Presentation.View.Interface
 {
@@ -7,6 +8,6 @@ namespace Kakomi.InGame.Presentation.View.Interface
     {
         int EffectValue { get; }
         EnclosureObjectType EnclosureObjectType { get; }
-        void Enclose(Action<int> action);
+        void Enclose(Action<int, Color> action);
     }
 }

@@ -11,8 +11,10 @@ namespace Kakomi.InGame.Domain.UseCase
     public sealed class EnclosureFactoryUseCase : IEnclosureFactoryUseCase
     {
         private readonly List<IEnclosureObjectFactory> _factories;
+        private readonly EncloseEffectFactory _encloseEffectFactory;
 
-        public EnclosureFactoryUseCase(BombFactory bombFactory, HeartFactory heartFactory, BulletFactory bulletFactory)
+        public EnclosureFactoryUseCase(BombFactory bombFactory, HeartFactory heartFactory, BulletFactory bulletFactory,
+            EncloseEffectFactory encloseEffectFactory)
         {
             _factories = new List<IEnclosureObjectFactory>
             {
@@ -20,6 +22,7 @@ namespace Kakomi.InGame.Domain.UseCase
                 heartFactory,
                 bulletFactory,
             };
+            _encloseEffectFactory = encloseEffectFactory;
 
             Initialize();
         }
@@ -51,12 +54,17 @@ namespace Kakomi.InGame.Domain.UseCase
             }
         }
 
-        private int GetDirection(int index) => index % 2 == 0 ? 1 : -1;
+        private static int GetDirection(int index) => index % 2 == 0 ? 1 : -1;
 
         public void ActivateEnclosureObject(Vector2 position, int direction)
         {
             int index = Random.Range(0, _factories.Count);
             _factories[index]?.Activate(position, direction);
+        }
+
+        public void ActivateEncloseEffect(Vector2 position, Color color)
+        {
+            _encloseEffectFactory.Activate(position, color);
         }
     }
 }

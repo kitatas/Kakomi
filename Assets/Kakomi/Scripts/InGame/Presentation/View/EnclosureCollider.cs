@@ -56,9 +56,11 @@ namespace Kakomi.InGame.Presentation.View
                             .StockEnclosureObjectDataAsync(enclosureObject, otherTransform.localPosition, _token)
                             .Forget();
 
-                        enclosureObject.Enclose(x =>
+                        enclosureObject.Enclose((x, c) =>
                         {
-                            _enclosureFactoryUseCase.ActivateEnclosureObject(otherTransform.position, x);
+                            var position = otherTransform.position;
+                            _enclosureFactoryUseCase.ActivateEnclosureObject(position, x);
+                            _enclosureFactoryUseCase.ActivateEncloseEffect(position, c);
                         });
                     }
                 })

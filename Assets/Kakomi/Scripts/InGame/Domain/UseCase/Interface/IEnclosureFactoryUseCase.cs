@@ -6,5 +6,6 @@ namespace Kakomi.InGame.Domain.UseCase.Interface
     {
         void Activate();
         void ActivateEnclosureObject(Vector2 position, int direction);
+        void ActivateEncloseEffect(Vector2 position, Color color);
     }
 }
